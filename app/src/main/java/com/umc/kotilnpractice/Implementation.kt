@@ -86,65 +86,65 @@ import java.util.logging.Logger.global
 //}
 
 // 3 ///////////////////////////////////////////////////////////////////////////////////////////////
-
-var global_direction = 0
-
-fun main() {
-    val (row, column) = readln().split(" ").map { it.toInt() }
-    var (x, y, direction) = readln().split(" ").map { it.toInt() }
-    global_direction = direction
-    // 2차원 입력은 이렇게!!
-    val matrix = Array(row) {
-        readln().split(" ").map { it.toInt() }.toIntArray()
-    }
-
-    // 0으로 초기화된 배열
-    val visit_matrix = Array(row) { IntArray(column) }
-//    for (row in visit_matrix) {
-//        println(row.contentToString())
+//
+//var global_direction = 0
+//
+//fun main() {
+//    val (row, column) = readln().split(" ").map { it.toInt() }
+//    var (x, y, direction) = readln().split(" ").map { it.toInt() }
+//    global_direction = direction
+//    // 2차원 입력은 이렇게!!
+//    val matrix = Array(row) {
+//        readln().split(" ").map { it.toInt() }.toIntArray()
 //    }
-
-    visit_matrix[x][y] = 1
-
-    val dx = arrayOf(-1, 0, 1, 0)
-    val dy = arrayOf(0, 1, 0, -1)
-
-    var count = 1
-    var turn_time = 0
-    while (true) {
-        turn_left()
-        var nx = x + dx[global_direction]
-        var ny = y + dx[global_direction]
-        if(matrix[nx][ny] ==0 && visit_matrix[nx][ny]==0){
-            matrix[nx][ny] = 1
-            x = nx
-            y = ny
-            count++
-            turn_time = 0
-            continue
-        }else{
-            turn_time++
-        }
-
-        if(turn_time == 4){
-            nx = x - dx[global_direction]
-            ny = y - dy[global_direction]
-
-            if(matrix[nx][ny] == 1){
-                break
-            }else{
-                x = nx
-                y = ny
-                turn_time = 0
-            }
-        }
-    }
-    println(count)
-}
-
-fun turn_left() {
-    global_direction -= 1
-    if (global_direction == -1) {
-        global_direction = 3
-    }
-}
+//
+//    // 0으로 초기화된 배열
+//    val visit_matrix = Array(row) { IntArray(column) }
+////    for (row in visit_matrix) {
+////        println(row.contentToString())
+////    }
+//
+//    visit_matrix[x][y] = 1
+//
+//    val dx = arrayOf(-1, 0, 1, 0)
+//    val dy = arrayOf(0, 1, 0, -1)
+//
+//    var count = 1
+//    var turn_time = 0
+//    while (true) {
+//        turn_left()
+//        var nx = x + dx[global_direction]
+//        var ny = y + dx[global_direction]
+//        if(matrix[nx][ny] ==0 && visit_matrix[nx][ny]==0){
+//            matrix[nx][ny] = 1
+//            x = nx
+//            y = ny
+//            count++
+//            turn_time = 0
+//            continue
+//        }else{
+//            turn_time++
+//        }
+//
+//        if(turn_time == 4){
+//            nx = x - dx[global_direction]
+//            ny = y - dy[global_direction]
+//
+//            if(matrix[nx][ny] == 1){
+//                break
+//            }else{
+//                x = nx
+//                y = ny
+//                turn_time = 0
+//            }
+//        }
+//    }
+//    println(count)
+//}
+//
+//fun turn_left() {
+//    global_direction -= 1
+//    if (global_direction == -1) {
+//        global_direction = 3
+//    }
+//}
