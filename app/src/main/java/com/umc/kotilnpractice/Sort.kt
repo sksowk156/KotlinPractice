@@ -1,5 +1,6 @@
 package com.umc.kotilnpractice
 
+import android.os.Build.VERSION_CODES.N
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.reflect.typeOf
@@ -184,32 +185,133 @@ import kotlin.reflect.typeOf
 //    }
 //}
 
-// 이진 탐색 반복문
-fun main() {
-    fun binary_search(array: List<Int>, target: Int, start: Int, end: Int): Int? {
-        var start = start
-        var end = end
-        while (start <= end) {
-            val mid = (start + end) / 2
-            if (array[mid] == target) {
-                return mid
-            } else if (array[mid] > target) {
-                end = mid - 1
-            } else {
-                start = mid + 1
-            }
-        }
-        return null
-    }
+//// 이진 탐색 반복문
+//fun main() {
+//    fun binary_search(array: List<Int>, target: Int, start: Int, end: Int): Int? {
+//        var start = start
+//        var end = end
+//        while (start <= end) {
+//            val mid = (start + end) / 2
+//            if (array[mid] == target) {
+//                return mid
+//            } else if (array[mid] > target) {
+//                end = mid - 1
+//            } else {
+//                start = mid + 1
+//            }
+//        }
+//        return null
+//    }
+//
+//    val (n, target) = readln().split(" ").map { it.toInt() }
+//    val array = readln().split(" ").map { it.toInt() }.take(n)
+//
+//    val result = binary_search(array, target, 0, n - 1)
+//    if (result == null) {
+//        println("원소가 존재하지 않습니다.")
+//    } else {
+//        println(result + 1)
+//    }
+//}
 
-    val (n, target) = readln().split(" ").map { it.toInt() }
-    val array = readln().split(" ").map { it.toInt() }.take(n)
+//// 2
+//fun main() {
+////    val N = readln().toInt()
+////    val arrayN = readln().split(" ").map { it.toInt() }.take(N)
+////    val M = readln().toInt()
+////    val arrayM = readln().split(" ").map { it.toInt() }.take(M)
+////
+////    for(i in arrayM){
+////        if(arrayN.contains(i)){
+////            print("yes ")
+////        }else{
+////            print("no ")
+////        }
+////    }
+////
+////    val N = readln().toInt()
+////    val arrayN = readln().split(" ").map { it.toInt() }.take(N).toMutableList()
+////    val M = readln().toInt()
+////    val arrayM = readln().split(" ").map { it.toInt() }.take(M)
+////
+////    arrayN.sort()
+////
+////    fun binary_search(array: List<Int>, target: Int, start: Int, end: Int): String {
+////        val mid = (start + end) / 2
+////        if (array[mid] == target) return "yes "
+////        else if(start >= end) return "no "
+////
+////        return if (array[mid] > target) {
+////            binary_search(array, target, start, mid - 1)
+////        } else {
+////            binary_search(array, target, mid + 1, end)
+////        }
+////    }
+////
+////    for(i in arrayM){
+////        print(binary_search(arrayN,i, 0,N-1).toString())
+////    }
+//
+////    // 계수 정렬 풀이법
+////    val n = readln().toInt()
+////    val array = Array(1000000){0}
+////
+////    for(i in readln().split(" ").map{it.toInt()}.take(n).toMutableList()){
+////        array[i]=1
+////    }
+////
+////    val m = readln().toInt()
+////    val x = readln().split(" ").map{it.toInt()}.take(m)
+////
+////    for(i in x){
+////        if(array[i]==1){
+////            print("yes ")
+////        }else{
+////            print("no ")
+////        }
+////    }
+//
+////    // 집합 set 풀이법
+////    val n = readln().toInt()
+////    val array = readln().split(" ").map{it.toInt()}.take(n).toSet()
+////
+////    val m = readln().toInt()
+////    val x = readln().split(" ").map{it.toInt()}.take(m)
+////
+////    for(i in x){
+////        if(i in array){
+////            print("yes ")
+////        }else{
+////            print("no ")
+////        }
+////    }
+//}
 
-    val result = binary_search(array, target, 0, n - 1)
-    if (result == null) {
-        println("원소가 존재하지 않습니다.")
-    } else {
-        println(result + 1)
-    }
-
-}
+//// 3
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val array = readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//
+//    var start = 0
+//    var end = array.max()
+//
+//    var result = 0
+//    while(start<=end){
+//        var total = 0
+//        var mid = (start+end)/2
+//        for(x in array){
+//            if(x>mid){
+//                total += x - mid
+//            }
+//        }
+//
+//        if(total < m){
+//            end = mid-1
+//        }else{
+//            result = mid
+//            start = mid+1
+//        }
+//    }
+//
+//    print(result)
+//}
