@@ -17,7 +17,7 @@ import java.util.PriorityQueue
 //
 //
 //    fun dijkstra(start:Int){
-//        val q = PriorityQueue<Pair<Int,Int>>() { a, b -> a.second - b.second } // 우선순위 큐(최소힙)
+//        val q = PriorityQueue<Pair<Int,Int>>() { a, b -> a.first - b.first } // 우선순위 큐(최소힙)
 //
 //        q.add(Pair(0,start)) // 거리와 노드 입력(초기값은 자기자신)
 //

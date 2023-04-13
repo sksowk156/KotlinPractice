@@ -1,6 +1,7 @@
 package com.umc.kotilnpractice
 
 import android.util.Log
+import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
 
 //val graph = listOf(
 //    listOf(),
@@ -196,3 +197,183 @@ import android.util.Log
 //    return graph[n-1][m-1]
 //}
 
+//// 1
+//fun main() {
+//    val (cityCount, roadCount, shortestDist, startNum) = readln().split(" ").map { it.toInt() }
+//
+//    val visit = MutableList<Int>(cityCount + 1) { -1 }
+//
+//    val graph = Array(cityCount + 1) { mutableListOf<Int>() }
+//
+////    val road = Array(roadCount) {
+////        readln().split(" ").map { it.toInt() }.toMutableList()
+////    }
+////    for (i in road.indices) {
+////        graph[road[i][0]].add(road[i][1])
+////    }
+//
+//    repeat(roadCount) {
+//        val (a,b)= readln().split(" ").map { it.toInt() }.toMutableList()
+//        graph[a].add(b)
+//    }
+//
+//    fun bfs(citynum: Int) {
+//        var q = ArrayDeque<Int>()
+//        visit[citynum] = 0
+//        q.addLast(citynum)
+//
+//        while (q.isNotEmpty()) {
+//            var temp = q.removeFirst()
+//            for (i in graph[temp]) {
+//                if (visit[i] == -1) {
+//                    q.addLast(i)
+//                    visit[i] = visit[temp] + 1
+//                }
+//            }
+//        }
+//    }
+//
+//    bfs(startNum)
+//    var check = false
+//    for (i in 1 until visit.size) {
+//        if (visit[i] == shortestDist) {
+//            println(i)
+//            check = true
+//        }
+//    }
+//
+//    if (!check) {
+//        println(-1)
+//    }
+//}
+
+//// 2
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val graph = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(m).toMutableList()
+//    }
+//
+//    val temp = mutableListOf<MutableList<Int>>()
+//
+//    for (i in 0 until n) {
+//        for (j in 0 until n) {
+//            if (graph[i][j] == 2) {
+//                temp.add(mutableListOf(i, j))
+//            }
+//        }
+//    }
+//
+//    var dx = listOf(0, 0, 1, -1)
+//    var dy = listOf(1, -1, 0, 0)
+//
+//    var result = mutableListOf<Int>()
+//    fun bfs(startpointX: Int, startpointY: Int, graph: Array<MutableList<Int>>) {
+//        var q = ArrayDeque<Pair<Int, Int>>()
+//        q.addLast(Pair(startpointX, startpointY))
+//        graph[startpointX][startpointY] = 2
+//        while (q.isNotEmpty()) {
+//            var (x, y) = q.removeFirst()
+//            for (i in 0 until 4) {
+//                x = x + dx[i]
+//                y = y + dy[i]
+//                if (x < n && y < n && x > -1 && y > -1) {
+//                    if (graph[x][y] == 0) {
+//                        q.addLast(Pair(x, y))
+//                        graph[x][y] = 2
+//                    }
+//                }
+//            }
+//        }
+//
+//        var count = 0
+//        for(i in 0 until n){
+//            for(j in 0 until m){
+//                if(graph[i][j]==0) count++
+//            }
+//        }
+//        result.add(count)
+//    }
+//
+//
+//    fun checkVirus(graph: Array<MutableList<Int>>) {
+//        for (i in 0 until temp.size) {
+//            var temp = graph
+//            var x = temp[i][0]
+//            var y = temp[i][1]
+//            bfs(x, y, temp)
+//        }
+//    }
+//
+//
+//    var count = 0
+//    for (i in 0 until n) {
+//        for (j in 0 until m) {
+//            if (graph[i][j] == 0) {
+//                count++
+//                if (count < 3) {
+//                    graph[i][j] = 1
+//                } else {
+//                    checkVirus(graph )
+//                    count--
+//                    graph[i][j]
+//                }
+//            }
+//        }
+//    }
+//
+//    println(result.min())
+//}
+
+//// 3
+//fun main() {
+//    val (n, k) = readln().split(" ").map { it.toInt() }
+//    val graph = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//    }
+//
+//    val (s, x, y) = readln().split(" ").map { it.toInt() }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//
+//    val virusLocation = mutableListOf<Triple<Int,Int,Int>>()
+//    for(i in 0 until n){
+//        for(j in 0 until n){
+//            if(graph[i][j]!=0){
+//                virusLocation.add(Triple(graph[i][j],i,j))
+//            }
+//        }
+//    }
+//
+//    virusLocation.sortByDescending { it.first }
+//
+//    fun bfs(x: Int, y: Int, s:Int) {
+//        var time = 0
+//        var q = ArrayDeque<Pair<Int, Int>>()
+//        q.addLast(Pair(x, y))
+//        var virusNum = graph[x][y]
+//        while (q.isNotEmpty()) {
+//            time++
+//            val (xx, yy) = q.removeFirst()
+//            repeat(4) { i ->
+//                var newX = xx + dx[i]
+//                var newY = yy + dy[i]
+//                if (newX < n && newY < n && newX > -1 && newY > -1) {
+//                    if (graph[newX][newY] == 0 || graph[newX][newY]>virusNum) {
+//                        graph[newX][newY] = virusNum
+//                        q.addLast(Pair(newX, newY))
+//                    }
+//                }
+//            }
+//            if(time==s) break
+//        }
+//    }
+//
+//    for(i in virusLocation){
+//        bfs(i.second,i.third,s)
+//    }
+//
+//    println(graph[x-1][y-1])
+//}

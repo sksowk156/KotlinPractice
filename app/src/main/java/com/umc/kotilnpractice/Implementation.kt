@@ -1,6 +1,8 @@
 package com.umc.kotilnpractice
 
 import java.util.logging.Logger.global
+import kotlin.math.abs
+import kotlin.math.min
 
 // 4-2 /////////////////////////////////////////////////////////////////////////////////////////////
 //fun main(){
@@ -147,4 +149,246 @@ import java.util.logging.Logger.global
 //    if (global_direction == -1) {
 //        global_direction = 3
 //    }
+//}
+
+//// 1
+//fun main(){
+//    val array = readln()
+//
+//    var left = 0
+//    var right = 0
+//    for(i in 0 until array.length/2){
+//        left += array[i].digitToInt()
+//        right += array[i+array.length/2].digitToInt()
+//    }
+//    if(left==right){
+//        println("LUCKY")
+//    }else{
+//        println("READY")
+//    }
+//}
+
+// 2
+//fun main(){
+//    var array = readln()
+//
+//    var temp1 = mutableListOf<Char>()
+//    var sum = 0
+//    for(i in array){
+//        if(i-'0' in 0..9){
+//            sum += i.digitToInt()
+//        }else{
+//            temp1.add(i)
+//        }
+//    }
+//
+//    temp1.sort().toString()
+//    println(temp1.plus(sum.toString()).joinToString(""))
+//}
+
+//// 3
+//fun main(){
+//    val array = readln()
+//
+//    var min = array.length
+//    for(step in 1 until array.length){
+//        var result = ""
+//        var count =1
+////        println(step)
+//        var prev = ""
+//        for(i in 0 until array.length step step){
+//            prev = array.substring(i,i+step)
+//            if(i+step < array.length){
+//                if(prev == array.substring(i,i+step)){
+//                    count++
+//                }else{
+//                    if(count== 1){
+//                        result += (prev)
+//                    }else{
+//                        result += (count.toString())
+//                        result += (prev)
+//                    }
+//                    count = 1
+//                }
+//            }
+//        }
+//
+//        if(count== 1){
+//            result += (prev)
+//        }else{
+//            result += (count.toString())
+//            result += (prev)
+//        }
+//
+//        min = min(min,result.length)
+//    }
+//
+//    println(min)
+//}
+
+
+//// 4
+//fun main(){
+//    val (m,n) = readln().split(" ").map { it.toInt() }
+//    var Key = Array(m){
+//        readln().split(" ").map { it.toInt() }.take(m).toMutableList()
+//    }
+//    var Lock = Array(n){
+//        readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//    }
+//
+//    val Keyhole = mutableListOf<Pair<Int,Int>>()
+//    val Lockhole = mutableListOf<Pair<Int,Int>>()
+//    for(i in 0 until n){
+//        for(j in 0 until n ){
+//            if(Lock[i][j] == 0) {
+//                Lockhole.add(Pair(i,j))
+//            }
+//            if(Key[i][j]==1){
+//                Keyhole.add(Pair(i,j))
+//            }
+//        }
+//    }
+//
+//    val absKeyhole = mutableListOf<Pair<Int,Int>>()
+//    for(i in Keyhole.indices){
+//        absKeyhole.add(Pair(Keyhole[i].first-Keyhole[0].first,Keyhole[i].second-Keyhole[0].second))
+//    }
+//
+//    val array = arrayOf("asd","dfd")
+//    println(array[0].find { it=='s' })
+//}
+
+//// 5
+//fun main() {
+//    val boardsize = readln().toInt()
+//    val apple = readln().toInt()
+//    val appleLocation = Array(apple) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//    val move = readln().toInt()
+//    val moveWay = Array(move) {
+//        readln().split(" ").toMutableList()
+//    }
+//
+//    val snake = ArrayDeque<Pair<Int,Int>>()
+//    snake.addLast(Pair(0,0))
+//
+//    val snakeMove = Array(snake.size) {
+//        mutableListOf<Pair<Int, Int>>()
+//    }
+//
+//    fun changeDirection(which: Char, now: Pair<Int, Int>): Pair<Int, Int> {
+//        if (which == 'L') {
+//            if (now == Pair(0, 1)) {
+//                return Pair(-1, 0)
+//            } else if (now == Pair(1, 0)) {
+//                return Pair(0, 1)
+//            } else if (now == Pair(0, -1)) {
+//                return Pair(1, 0)
+//            } else {
+//                return Pair(0, -1)
+//            }
+//        }
+//
+//        if (now == Pair(0, 1)) {
+//            return Pair(1, 0)
+//        } else if (now == Pair(1, 0)) {
+//            return Pair(0, -1)
+//        } else if (now == Pair(0, -1)) {
+//            return Pair(-1, 0)
+//        } else {
+//            return Pair(0, 1)
+//        }
+//    }
+//
+//    fun snakeMove() {
+//        var count = 0
+//        var nowdirection = Pair(0,1)
+//        while (true) {
+//            if (snake[0].first == boardsize || snake[0].second == boardsize || snake[0].first == -1 || snake[0].second == -1) {
+//                break
+//            }
+//            var result = false
+//            for(i in snake){
+//                if(snake[0].first == i.first || snake[0].second== i.second){
+//                    result = true
+//                    break
+//                }
+//            }
+//            if(result){
+//                break
+//            }
+//            count++
+//
+//            for(i in snake.indices){
+//                snake[i] = Pair(snake[i].first + nowdirection.first, snake[i].second + nowdirection.second)
+//            }
+//
+//            for(i in appleLocation){
+//                if(snake[0].first + nowdirection.first == i[0] && snake[0].second + nowdirection.second == i[1] ){
+//                    snake.addLast()
+//                }
+//            }
+//        }
+//    }
+//}
+
+//// 6
+//fun main(){
+//
+//}
+
+//// 7
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val array = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//    }
+//
+//    var count =0
+//    for(i in 0 until n){
+//        for(j in 0 until n){
+//            if(array[i][j]==2){
+//                count++
+//            }
+//        }
+//    }
+//
+//    fun findstoredistlist(x: Int, y: Int) : MutableList<Int>{
+//        var result = mutableListOf<Int>()
+//        for (i in 0 until n) {
+//            for (j in 0 until n) {
+//                if (abs(x - i) + abs(y - j) > 0) {
+//                    if (array[i][j] == 2) {
+//                        result.add(abs(x - i) + abs(y - j))
+//                    }
+//                }
+//            }
+//        }
+//        return result
+//    }
+//
+//    var list = MutableList<MutableList<Int>>(count) {
+//        mutableListOf<Int>()
+//    }
+//
+//    for (i in 0 until n) {
+//        for (j in 0 until n) {
+//            if (array[i][j] == 1) {
+//                list.add(findstoredistlist(i,j))
+//            }
+//        }
+//    }
+//
+//    val last = mutableListOf<Int>()
+//    for(i in 0 until list[0].size){
+//        var sum = 0
+//        for(j in 0 until count){
+//            sum += list[j][i]
+//        }
+//        last.add(sum)
+//    }
+//
+//    println(last.min())
 //}

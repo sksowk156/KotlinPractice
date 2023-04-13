@@ -218,3 +218,197 @@ package com.umc.kotilnpractice
 //    }
 //    println(x.toString()+" "+y)
 //}
+
+//// 2
+//fun main(){
+//    val (a,b,c) = readln().split(" ").map{it.toInt()}
+//    val array = readln().split(" ").map { it.toInt() }.take(a).toMutableList()
+//
+//    array.sortDescending()
+//    println(array)
+//    var count = b/(c+1)
+//    var count2 = b%(c+1)
+//    var sum = (count*(3*array[0]+array[1])+count2*array[0])
+//    println(sum)
+//}
+
+//// 3
+//fun main(){
+//    val (a,b) = readln().split(" ").map { it.toInt() }
+//    val array = Array(a){
+//        readln().split(" ").map { it.toInt() }.take(b).toMutableList()
+//    }
+//
+//    var max = -1
+//    repeat(a){
+//        array[it].sort()
+//        if(max<array[it][0]) max = array[it][0]
+//    }
+//    println(max)
+//}
+
+// 4
+//fun main() {
+//    var (a, b) = readln().split(" ").map { it.toInt() }
+//    var count = 0
+//    while (a != 1) {
+//        if (a % b == 0) {
+//            a /= b
+//        } else {
+//            a -= 1
+//        }
+//        count++
+//    }
+//    println(count)
+//}
+
+//fun main() {
+//    var (a, b) = readln().split(" ").map { it.toInt() }
+//    var count = 0
+//    while (true) {
+//        var target = (a / b) * b
+//        count += (a - target)
+//        a = target
+//        if (a < b) break
+//        count++
+//        a /= b
+//    }
+//    count += (a-1)
+//    println(count)
+//}
+
+//// 1
+//fun main() {
+//    val a = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.take(a).toMutableList()
+//
+//    // 작은 순서대로 정렬
+//    array.sort()
+//
+//    // 그룹 수
+//    var count = 0
+//
+//    var i = 0
+//    var flag = 0
+//    // array를 다 돌면서 확인(제일 작은 수부터 확인 한다. -> 최대한 많이 나누기 위함)
+//    while(i < array.size-1) {
+//        // 인덱스[i] 부터 인덱스[array의 i번째 원소의 값]를 확인했을 때, 더 큰 숫자가 나오면 그룹으로 나누지 못한다.
+//        for(it in 0 until array[i]){
+//            if(i+it > array.size-1){
+//                break
+//            }
+//            if(array[i+it]>array[i]) {
+//                flag = 1
+//                break
+//            }
+//        }
+//
+//        if(flag == 1){ // 더 큰 숫자가 나왓을 경우
+//            i++ // 다음 인덱스로 넘어가자
+//        }else{
+//            count++ // 그룹 나눔
+//            i += array[i] // 인덱스를 array[i] 값 만큼 이동시키자
+//        }
+//    }
+//    println(count)
+//}
+
+
+//// 2
+//fun main(){
+//    val array = readln().toMutableList()
+//
+//    var result = array[0].digitToInt()
+//
+//    for(i in 1 until array.size){
+//        var temp = array[i].digitToInt()
+//        if((result == 0) || (temp == 0)){
+//            result += temp
+//        }else{
+//            result *= temp
+//        }
+//    }
+//
+//    println(result)
+//}
+
+//// 3
+//fun main(){
+//    val array = readln()
+//    var zeroCount = 0
+//    var oneCount = 0
+//    for(i in 0 until array.length-1){
+//        if(array[i] != array[i+1]){ // 숫자가 바뀔 때 카운트하자, 바뀌기 전에 카운트를 먼저하면 매번 if문을 많이 확인해야한다.
+//            if(array[i].digitToInt()==0){
+//                zeroCount++
+//            }else{
+//                oneCount++
+//            }
+//        }
+//    }
+//
+//    if(array.last().digitToInt()==0){
+//        zeroCount++
+//    }else{
+//        oneCount++
+//    }
+//
+//    if(zeroCount<oneCount){
+//        println(zeroCount)
+//    }else{
+//        println(oneCount)
+//    }
+//}
+
+//// 4 ****************
+//fun main(){
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.toMutableList()
+//    array.sort()
+//    var i = 0
+//    while (true){
+//
+//    }
+//}
+
+// 5
+//fun main(){
+//    val (a, b) = readln().split(" ").map { it.toInt() }
+//    val array = readln().split(" ").map { it.toInt() }.take(a).toMutableList()
+//
+//    var temp = mutableListOf<Pair<Int,Int>>()
+//
+//    for(i in 0 until array.size){
+//        for(j in i+1 until array.size){
+//            if(array[i] != array[j]) temp.add(Pair(array.indexOf(i),array.indexOf(j)))
+//        }
+//    }
+//
+//    println(temp.size)
+//}
+
+//// 6
+//fun main() {
+//    val (n, k) = readln().split(" ").map { it.toInt() }
+//    val array = readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//
+//    var time = 0
+//    var i = 0
+//
+//    while (true) {
+//        if (i / n > 0) {
+//            i = 0
+//        }
+//
+//        if (time == k) {
+//            break
+//        }
+//
+//        if (array[i] != 0) {
+//            array[i]--
+//            time++
+//        }
+//        i++
+//    }
+//    println(i + 1)
+//}

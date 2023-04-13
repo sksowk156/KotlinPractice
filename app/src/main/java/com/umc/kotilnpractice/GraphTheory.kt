@@ -247,53 +247,53 @@ import kotlin.math.max
 //    println(result-last)
 //}
 
-// 4
-fun main() {
-    val n = readln().toInt()
-    val indegree = MutableList<Int>(n + 1) { 0 }
-
-    val graph = Array(n + 1) {
-        mutableListOf<Int>()
-    }
-
-    val time = MutableList<Int>(n + 1) { 0 }
-
-    for (i in 1..n) {
-        val data = readln().split(" ").map { it.toInt() }
-        time[i] = data[0]
-        for (x in 1 until data.size - 1) {
-            indegree[i]++
-            graph[data[x]].add(i)
-        }
-    }
-
-    fun topology_sort() {
-        val result = mutableListOf<Int>()
-        result.addAll(time)
-        val q = ArrayDeque<Int>()
-
-        for (i in 1..n) {
-            if (indegree[i] == 0) {
-                q.addLast(i)
-            }
-        }
-
-        while (q.isNotEmpty()) {
-            val now = q.removeFirst()
-            for (i in graph[now]) {
-                println(i.toString()+" "+result[i].toString()+" "+(result[now] + time[i]).toString())
-                result[i] = max(result[i], result[now] + time[i])
-                indegree[i]--
-                if (indegree[i] == 0) {
-                    q.addLast(i)
-                }
-            }
-        }
-
-        for (i in 1..n) {
-            println(result[i])
-        }
-    }
-
-    topology_sort()
-}
+//// 4
+//fun main() {
+//    val n = readln().toInt()
+//    val indegree = MutableList<Int>(n + 1) { 0 }
+//
+//    val graph = Array(n + 1) {
+//        mutableListOf<Int>()
+//    }
+//
+//    val time = MutableList<Int>(n + 1) { 0 }
+//
+//    for (i in 1..n) {
+//        val data = readln().split(" ").map { it.toInt() }
+//        time[i] = data[0]
+//        for (x in 1 until data.size - 1) {
+//            indegree[i]++
+//            graph[data[x]].add(i)
+//        }
+//    }
+//
+//    fun topology_sort() {
+//        val result = mutableListOf<Int>()
+//        result.addAll(time)
+//        val q = ArrayDeque<Int>()
+//
+//        for (i in 1..n) {
+//            if (indegree[i] == 0) {
+//                q.addLast(i)
+//            }
+//        }
+//
+//        while (q.isNotEmpty()) {
+//            val now = q.removeFirst()
+//            for (i in graph[now]) {
+//                println(i.toString()+" "+result[i].toString()+" "+(result[now] + time[i]).toString())
+//                result[i] = max(result[i], result[now] + time[i])
+//                indegree[i]--
+//                if (indegree[i] == 0) {
+//                    q.addLast(i)
+//                }
+//            }
+//        }
+//
+//        for (i in 1..n) {
+//            println(result[i])
+//        }
+//    }
+//
+//    topology_sort()
+//}
