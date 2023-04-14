@@ -1,7 +1,10 @@
 package com.umc.kotilnpractice
 
+import android.os.Build.VERSION_CODES.N
+import android.text.BoringLayout
 import android.util.Log
 import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
+import kotlin.math.abs
 
 //val graph = listOf(
 //    listOf(),
@@ -376,4 +379,307 @@ import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
 //    }
 //
 //    println(graph[x-1][y-1])
+//}
+
+//// 4
+//fun main() {
+//    val n = readln().toInt()
+//    val num = readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//    val operator = readln().split(" ").map { it.toInt() }.toMutableList()
+//
+//    val result = mutableListOf<Int>()
+//
+//    val oper = mutableListOf<Int>()
+//    // 순열은 재귀로 풀자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//    fun dfs(count: Int) { // 입력엔 반복 횟수를 주고
+//        if (count == n - 1) { // 바로 탈출 조건을 적어준다.
+//            var temp = mutableListOf<Int>() // 값은 복사해서 쓰자 반복해서 쓰기 때문에 원래 데이터가 손상된다.
+//            for (i in num) {
+//                temp.add(i)
+//            }
+//
+//            // 탈출 조건을 만족했을 때 필요한 연산을 수행하자
+//            for (i in oper.indices) {
+//                if (oper[i] == 0) {
+//                    temp[i + 1] = (temp[i] + temp[i + 1])
+//                } else if (oper[i] == 1) {
+//                    temp[i + 1] = (temp[i] - temp[i + 1])
+//                } else if (oper[i] == 2) {
+//                    temp[i + 1] = (temp[i] * temp[i + 1])
+//                } else {
+//                    temp[i + 1] = (temp[i] / temp[i + 1])
+//                }
+//            }
+//
+//            result.add(temp.last())
+//
+//            // 탈출하자
+//            return
+//        }
+//
+//        // 순열을 구할 배열을 순회하면서 재귀로 들어가자(2중 배열일 경우 for문 2개)
+//        for (i in operator.indices) {
+//            if (operator[i] > 0) {
+//                oper.add(i)
+//                operator[i]--
+//                dfs(count + 1)
+//                operator[i]++ // 원래 데이터를 손상시키니까 복구 그래야 다음 싸이클에 원 데이터 값이 사용됨 아니면 변한 값이 적용
+//                oper.removeLast() // 원래 데이터를 손상시키니까 복구
+//            }
+//        }
+//    }
+//
+//    dfs(0)
+//    println(result.max())
+//    println(result.min())
+//}
+
+//// 5
+//fun main() {
+//    val n = readln().toInt()
+//    val graph = Array(n) {
+//        readln().split(" ").map { it }.take(n).toMutableList()
+//    }
+//    val result = mutableListOf<Boolean>()
+//
+//    val teacher = mutableListOf<Pair<Int, Int>>()
+//    for (i in 0 until n) {
+//        for (j in 0 until n) {
+//            if (graph[i][j] == "T") {
+//                teacher.add(Pair(i, j))
+//            }
+//        }
+//    }
+//
+//    fun dfs(count: Int) {
+//        if (count == 3) {
+//            var check = false
+//            for (i in teacher) {
+//                var data = mutableListOf<String>()
+//                for (j in 1..n) {
+//                    var upx = i.first + j
+//                    if (upx < n && graph[upx][i.second] != "O") {
+//                        data.add(graph[upx][i.second])
+//                    }else{
+//                        break
+//                    }
+//                }
+//                for (j in 1..n) {
+//                    var downx = i.first - j
+//                    if (downx > -1 && graph[downx][i.second] != "O") {
+//                        data.add(graph[downx][i.second])
+//                    }else{
+//                        break
+//                    }
+//                }
+//
+//                for (j in 1..n) {
+//                    var upy = i.second + j
+//                    if (upy < n && graph[i.first][upy] != "O") {
+//                        data.add(graph[i.first][upy])
+//                    }else{
+//                        break
+//                    }
+//                }
+//
+//                for (j in 1..n) {
+//                    var downy = i.second - j
+//                    if (downy > -1 && graph[i.first][downy] != "O") {
+//                        data.add(graph[i.first][downy])
+//                    }else{
+//                        break
+//                    }
+//                }
+//
+//                if (data.contains("S")) {
+//                    result.add(false)
+//                    check = true
+//                    break
+//                }
+//
+//                if (check) break
+//            }
+//            if (!check) result.add(true)
+//        } else {
+//            for (i in 0 until n) {
+//                for (j in 0 until n) {
+//                    if (graph[i][j] == "X") {
+//                        graph[i][j] = "O"
+//                        dfs(count + 1)
+//                        graph[i][j] = "X"
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    dfs(0)
+//
+//    if (result.contains(true)) {
+//        println("YES")
+//    } else {
+//        println("NO")
+//    }
+//}
+
+//// 6
+//fun main() {
+//    val (n, l, r) = readln().split(" ").map { it.toInt() }
+//    val graph = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//    }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//
+//    val visit = mutableListOf<Pair<Int, Int>>()
+//    var count = 0
+//
+//    fun bfs(a: Int, b: Int): Boolean {
+//        var move = false
+//        val q = ArrayDeque<Pair<Int, Int>>()
+//        q.addLast(Pair(a, b))
+//        val result = mutableListOf<Int>()
+//        val result2 = mutableListOf<Pair<Int, Int>>()
+//        result.add(graph[a][b])
+//        result2.add(Pair(a, b))
+//        visit.add(Pair(a, b))
+//        while (q.isNotEmpty()) {
+//            val (x, y) = q.removeFirst()
+//            repeat(4) { i ->
+//                val xx = x + dx[i]
+//                val yy = y + dy[i]
+//                if (xx > -1 && xx < n && yy > -1 && yy < n) {
+//                    println("$xx, $yy")
+//                    val cal = abs(graph[x][y] - graph[xx][yy])
+//                    if (!visit.contains(Pair(xx, yy))) visit.add(Pair(xx, yy))
+//                    if (cal in l..r && !result2.contains(Pair(xx, yy))) {
+//                        q.addLast(Pair(xx, yy))
+//                        result.add(graph[xx][yy])
+//                        result2.add(Pair(xx, yy))
+//                    }
+//                }
+//            }
+//        }
+//        if (result.size > 1) {
+//            val average = result.average()
+//            for (i in result2) {
+//                graph[i.first][i.second] = average.toInt()
+//            }
+//            move = true
+//        }
+//        return move
+//    }
+//
+//    while (true) {
+//        var move = false
+//        visit.clear()
+//        for (i in 0 until n) {
+//            for (j in 0 until n) {
+//                if (visit.size == n * n) {
+//                    count++
+//                    break
+//                }
+//
+//                if (!visit.contains(Pair(i, j))) {
+//                    if (bfs(i, j)) move = true
+//                }
+//            }
+//            if (visit.size == n * n) break
+//        }
+//
+//        if (move == false) {
+//            break
+//        }
+//    }
+//
+//    println(count)
+//}
+
+//// 7
+//fun main() {
+//
+//    val N = readln().toInt()
+//    val board = Array(N) {
+//        readln().split(" ").map { it.toInt() }.toIntArray()
+//    }
+//
+//    var answer = 0
+//
+//    var result = mutableListOf<Int>()
+//    fun bfs(robot: Pair<Pair<Int, Int>, Pair<Int, Int>>) {
+//        val q = ArrayDeque<Pair<Pair<Int, Int>, Pair<Int, Int>>>()
+//        q.addLast(robot)
+//        while (q.isNotEmpty()) {
+//            var (one, two) = q.removeFirst()
+//
+//
+//
+//            if ((board[one.first + 1][one.second] == 0 && two.second == one.second + 1) || (board[two.first][two.second + 1] == 0 && two.second != one.second + 1)) {
+//                one = Pair(two.first, two.second)
+//                two = Pair(one.first + 1, one.second + 1)
+//            }
+//
+//            val moveH = Pair(Pair(one.first, one.second + 1), Pair(two.first, two.second + 1))
+//            val moveV = Pair(Pair(one.first + 1, one.second), Pair(two.first + 1, two.second))
+//
+//            if (moveH.second.first < N && moveH.second.second < N && board[moveH.second.first][moveH.second.second] == 0) {
+//                // 수평 이동 가능
+//                board[moveH.second.first][moveH.second.second] = answer + 1
+//                if (moveH.second.first == N - 1 && moveH.second.second == N - 1) {
+//                    result.add(board[moveH.second.first][moveH.second.second])
+//                    println("??")
+//                }
+//                q.addLast(moveH)
+//                board[moveH.second.first][moveH.second.second] = 0
+//            }
+//            if (moveV.second.first < N && moveV.second.second < N && board[moveV.second.first][moveV.second.second] == 0
+//                && board[moveV.second.first - 1][moveV.second.second] == 0
+//            ) {
+//                // 수평 이동 가능
+//                board[moveV.second.first][moveV.second.second] = answer + 1
+//                if (moveV.second.first == N - 1 && moveV.second.second == N - 1) {
+//                    result.add(board[moveV.second.first][moveV.second.second])
+//                    println("!!")
+//                }
+//                q.addLast(moveV)
+//                board[moveV.second.first][moveV.second.second] = 0
+//            }
+//
+//            if ((board[one.first + 1][one.second] == 0 && two.second == one.second + 1) || (board[two.first][two.second + 1] == 0 && two.second != one.second + 1)) {
+//                one = Pair(two.first, two.second)
+//                two = Pair(one.first + 1, one.second + 1)
+//
+//                val moveH = Pair(Pair(one.first, one.second + 1), Pair(two.first, two.second + 1))
+//                val moveV = Pair(Pair(one.first + 1, one.second), Pair(two.first + 1, two.second))
+//
+//                if (moveH.second.first < N && moveH.second.second < N && board[moveH.second.first][moveH.second.second] == 0) {
+//                    // 수평 이동 가능
+//                    board[moveH.second.first][moveH.second.second] = answer + 1
+//                    if (moveH.second.first == N - 1 && moveH.second.second == N - 1) {
+//                        result.add(board[moveH.second.first][moveH.second.second])
+//                        println("??")
+//                    }
+//                    q.addLast(moveH)
+//                    board[moveH.second.first][moveH.second.second] = 0
+//                }
+//                if (moveV.second.first < N && moveV.second.second < N && board[moveV.second.first][moveV.second.second] == 0
+//                    && board[moveV.second.first - 1][moveV.second.second] == 0
+//                ) {
+//                    // 수평 이동 가능
+//                    board[moveV.second.first][moveV.second.second] = answer + 1
+//                    if (moveV.second.first == N - 1 && moveV.second.second == N - 1) {
+//                        result.add(board[moveV.second.first][moveV.second.second])
+//                        println("!!")
+//                    }
+//                    q.addLast(moveV)
+//                    board[moveV.second.first][moveV.second.second] = 0
+//                }
+//            }
+//        }
+//    }
+//
+//    bfs(Pair(Pair(0, 0), Pair(0, 1)))
+//    println(result.min())
 //}

@@ -53,3 +53,42 @@ import kotlin.collections.ArrayList
 //    println("toArray.cotains time ==>$measuredTime")
 //    println(new_data3.size)
 //}
+
+//// 1
+//fun main(){
+//}
+
+//// 2
+//fun main(){
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map{it.toInt()}.toMutableList()
+//    array.sort()
+//
+//    fun find(start:Int, end:Int, array:MutableList<Int>):Int?{
+//        if(start>end){
+//            return null
+//        }
+//        var mid = (start+end)/2
+//
+//        if(array[mid]==mid) return mid
+//        else if(array[mid]<mid){
+//            return find(mid+1,end,array)
+//        }else{
+//            return find(start,mid-1,array)
+//        }
+//    }
+//
+//    println(find(0,n-1,array))
+//}
+
+// 3
+fun main() {
+    val array = mutableMapOf<Int,Int>()
+    array[1] = 10
+    array[-1] = 20
+
+    array[1] = array.get(1)!! + 1
+    println(array[-1])
+
+
+}

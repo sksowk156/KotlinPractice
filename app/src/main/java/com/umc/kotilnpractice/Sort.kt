@@ -3,6 +3,7 @@ package com.umc.kotilnpractice
 import android.os.Build.VERSION_CODES.N
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 import kotlin.reflect.typeOf
 
 //fun main() {
@@ -314,4 +315,87 @@ import kotlin.reflect.typeOf
 //    }
 //
 //    print(result)
+//}
+
+//// 1
+//fun main() {
+//    val n = readln().toInt()
+//
+//    data class student(val name: String, val korean: Int, val english: Int, val math: Int)
+//
+//    val data = mutableListOf<student>()
+//
+//    repeat(n) {
+//        var temp = readln().split(" ").map { it }.toMutableList()
+//        val name = temp[0]
+//        val kor = temp[1].toInt()
+//        val eng = temp[2].toInt()
+//        val math = temp[3].toInt()
+//        data.add(student(name, kor, eng, math))
+//    }
+//
+////    data.sortWith(
+////        compareByDescending(student::korean).thenBy(student::english)
+////            .thenByDescending(student::math).thenBy(student::name)
+////    )
+//
+//    data.sortWith(
+//        compareBy(
+//            { -it.korean },
+//            { it.english },
+//            { -it.math },
+//            { it.name }
+//        )
+//    )
+//    data.forEach { println(it.name) }
+//
+//}
+
+//// 2
+//fun main(){
+//    val n = readln().toInt()
+//    val house = readln().split(" ").map { it.toInt() }.take(n).toMutableList()
+//
+//    house.sort()
+//    println(house[(n-1)/2])
+//}
+
+//// 3
+//fun main() {
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.toMutableList()
+//    val fail = mutableListOf<Pair<Int,Double>>()
+//
+//
+//    var total = array.size
+//    for (num in 1 until n+1) {
+//        var p = array.count { it == num }
+//
+//        if(total==0){
+//            fail.add(Pair(num, 0.0))
+//        }else{
+//            fail.add(Pair(num, p.toDouble()/total.toDouble()))
+//        }
+//        total-= p
+//    }
+//
+//    fail.sortByDescending { it.second }
+//    fail.forEach{print(it.first)}
+//}
+
+//// 4
+//fun main(){
+//    val a = readln().toInt()
+//    val num = mutableListOf<Int>()
+//    repeat(a){
+//        num.add(readln().toInt())
+//    }
+//    num.sort()
+//
+//    val sum = mutableListOf<Int>()
+//    sum.add(num[0]+num[1])
+//    for(i in 2 until num.size){
+//        sum.add(num[i]+sum[i-2])
+//    }
+//    println(sum)
 //}
