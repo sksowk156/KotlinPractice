@@ -1,7 +1,7 @@
 package com.umc.kotilnpractice
 
-import java.lang.Math.min
-import java.util.PriorityQueue
+import android.util.Log
+import java.util.*
 
 //const val INF = Int.MAX_VALUE
 //fun main(){
@@ -252,4 +252,87 @@ import java.util.PriorityQueue
 //    }
 //
 //    println(count.toString()+ " "+ array.max())
+//}
+
+//// 1
+//fun main() {
+//    val n = readln().toInt()
+//    val m = readln().toInt()
+//    val array = Array(m) {
+//        readln().split(" ").map { it.toInt() }.take(3)
+//    }
+//
+//    val route = Array(n) {
+//        MutableList<Int>(n) { 1000 }
+//    }
+//
+//    for (i in 0 until n) {
+//        for (j in 0 until n) {
+//            if(i==j){
+//                route[i][j] = 0
+//            }
+//        }
+//    }
+//
+//    for (i in 0 until m) {
+//        val startnode = array[i][0]
+//        val endnode = array[i][1]
+//        route[startnode-1][endnode-1] = Math.min(array[i][2], route[startnode-1][endnode-1])
+//    }
+//
+//    for(k in 0 until n){
+//        for(i in 0 until n){
+//            for(j in 0 until n){
+//                route[i][j] = Math.min((route[i][k] + route[k][j]), route[i][j])
+//            }
+//        }
+//    }
+//
+//    for(i in 0 until n){
+//        for(j in 0 until n){
+//            print(route[i][j].toString()+" ")
+//        }
+//        println()
+//    }
+//}
+
+//// 2
+//fun main(){
+//    val(n, m) = readln().split(" ").map{it.toInt()}
+//    val data = Array(m){
+//        readln().split(" ").map { it.toInt() }.take(2)
+//    }
+//
+//    val graph = Array(n){
+//        MutableList(n){0}
+//    }
+//
+//    for(i in 0 until m){
+//        val start = data[i][0] - 1
+//        val end = data[i][1] - 1
+//        graph[start][end] = 1
+//    }
+//
+//    for(k in 0 until m){
+//        for(i in 0 until m){
+//            for(j in 0 until  m){
+//                if(graph[i][k] != 0 && graph[k][j] != 0){ // 갈 수 있는지 없는지만 기록한다.
+//                    graph[i][j] = 1
+//                }
+//            }
+//        }
+//    }
+//
+//    for(i in 0 until m){
+//        for(j in 0 until  m){
+//            if(graph[j][i]==1) graph[i][j] = graph[j][i] // 목표지점에 올 수 있는 모든 경우의 수를 목료 지점에 갈 수 있는 경우의 수와 합한다.
+//        }
+//    }
+//    println(graph.contentToString())
+//    var count= 0
+//    for(i in 0 until m){
+//        if(graph[i].sum() == m-1) count++ // 목표지점에 갈 수있는 경우의 수 + 올 수 있는 경우의수 = 자기자신을 제외한 학생수 -> 등수 확인 가능
+//    }
+//
+//    println(count)
 //}

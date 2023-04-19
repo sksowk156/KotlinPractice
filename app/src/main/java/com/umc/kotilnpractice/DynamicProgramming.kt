@@ -158,3 +158,225 @@ import kotlin.math.min
 ////        println(d[m])
 ////    }
 //}
+
+// 1
+//fun main() {
+//    fun findmax(array: List<List<Int>>, n: Int, m: Int): Int {
+//
+//        val temp = mutableListOf<Int>()
+//        repeat(n) { i ->
+//            temp.add(array[i][0])
+//        }
+//
+//        for (i in 1 until m) {
+//            val temp2 = mutableListOf<Int>()
+//            repeat(n) { j ->
+//                if (j - 1 < 0) {
+//                    temp2.add(max(temp[j], temp[j + 1]) + array[j][i])
+//                } else if (j + 1 > n - 1) {
+//                    temp2.add(max(temp[j - 1], temp[j]) + array[j][i])
+//                } else {
+//                    temp2.add(maxOf(temp[j - 1], temp[j], temp[j + 1]) + array[j][i])
+//                }
+//            }
+//            repeat(n){ i->
+//                temp[i] = temp2[i]
+//            }
+//        }
+//
+//        return temp.max()
+//    }
+//    val t = readln().toInt()
+//    val result = mutableListOf<Int>()
+//
+//    repeat(t) {
+//        val (n, m) = readln().split(" ").map { it.toInt() }
+//        val array = readln().split(" ").map { it.toInt() }.chunked(m)
+//        result.add(findmax(array, n, m))
+//    }
+//
+//    for (i in result) {
+//        println(i)
+//    }
+//}
+
+//fun main(){
+//    repeat(readln().toInt()){
+//        val(n, m) = readln().split(" ").map { it.toInt() }
+//        val array = readln().split(" ").map { it.toInt() }
+//
+//        val dp = mutableListOf<MutableList<Int>>()
+//        var index = 0
+//        for(i in 0 until n){
+//            dp.add(array.slice(index..index+m).toMutableList())
+//        }
+//
+//
+//        for(j in 1 until m){
+//            for(i in 0 until n){
+//                var left_up = 0
+//                if(i==0) left_up = 0
+//                else left_up = dp[i-1][j-1]
+//
+//                var left_down = 0
+//                if(i==n-1) left_down = 0
+//                else left_down = dp[i+1][j-1]
+//
+//                var left_middle = dp[i][j-1]
+//
+//                dp[i][j] = dp[i][j] + maxOf(left_up,left_middle,left_down)
+//            }
+//        }
+//        var result = 0
+//        for(i in 0 until n){
+//            result = max(result, dp[i][m-1])
+//        }
+//
+//        println(result)
+//    }
+//
+//}
+
+//// 2
+//fun main() {
+//    val size = readln().toInt()
+//    val array = Array(size) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    val temp = array.copyOf()
+//
+//    for (i in 1 until size) {
+//        for (j in 0 until temp[i].size) {
+//            var rightUp = 0
+//            var leftUp = 0
+//            if (j == 0) leftUp = 0
+//            else leftUp = temp[i - 1][j - 1]
+//            if (j == temp[i].size - 1) rightUp = 0
+//            else rightUp = temp[i - 1][j]
+//
+//            temp[i][j] += max(leftUp, rightUp)
+//        }
+//    }
+//
+//    println(temp[size - 1].max())
+//}
+
+//// 3
+//fun main() {
+//    val date = readln().toInt()
+//    val data = Array(date) {
+//        readln().split(" ").map { it.toInt() }
+//    }
+//
+//    val temp = mutableListOf<Int>()
+//
+//    for (i in 0 until date) {
+//        temp.add(data[i][0] + i - 1)
+//    }
+//
+//    val result = MutableList(date) { 0 }
+//
+//    for (i in 0 until date) {
+//        if (temp[i] > date - 1) {
+//            continue
+//        }
+//        if(result[temp[i]] > data[temp[i]])
+//        for(j in temp[i] until date){
+//            result[j] = max(result[j],data[])
+//        }
+//    }
+//    println(result[date-1])
+//
+//}
+
+//// 4
+//fun main() {
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }
+//
+//    val result = MutableList(n) { 0 }
+//
+//    for (i in n - 1 downTo 0 step 1) { // 뒤에서부터 확인한다.
+//        var maxx = result[i] // 처음엔 확인할 값을 최대값이라 가정한다.-> '0'이기 때문에 무조건 갱신된다.
+//        for (j in i+1 until n) { // 확인할 값 뒤에 존재하는 원소들을 하나씩 확인한다.
+//            if (array[i] > array[j]) { // 해당 원소가 확인할 값보다 작은 경우
+//                maxx = max(maxx, result[j]) // 해당 원소의 result가 저장하고 있는 값과 현재의 최댓값을 비교해서 가장 큰 값을 저장한다.
+//            }
+//        }
+//        result[i] = maxx+1 // 이렇게 찾은 가장 큰 값에다 확인할 값을 포함시키기 때문에 +1 해주고 result에 저장한다.
+//    }
+//
+//    println(result[0])
+//}
+
+//fun main(){
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map{it.toInt()}
+//
+//    array.reversed()
+//    val dp = MutableList(n){1}
+//    for(i in 1 until n){
+//        for(j in 0 until i){
+//            if(array[j]<array[i]){
+//                dp[i] = max(dp[i], dp[j]+1)
+//            }
+//        }
+//    }
+//    println(n-dp.max())
+//}
+
+//// 5
+//fun main() {
+//    val n = readln().toInt()
+//
+//    val result = mutableListOf(1, 2, 3)
+//    var i  = 4
+//    while (true) {
+//        var temp = i
+//        while (temp != 1) {
+//            if (temp % 2 == 0) {
+//                temp /= 2
+//            } else if (temp % 3 == 0) {
+//                temp /= 3
+//            } else if (temp % 5 == 0) {
+//                temp /= 5
+//            } else {
+//                break
+//            }
+//        }
+//
+//        if (temp == 1) {
+//            result.add(i)
+//        }
+//
+//        if (result.size == n) break
+//        i++
+//    }
+//    println(result[n-1])
+//}
+
+
+//// 6
+//fun main() {
+//    val a = readln()
+//    val b = readln()
+//
+//    val a_result = mutableListOf<Char>()
+//    val b_result = mutableListOf<Char>()
+//
+//    for (i in a.indices) {
+//        for (j in b.indices) {
+//            if (a[i] == b[j]) {
+//                a_result.add(a[i])
+//                b_result.add(b[i])
+//                break
+//            }
+//        }
+//    }
+//    println(a_result.toString())
+//    println(b_result.toString())
+//
+//    if (a.length - a_result.size > b.length - b_result.size) println(a.length - a_result.size)
+//    else println(b.length - b_result.size)
+//}

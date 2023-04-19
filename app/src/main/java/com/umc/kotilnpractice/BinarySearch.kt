@@ -81,14 +81,3 @@ import kotlin.collections.ArrayList
 //    println(find(0,n-1,array))
 //}
 
-// 3
-fun main() {
-    val array = mutableMapOf<Int,Int>()
-    array[1] = 10
-    array[-1] = 20
-
-    array[1] = array.get(1)!! + 1
-    println(array[-1])
-
-
-}

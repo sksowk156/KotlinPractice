@@ -383,19 +383,4 @@ import kotlin.reflect.typeOf
 //    fail.forEach{print(it.first)}
 //}
 
-//// 4
-//fun main(){
-//    val a = readln().toInt()
-//    val num = mutableListOf<Int>()
-//    repeat(a){
-//        num.add(readln().toInt())
-//    }
-//    num.sort()
-//
-//    val sum = mutableListOf<Int>()
-//    sum.add(num[0]+num[1])
-//    for(i in 2 until num.size){
-//        sum.add(num[i]+sum[i-2])
-//    }
-//    println(sum)
-//}
+// 4
