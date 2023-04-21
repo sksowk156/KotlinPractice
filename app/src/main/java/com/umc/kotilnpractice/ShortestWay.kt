@@ -2,6 +2,7 @@ package com.umc.kotilnpractice
 
 import android.util.Log
 import java.util.*
+import kotlin.math.min
 
 //const val INF = Int.MAX_VALUE
 //fun main(){
@@ -335,4 +336,81 @@ import java.util.*
 //    }
 //
 //    println(count)
+//}
+
+//// 3
+//fun main() {
+//    val n = readln().toInt()
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//    fun find_route(array: Array<MutableList<Int>>,size:Int): Int {
+//        val result = Array(size){
+//            MutableList(size){1e9.toInt()}
+//        }
+//        val q = PriorityQueue<Triple<Int, Int, Int>>() { a, b -> a.third - b.third }
+//        q.add(Triple(0, 0, array[0][0]))
+//        result[0][0] = array[0][0]
+//        while (q.isNotEmpty()) {
+//            val (x, y, cost) = q.poll()
+//            if(result[x][y] < cost) continue
+//            repeat(4){ i->
+//                val move_X = x+dx[i]
+//                val move_y = y+dy[i]
+//                if(move_X<size && move_X>-1 && move_y<size && move_y>-1){
+//                    if(result[move_X][move_y] > cost+array[move_X][move_y]){
+//                        result[move_X][move_y] = cost+array[move_X][move_y]
+//                        q.add(Triple(move_X,move_y,result[move_X][move_y]))
+//                    }
+//                }
+//            }
+//        }
+//
+//        return result[size-1][size-1]
+//    }
+//    repeat(n) {
+//        val size = readln().toInt()
+//        val array = Array(size) {
+//            readln().split(" ").map { it.toInt() }.take(size).toMutableList()
+//        }
+//        val result = find_route(array,size)
+//        println(result.toString())
+//    }
+//}
+
+//// 4
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val route = Array(m) {
+//        readln().split(" ").map { it.toInt() }.take(2)
+//    }
+//
+//    val route2 = Array(n) {
+//        mutableListOf<Int>()
+//    }
+//    repeat(m) { i ->
+//        val way_node = route[i][0] - 1
+//        val way_node2 = route[i][1] - 1
+//        route2[way_node].add(way_node2)
+//        route2[way_node2].add(way_node)
+//    }
+//    val shortestRoute = MutableList<Int>(n) { 1e9.toInt() }
+//    val q = PriorityQueue<Pair<Int, Int>> { a, b -> a.second - b.second }
+//    q.add(Pair(1, 0))
+//    shortestRoute[0] = 0
+//    while (q.isNotEmpty()) {
+//        val (node, cost) = q.poll()
+//        if (shortestRoute[node - 1] < cost) continue
+//        for(i in route2[node-1]){
+//            if(shortestRoute[i]>cost+1){
+//                shortestRoute[i] = cost+1
+//                q.add(Pair(i+1,cost+1))
+//            }
+//        }
+//    }
+//
+//    val dist = shortestRoute.max()
+//    val node = shortestRoute.indexOf(dist) + 1
+//    val count =shortestRoute.count { it == dist }
+//
+//    println("$node $dist $count")
 //}
