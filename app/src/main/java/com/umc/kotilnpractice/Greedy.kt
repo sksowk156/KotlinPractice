@@ -412,3 +412,114 @@ package com.umc.kotilnpractice
 //    }
 //    println(i + 1)
 //}
+
+//fun main(){
+//    val a = readln().toInt()
+//    val array = readln().split(" ").map{it.toInt()}.toMutableList()
+//    array.sort()
+//    println(array)
+//
+//    var i = 0
+//    var result = 0
+//    while (i < array.size){
+//        if(i + array[i]-1 < array.size && array[i] == array[i + array[i]-1]){
+//            i += array[i]
+//            result++
+//        }else{
+//            i++
+//        }
+//    }
+//
+//    println(result)
+//}
+
+//fun main(){
+//    val array = readln().toCharArray()
+//    var result = array[0].digitToInt()
+//    for(i in 1 until array.size ){
+//        val b = array[i].digitToInt()
+//
+//        if(result==0 || b ==0 || result==1 || b==1){
+//            result += b
+//        }else{
+//            result *= b
+//        }
+//    }
+//    println(result)
+//}
+
+//fun main(){
+//    val array = readln().toCharArray()
+//    var char = array[0]
+//    var count = 0
+//    for(i in 1 until array.size){
+//        if(char!=array[i]){
+//            char = array[i]
+//            count++
+//        }
+//    }
+//
+//    var result = 0
+//    if(count%2==0){
+//        result = (count/2)
+//    }else{
+//        result = (count+1)/2
+//    }
+//    println(result)
+//}
+
+//fun main(){
+//    val size = readln().toInt()
+//    val array = readln().split(" ").map{it.toInt()}.take(size).toMutableList()
+//    array.sort()
+//
+//    val result = mutableSetOf<Int>()
+//    result.add(array[0])
+//    for(i in 1 until array.size){
+//        val temp = mutableSetOf<Int>()
+//        for(j in result){
+//            temp.add(j+array[i])
+//        }
+//        result.addAll(temp)
+//        println(result)
+//    }
+//
+//    for(i in 1 ..result.size){
+//        if(!result.contains(i)) {
+//            println(i)
+//            break
+//        }
+//    }
+//}
+
+fun main() {
+    val (m, n) = readln().split(" ").map { it.toInt() }
+
+    // 배열 정보
+    val array = readln().split(" ").map { it.toInt() }.take(m).toMutableList()
+    // 배열의 조합들을 저장할 리스트
+    val result = mutableListOf<Pair<Int, Int>>()
+    // 조합을 임시로 저장할 공간
+    val combination = mutableListOf<Int>()
+    // 조합 메소드, 현재 조합 combination에 들어 있는 원소 개수, start : 배열에서 조합을 구할 때 원소의 시작점
+    fun find(count: Int, start: Int) {
+        if (count == 2) { // 현재 조합에 2개의 원소가 들어 있다면 -> 종료 조건
+            if (combination[0] != combination[1]) {
+                result.add(Pair(combination[0], combination[1]))
+            }
+        } else { // 2개보다 적을 때
+            for (i in start until array.size) { // 입력받은 시작점부터 하나씩 넣는다
+                // 조합에 원소 넣기
+                combination.add(array[i])
+                // 시작점은 자기자신을 제외한 오른쪽에 있는 배열만 검사하고 싶을 때 -> start가 없다면 그냥 자기 자신을 제외한 모든 점을 검색한다. -> 조합을 구성할 때 먼저 들어간 것과 나중에 들어간 것의 차이가 있을 경우를 말한다.
+                find(count + 1, i + 1)
+                // 넣었던 원소 빼기
+                combination.removeLast()
+            }
+        }
+    }
+
+    find(0, 0)
+
+    println(result.size)
+}
