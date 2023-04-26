@@ -1,5 +1,7 @@
 package com.umc.kotilnpractice
 
+import java.util.PriorityQueue
+
 //fun main() {
 //    println("값을 입력하세요")
 //    val price = readln().toInt()
@@ -492,34 +494,61 @@ package com.umc.kotilnpractice
 //    }
 //}
 
-fun main() {
-    val (m, n) = readln().split(" ").map { it.toInt() }
+//fun main() {
+//    val (m, n) = readln().split(" ").map { it.toInt() }
+//
+//    // 배열 정보
+//    val array = readln().split(" ").map { it.toInt() }.take(m).toMutableList()
+//    // 배열의 조합들을 저장할 리스트
+//    val result = mutableListOf<Pair<Int, Int>>()
+//    // 조합을 임시로 저장할 공간
+//    val combination = mutableListOf<Int>()
+//    // 조합 메소드, 현재 조합 combination에 들어 있는 원소 개수, start : 배열에서 조합을 구할 때 원소의 시작점
+//    fun find(count: Int, start: Int) {
+//        if (count == 2) { // 현재 조합에 2개의 원소가 들어 있다면 -> 종료 조건
+//            if (combination[0] != combination[1]) {
+//                result.add(Pair(combination[0], combination[1]))
+//            }
+//        } else { // 2개보다 적을 때
+//            for (i in start until array.size) { // 입력받은 시작점부터 하나씩 넣는다
+//                // 조합에 원소 넣기
+//                combination.add(array[i])
+//                // 시작점은 자기자신을 제외한 오른쪽에 있는 배열만 검사하고 싶을 때 -> start가 없다면 그냥 자기 자신을 제외한 모든 점을 검색한다. -> 조합을 구성할 때 먼저 들어간 것과 나중에 들어간 것의 차이가 있을 경우를 말한다.
+//                find(count + 1, i + 1)
+//                // 넣었던 원소 빼기
+//                combination.removeLast()
+//            }
+//        }
+//    }
+//
+//    find(0, 0)
+//
+//    println(result.size)
+//}
 
-    // 배열 정보
-    val array = readln().split(" ").map { it.toInt() }.take(m).toMutableList()
-    // 배열의 조합들을 저장할 리스트
-    val result = mutableListOf<Pair<Int, Int>>()
-    // 조합을 임시로 저장할 공간
-    val combination = mutableListOf<Int>()
-    // 조합 메소드, 현재 조합 combination에 들어 있는 원소 개수, start : 배열에서 조합을 구할 때 원소의 시작점
-    fun find(count: Int, start: Int) {
-        if (count == 2) { // 현재 조합에 2개의 원소가 들어 있다면 -> 종료 조건
-            if (combination[0] != combination[1]) {
-                result.add(Pair(combination[0], combination[1]))
-            }
-        } else { // 2개보다 적을 때
-            for (i in start until array.size) { // 입력받은 시작점부터 하나씩 넣는다
-                // 조합에 원소 넣기
-                combination.add(array[i])
-                // 시작점은 자기자신을 제외한 오른쪽에 있는 배열만 검사하고 싶을 때 -> start가 없다면 그냥 자기 자신을 제외한 모든 점을 검색한다. -> 조합을 구성할 때 먼저 들어간 것과 나중에 들어간 것의 차이가 있을 경우를 말한다.
-                find(count + 1, i + 1)
-                // 넣었던 원소 빼기
-                combination.removeLast()
-            }
-        }
-    }
-
-    find(0, 0)
-
-    println(result.size)
-}
+//fun main() {
+//    val food_times = readln().split(" ").map { it.toInt() }.toIntArray()
+//    val k = readln().toInt()
+//
+//    if(food_times.sum() <= k) println(-1)
+//
+//    val q = PriorityQueue<Pair<Int,Int>>(){a,b->a.second - b.second}
+//
+//    for(i in food_times.indices){
+//        q.add(Pair(i+1,food_times[i]))
+//    }
+//
+//    var sum_value = 0
+//    var previous = 0
+//    var length = food_times.size
+//
+//    while(sum_value + (q.peek().second-previous)*length <= k){
+//        var now = q.poll().second
+//        sum_value += (now - previous)*length
+//        length -= 1
+//        previous = now
+//    }
+//
+//    var result = q.sortedBy { it.first }
+//    println(result[(k-sum_value)%length].first)
+//}

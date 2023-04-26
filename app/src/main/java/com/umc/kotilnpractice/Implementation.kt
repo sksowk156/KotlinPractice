@@ -1,5 +1,6 @@
 package com.umc.kotilnpractice
 
+import androidx.lifecycle.viewmodel.CreationExtras.Empty
 import java.util.logging.Logger.global
 import kotlin.math.abs
 import kotlin.math.min
@@ -392,3 +393,119 @@ import kotlin.math.min
 //
 //    println(last.min())
 //}
+
+//fun main(){
+//    val a = readln().toCharArray()
+//
+//    val dx = listOf(2,1,-1,-2,2,1,-1,-2)
+//    val dy = listOf(1,2,-2,-1,-1,-2,2,1)
+//
+//    val x = a[0]-'a' - 1
+//    val y = a[1]-'0' - 1
+//
+//    var count = 0
+//    repeat(8){ i->
+//        val tempx = x + dx[i]
+//        val tempy = y+dy[i]
+//        if(tempx>-1 && tempx<8 && tempy >-1 && tempy <8){
+//            count++
+//        }
+//    }
+//    println(count)
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    var (x, y, direction) = readln().split(" ").map { it.toInt() }
+//    val map = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(m).toMutableList()
+//    }
+//
+//    val dx = listOf(-1,0,1,0)
+//    val dy = listOf(0,1,0,-1)
+//
+//    var count = 0
+//    var spin = 0
+//
+//    while(true){
+//        if(spin == 4){
+//            var tempX = x-dx[direction]
+//            var tempY = y-dy[direction]
+//            if(map[tempX][tempY]==1) break
+//            else{
+//                x = tempX
+//                y = tempY
+//                spin = 0
+//            }
+//        }else{
+//            if(direction == 0) direction = 3
+//            else direction--
+//            spin++
+//
+//            var tempX = x+dx[direction]
+//            var tempY = y+dy[direction]
+//            if(map[tempX][tempY]==0){
+//                x = tempX
+//                y = tempY
+//                map[x][y] = -1
+//                spin = 0
+//                count++
+//            }
+//        }
+//    }
+//
+//    println(count)
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    var (x, y, direction) = readln().split(" ").map { it.toInt() }
+//    val map = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(m).toMutableList()
+//    }
+//    val dx = listOf(-1, 0, 1, 0)
+//    val dy = listOf(0, 1, 0, -1)
+//
+//    val visited = Array(n) {
+//        MutableList(m) { 0 }
+//    }
+//    visited[x][y] = 1
+//
+//    fun turn_left() {
+//        direction--
+//        if (direction == -1) direction = 3
+//    }
+//
+//    var count = 1
+//    var turn_time = 0
+//    while (true) {
+//        turn_left()
+//        var nx = x + dx[direction]
+//        var ny = y + dy[direction]
+//        if (visited[nx][ny] == 0 && map[nx][ny] == 0) {
+//            visited[nx][ny] = 1
+//            x = nx
+//            y = ny
+//            count++
+//            turn_time = 0
+//            continue
+//        } else {
+//            turn_time++
+//        }
+//
+//        if (turn_time == 4) {
+//            nx = x - dx[direction]
+//            ny = y - dy[direction]
+//            if (map[nx][ny] == 0) {
+//                x = nx
+//                y = ny
+//            } else {
+//                break
+//            }
+//            turn_time = 0
+//        }
+//    }
+//
+//    print(count)
+//}
+
