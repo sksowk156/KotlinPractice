@@ -509,3 +509,286 @@ import kotlin.math.min
 //    print(count)
 //}
 
+//fun main(){
+//    val array = readln().toCharArray()
+//    var front = 0
+//    var back = 0
+//    for(i in 0 until array.size/2){
+//        front += array[i].digitToInt()
+//        back += array[i + array.size/2].digitToInt()
+//    }
+//
+//    if(front == back) println("LUCKY") else println("READY")
+//}
+
+//fun main(){
+//    val array = readln().toCharArray()
+//
+//    var num = mutableListOf<Int>()
+//    var char = mutableListOf<Char>()
+//    for(i in array){
+//        if(i-'0' in 0..9) num.add(i.digitToInt())
+//        else char.add(i)
+//    }
+//
+//    char.sort()
+//    char.addAll(num.sum().toString().toMutableList())
+//    println(char.joinToString(""))
+//}
+
+//fun main() {
+//    val array = readln().toMutableList()
+//
+//    val result = mutableListOf<Int>() // 압축 배열의 길이를 저장할 변수
+//
+//    for (i in 1..array.size / 2) { // array 절반 크기만큼 반복(1씩 자르기~ 절반 자르기 -> 절반이여야 최소 2개가 나오므로)
+//        val temp = mutableListOf<Char>()
+//        val result2 = mutableListOf<Char>()
+//
+//        temp.addAll(array.slice(0 until i))
+//        var count: Int = 1
+//
+//        if(array.size == 1) println(1)
+//
+//        for (j in i until array.size step i) {
+//            var endpoint = 0
+//            endpoint = if (j + i > array.size) array.size else j+i
+//
+//            if (array.slice(j until endpoint) != temp) {
+//                if (count > 1) result2.addAll(count.toString().toMutableList())
+//                result2.addAll(temp)
+//                temp.clear()
+//                temp.addAll(array.slice(j until endpoint))
+//                count = 1
+//            } else count++
+//        }
+//        if (count > 1) result2.addAll(count.toString().toMutableList())
+//        result2.addAll(temp)
+//
+//        println("result : $result2")
+//
+//        result.add(result2.size)
+//    }
+//
+//    result.sort()
+//    println(result[0])
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//    val apple = readln().toInt()
+//    val appleArray = Array(apple) {
+//        readln().split(" ").map { it.toInt() }
+//    }
+//
+//    val trans = readln().toInt()
+//    val transArray = Array(trans) {
+//        readln().split(" ").map { it.toString() }
+//    }
+//
+//    val map = Array(n + 1) {
+//        MutableList(n + 1) { 0 }
+//    }
+//
+//    repeat(apple) {
+//        map[appleArray[it][0]][appleArray[it][1]] = 1
+//    }
+//
+//    var direction = 0
+//    val dx = listOf(0, 1, 0, -1) // 오른쪽, 밑으로, 왼쪽, 위로
+//    val dy = listOf(1, 0, -1, 0)
+//
+//    fun turn(char: Char) {
+//        if (char == 'D') {
+//            direction++
+//        } else {
+//            direction--
+//        }
+//        if (direction == 4) direction = 0
+//        if (direction == -1) direction = 3
+//    }
+//
+//    var count = 0
+//    var x = 1
+//    var y = 1
+//    map[x][y] = 2 // 첫 시작 머리 위치
+//
+//    val snaketail = ArrayDeque<Pair<Int, Int>>()
+//    snaketail.addLast(Pair(x, y)) // 첫 꼬리 위치
+//
+//    while (true) {
+//        count++
+//        val tempx = x + dx[direction]
+//        val tempy = y + dy[direction]
+//
+//        var flag = 0
+//        for (i in snaketail) { // 꼬리에 닿였을 때
+//            if (tempx == i.first && tempy == i.second) {
+//                flag = 1
+//                break
+//            }
+//        }
+//        if (flag == 1 || tempx <= 0 || tempy <= 0 || tempx > n || tempy > n) break // 종료 조건
+//
+//        // 이동할 곳에서
+//        if (map[tempx][tempy] == 1) { // 사과 발견
+//            snaketail.addLast(Pair(tempx, tempy))  // 꼬리 저장
+//        } else if(map[tempx][tempy]==0){ // 사과 없음
+//            val (tailX, tailY) = snaketail.removeFirst()
+//            map[tailX][tailY] = 0 // 꼬리 자리 옮기기
+//            snaketail.addLast(Pair(tempx, tempy)) // 꼬리도 옮기기
+//        }
+//        x = tempx // 머리 옮기기
+//        y = tempy
+//        map[x][y] = 2
+//
+//        for (i in transArray) {
+//            if (i[0].toInt() == count) {
+//                turn(i[1].toCharArray()[0])
+//                break
+//            }
+//        }
+//    }
+//
+//    println(count)
+//}
+
+//fun main() {
+//    val count = readln().toInt()
+//
+//    val build_frame = Array(count) {
+//        readln().split(" ").map { it.toInt() }
+//    }
+//
+//    val n = 100
+//    val answer = mutableListOf<IntArray>()
+//    val map = Array(n + 1) {
+//        MutableList<Int>(n + 1) { 0 }
+//    }
+//    // 기둥이면 1, 보면 2로 하자
+//
+//    for (i in build_frame) { // 0 : x // 1 : y // 2 : 기둥 or 보 // 3 : 설치 or 삭제
+//        val x = i[0]
+//        val y = i[1]
+//        val what = i[2]
+//        val state = i[3]
+//
+//        if (state == 1) {
+//            if (what == 1) {
+//                if ((x + 1 < n && y - 1 >= 0 && map[x + 1][y - 1] == 1) || (y - 1 >= 0 && map[x][y - 1] == 1)
+//                    || ((x + 1 < n && map[x + 1][y] == 2) && (x - 1 >= 0 && map[x - 1][y] == 2))
+//                ) {
+//                    // 보 설치
+//                    map[x][y] = 2
+//                    answer.add(intArrayOf(x, y, 1))
+//                }
+//            } else {
+//                if (y == 0 || (x - 1 >= 0 && map[x - 1][y] == 2) || (y - 1 >= 0 && map[x][y - 1] == 1) || map[x][y] == 2) {
+//                    // 기둥 설치
+//                    map[x][y] = 1
+//                    answer.add(intArrayOf(x, y, 0))
+//                }
+//            }
+//        } else {
+//            var deleteX = -1
+//            var deleteY = -1
+//            var deletewhat = -1
+//            var position = -1
+//            for (i in 0 until answer.size) {
+//                if (x == answer[i][0] && y == answer[i][1] && what == answer[i][2]) {
+//                    deleteX = answer[i][0]
+//                    deleteY = answer[i][1]
+//                    deletewhat = answer[i][2]
+//                    position = i
+//                }
+//            }
+//            if (position != -1) {
+//                answer.removeAt(position)
+//                map[deleteX][deleteY] = 0
+//                var check = false
+//                for (i in 0 until answer.size) {
+//                    val tempX = answer[i][0]
+//                    val tempY = answer[i][1]
+//                    val tempwhat = answer[i][2]
+//                    if (tempwhat == 1) { // 보
+//                        if ((tempX + 1 < n && tempY - 1 >= 0 && map[tempX + 1][tempY - 1] == 1) || (tempY - 1 >= 0 && map[tempX][tempY - 1] == 1)
+//                            || ((tempX + 1 < n && map[tempX + 1][tempY] == 2) && (tempX - 1 >= 0 && map[tempX - 1][tempY] == 2))
+//                        ) {
+//                        } else {
+//                            check = true
+//                            break
+//                        }
+//                    } else { // 기둥
+//                        if (tempY == 0 || (tempX - 1 >= 0 && map[tempX - 1][tempY] == 2) || (tempY - 1 >= 0 && map[tempX][tempY - 1] == 1) || map[tempX][tempY] == 2) {
+//                        } else {
+//                            check = true
+//                            break
+//                        }
+//                    }
+//                }
+//
+//                if (check) { // 삭제하지 않을 때
+//                    answer.add(intArrayOf(deleteX, deleteY, deletewhat))
+//                    map[deleteX][deleteY] = deletewhat + 1
+//                }
+//            }
+//        }
+//    }
+//    answer.sortWith(compareBy<IntArray> { it[0] }.thenBy { it[1] }.thenBy { it[2] })
+//    for(i in answer){
+//        println(i.contentToString())
+//    }
+//    answer.toTypedArray()
+//}
+
+fun main() {
+    val (n, m) = readln().split(" ").map { it.toInt() }
+    val house = mutableListOf<Pair<Int, Int>>()
+    val store = mutableListOf<Pair<Int, Int>>()
+    repeat(n) {
+        var temp = readln().split(" ").map { it.toInt() }
+        for (i in 0 until temp.size) {
+            if (temp[i] == 1) {
+                house.add(Pair(it, i))
+            } else if (temp[i] == 2) {
+                store.add(Pair(it, i))
+            }
+        }
+    }
+
+//    for (i in 0 until n) {
+//        for (j in 0 until n) {
+//            if (map[i][j] == 1) {
+//                house.add(Pair(i, j))
+//            } else if (map[i][j] == 2) {
+//                store.add(Pair(i, j))
+//            }
+//        }
+//    }
+
+    var result = 10000
+    var selectedStore = mutableListOf<Pair<Int, Int>>()
+    fun storeCount(startidx: Int, count: Int) {
+        if (count == m) {
+            var temp = 0
+            for (i in house) {
+                var dist = 1000
+                for (j in selectedStore) {
+                    if(dist==1) break
+                    dist = Math.min(dist, Math.abs(i.first - j.first) + Math.abs(i.second - j.second))
+                }
+                temp += dist
+            }
+            result = Math.min(result, temp)
+        } else {
+            for (i in startidx until store.size) {
+                selectedStore.add(store[i])
+                storeCount(startidx + 1, count+1)
+                selectedStore.remove(store[i])
+            }
+        }
+    }
+
+    storeCount(0, 0)
+    println(result)
+}
