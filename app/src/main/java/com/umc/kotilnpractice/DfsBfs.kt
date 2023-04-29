@@ -683,3 +683,187 @@ import kotlin.math.abs
 //    bfs(Pair(Pair(0, 0), Pair(0, 1)))
 //    println(result.min())
 //}
+
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val array = Array(n) {
+//        readln().toCharArray().map { it.digitToInt() }.toMutableList()
+//    }
+//
+//    val dx = arrayOf(0, 0, 1, -1)
+//    val dy = arrayOf(1, -1, 0, 0)
+//
+//    fun bfs(start: Pair<Int, Int>) {
+//        val q = ArrayDeque<Pair<Int, Int>>()
+//        q.addLast(start)
+//        array[start.first][start.second] = 1
+//        while (q.isNotEmpty()) {
+//            val temp2 = q.removeFirst()
+//            repeat(4) { i ->
+//                val tempX = temp2.first + dx[i]
+//                val tempY = temp2.second + dy[i]
+//                if (tempX < n && tempX > -1 && tempY < m && tempY > -1 && array[tempX][tempY] == 0) {
+//                    q.addLast(Pair(tempX,tempY))
+//                    array[tempX][tempY] = 1
+//                }
+//            }
+//        }
+//    }
+//
+//    var count = 0
+//    for (i in 0 until n) {
+//        for (j in 0 until m) {
+//            if (array[i][j] == 0) {
+//                bfs(Pair(i,j))
+//                count++
+//            }
+//        }
+//    }
+//
+//    println(count)
+//}
+
+//fun main(){
+//    val (n,m) = readln().split(" ").map{it.toInt()}
+//    val array = Array(n){
+//        readln().toCharArray().map{it.digitToInt()}.toMutableList()
+//    }
+//    val dx = arrayOf(0,0,1,-1)
+//    val dy = arrayOf(1,-1,0,0)
+//    fun bfs(start:Pair<Int,Int>){
+//        val q = ArrayDeque<Pair<Int,Int>>()
+//        q.addLast(start)
+//        while(q.isNotEmpty()){
+//            val temp = q.removeFirst()
+//            repeat(4){i->
+//                val tempX = temp.first + dx[i]
+//                val tempY = temp.second + dy[i]
+//                if(tempX<n && tempX>-1 && tempY<m && tempY>-1 && array[tempX][tempY]==1 && Pair(tempX,tempY)!=start){ // 시작점이 '1'이기 때문에 다시 돌아가는 것을 막기 위해
+//                    array[tempX][tempY] = array[temp.first][temp.second]+1
+//                    q.addLast(Pair(tempX,tempY))
+//                }
+//            }
+//        }
+//    }
+//    bfs(Pair(0,0))
+//    for(i in array){
+//        println(i)
+//    }
+//    println(array[n-1][m-1])
+//}
+
+//fun main() {
+//    val data = readln().split(" ").map { it.toInt() }
+////    val list = Array(data[0]) {
+////        readln().split(" ").map { it.toInt() }
+////    }
+////
+////    val rode = Array(data[0] + 1) {
+////        mutableListOf<Int>()
+////    }
+////
+////    for (i in list) {
+////        rode[i[0]].add(i[1])
+////    }
+//
+//    val rode = Array(data[0]+1){
+//        mutableListOf<Int>()
+//    }
+//    repeat(data[1]){
+//        val (start, end) = readln().split(" ").map { it.toInt() }
+//        rode[start].add(end)
+//    }
+//
+//    val visited = MutableList(data[0] + 1) { 0 }
+//    fun bfs(start: Int) {
+//        val q = ArrayDeque<Int>()
+//        q.addLast(start)
+//        visited[start] = 0
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            for (i in rode[temp]) {
+//                if (visited[i] == 0) {
+//                    visited[i] = visited[temp] + 1
+//                    q.addLast(i)
+//                }
+//            }
+//        }
+//    }
+//
+//    bfs(data[3])
+//    println(visited)
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val array = Array(n) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    val virus = mutableListOf<Pair<Int, Int>>()
+//
+//    for (i in 0 until n) {
+//        for (j in 0 until m) {
+//            if (array[i][j] == 2) {
+//                virus.add(Pair(i, j))
+//            }
+//        }
+//    }
+//
+//    val dx = arrayOf(0, 0, 1, -1)
+//    val dy = arrayOf(1, -1, 0, 0)
+//
+//    fun bfs(start: Pair<Int, Int>, array2: Array<MutableList<Int>>) {
+//        val q = ArrayDeque<Pair<Int, Int>>()
+//        q.addLast(start)
+//        while (q.isNotEmpty()) {
+//            val point = q.removeFirst()
+//            repeat(4) { i ->
+//                val tempX = dx[i] + point.first
+//                val tempY = dy[i] + point.second
+//                if (tempX < n && tempX > -1 && tempY < m && tempY > -1 && array2[tempX][tempY] == 0) {
+//                    array2[tempX][tempY] = 2
+//                    q.addLast(Pair(tempX, tempY))
+//                }
+//            }
+//        }
+//    }
+//
+//    var result = 0
+//    fun combination(count: Int) {
+//        if (count == 3) {
+//            val temp = Array(n) {
+//                mutableListOf<Int>()
+//            }
+//
+//            for (i in 0 until n) {
+//                temp[i].addAll(array[i])
+//            }
+//
+//            for (i in virus) {
+//                bfs(i, temp)
+//            }
+//
+//            var count = 0
+//            for (i in 0 until n) {
+//                for (j in 0 until m) {
+//                    if (temp[i][j] == 0) count++
+//                }
+//            }
+//
+//            if(count > 0) result = Math.max(result, count)
+//        } else {
+//            for (i in 0 until n) {
+//                for (j in 0 until m) {
+//                    if (array[i][j] == 0) {
+//                        array[i][j] = 1
+//                        combination(count + 1)
+//                        array[i][j] = 0
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    combination(0)
+//    println(result)
+//}

@@ -741,54 +741,54 @@ import kotlin.math.min
 //    answer.toTypedArray()
 //}
 
-fun main() {
-    val (n, m) = readln().split(" ").map { it.toInt() }
-    val house = mutableListOf<Pair<Int, Int>>()
-    val store = mutableListOf<Pair<Int, Int>>()
-    repeat(n) {
-        var temp = readln().split(" ").map { it.toInt() }
-        for (i in 0 until temp.size) {
-            if (temp[i] == 1) {
-                house.add(Pair(it, i))
-            } else if (temp[i] == 2) {
-                store.add(Pair(it, i))
-            }
-        }
-    }
-
-//    for (i in 0 until n) {
-//        for (j in 0 until n) {
-//            if (map[i][j] == 1) {
-//                house.add(Pair(i, j))
-//            } else if (map[i][j] == 2) {
-//                store.add(Pair(i, j))
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val house = mutableListOf<Pair<Int, Int>>()
+//    val store = mutableListOf<Pair<Int, Int>>()
+//    repeat(n) {
+//        var temp = readln().split(" ").map { it.toInt() }
+//        for (i in 0 until temp.size) {
+//            if (temp[i] == 1) {
+//                house.add(Pair(it, i))
+//            } else if (temp[i] == 2) {
+//                store.add(Pair(it, i))
 //            }
 //        }
 //    }
-
-    var result = 10000
-    var selectedStore = mutableListOf<Pair<Int, Int>>()
-    fun storeCount(startidx: Int, count: Int) {
-        if (count == m) {
-            var temp = 0
-            for (i in house) {
-                var dist = 1000
-                for (j in selectedStore) {
-                    if(dist==1) break
-                    dist = Math.min(dist, Math.abs(i.first - j.first) + Math.abs(i.second - j.second))
-                }
-                temp += dist
-            }
-            result = Math.min(result, temp)
-        } else {
-            for (i in startidx until store.size) {
-                selectedStore.add(store[i])
-                storeCount(startidx + 1, count+1)
-                selectedStore.remove(store[i])
-            }
-        }
-    }
-
-    storeCount(0, 0)
-    println(result)
-}
+//
+////    for (i in 0 until n) {
+////        for (j in 0 until n) {
+////            if (map[i][j] == 1) {
+////                house.add(Pair(i, j))
+////            } else if (map[i][j] == 2) {
+////                store.add(Pair(i, j))
+////            }
+////        }
+////    }
+//
+//    var result = 10000
+//    var selectedStore = mutableListOf<Pair<Int, Int>>()
+//    fun storeCount(startidx: Int, count: Int) {
+//        if (count == m) {
+//            var temp = 0
+//            for (i in house) {
+//                var dist = 1000
+//                for (j in selectedStore) {
+//                    if(dist==1) break
+//                    dist = Math.min(dist, Math.abs(i.first - j.first) + Math.abs(i.second - j.second))
+//                }
+//                temp += dist
+//            }
+//            result = Math.min(result, temp)
+//        } else {
+//            for (i in startidx until store.size) {
+//                selectedStore.add(store[i])
+//                storeCount(startidx + 1, count+1)
+//                selectedStore.remove(store[i])
+//            }
+//        }
+//    }
+//
+//    storeCount(0, 0)
+//    println(result)
+//}
