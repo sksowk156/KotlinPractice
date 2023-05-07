@@ -1,6 +1,8 @@
 package com.umc.kotilnpractice
 
+import android.content.res.TypedArray
 import android.os.Build.VERSION_CODES.N
+import android.os.Build.VERSION_CODES.P
 import android.text.BoringLayout
 import android.util.Log
 import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
@@ -866,4 +868,440 @@ import kotlin.math.abs
 //    }
 //    combination(0)
 //    println(result)
+//}
+
+//data class virus(val x: Int, val y: Int, val what: Int, val time: Int)
+//
+//fun main() {
+//    val (n, k) = readln().split(" ").map { it.toInt() }
+//    val array = Array(n) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    val viruses = mutableListOf<virus>()
+//
+//
+//    for (i in 0 until n) {
+//        for (j in 0 until n) {
+//            if (array[i][j] <= k && array[i][j] >= 1) {
+//                viruses.add(virus(i, j, array[i][j],0))
+//            }
+//        }
+//    }
+//
+//    viruses.sortBy{it.what}
+//
+//    val (s, x, y) = readln().split(" ").map { it.toInt() }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    fun bfs(list: MutableList<virus>) {
+//        val q = ArrayDeque<virus>()
+//        q.addAll(list)
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            if (temp.time == s) break
+//            repeat(4) { i ->
+//                val tempX = temp.x + dx[i]
+//                val tempY = temp.y + dy[i]
+//                if (tempX > -1 && tempX < n && tempY > -1 && tempY < n && array[tempX][tempY] == 0) {
+//                    array[tempX][tempY] = temp.what
+//                    q.addLast(virus(tempX, tempY, temp.what, temp.time + 1))
+//                }
+//            }
+//        }
+//    }
+//
+//    bfs(viruses)
+//
+//    for (i in 0 until n) {
+//        println(array[i])
+//    }
+//
+//    println(array[x - 1][y - 1])
+//}
+
+//fun main(){
+//    val array = readln()
+//
+//    fun checkright(array:String):Boolean{
+//        var balance = 0
+//        for(i in array){
+//            if(i == '(') balance++
+//            else balance--
+//
+//            if(balance<0){
+//                return false
+//            }
+//        }
+//        return true
+//    }
+//
+//    fun bfs(array:String) : String{
+//        var result = ""
+//        if(array.isEmpty()) return ""
+//        else{
+//            var valance = 0
+//            var u = ""
+//            var v = ""
+//            for(i in array.indices){
+//                if(array[i] == '('){
+//                    valance++
+//                }else if(array[i] == ')'){
+//                    valance--
+//                }
+//
+//                if(valance == 0){
+//                    u = array.slice(0.. i)
+//                    v = array.slice(i+1 until array.length)
+//                    break
+//                }
+//            }
+//
+//            if(checkright(u)){
+//                result = result.plus(u).plus(bfs(v))
+//            }else{
+//                result = "("
+//                result = result.plus(bfs(v))
+//                result = result.plus(')')
+//
+//                var temp = ""
+//                for(i in 1 until u.length-1){
+//                    if(u[i] == '(') temp = temp.plus(')')
+//                    else if(u[i] == ')') temp = temp.plus('(')
+//                }
+//                result = result.plus(temp)
+//            }
+//            return result
+//        }
+//    }
+//    var result = ""
+//    result = result.plus(bfs(array))
+//    println("result2 : $result")
+//}
+
+//fun main(){
+//    val num = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.toMutableList()
+//    val operation = readln().split(" ").map { it.toInt() }.toMutableList()
+//
+//    val result = mutableListOf<Int>()
+//    val oper = mutableListOf<Int>()
+//
+//    fun combination(count:Int){
+//        if(count == num-1) {
+//            var temp = array[0]
+//            for(i in 1 until array.size){
+//                when (oper[i-1]) {
+//                    0 -> {
+//                        // +
+//                        temp += array[i]
+//                    }
+//                    1 -> {
+//                        // -
+//                        temp -= array[i]
+//                    }
+//                    2 -> {
+//                        // *
+//                        temp *= array[i]
+//                    }
+//                    3 -> {
+//                        // /
+//                        if(temp < 0){
+//                            var temp2 = -temp
+//                            temp2 /= array[i]
+//                            temp = -temp2.toInt()
+//                        }else{
+//                            temp /= array[i]
+//                        }
+//                    }
+//                }
+//            }
+//
+//           result.add(temp.toInt())
+//        }else{
+//            for(i in 0 until operation.size){
+//                if(operation[i] >= 1){
+//                    oper.add(i)
+//                    operation[i]--
+//                    combination(count+1)
+//                    operation[i]++
+//                    oper.removeLast()
+//                }
+//            }
+//        }
+//    }
+//
+//    combination(0)
+//    println(result.max())
+//    println(result.min())
+//}
+
+//fun main() {
+//    val size = readln().toInt()
+//    val array = Array(size) {
+//        readln().split(" ").map { it }.toMutableList()
+//    }
+//
+//    val teacherLocation = mutableListOf<Pair<Int, Int>>()
+//    for (i in 0 until size) {
+//        for (j in 0 until size) {
+//            if (array[i][j] == "T") {
+//                teacherLocation.add(Pair(i, j))
+//            }
+//        }
+//    }
+//
+//
+//    val dx = listOf(0, 0, -1, 1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    fun checkvisible(temp_array: Array<MutableList<String>>): Boolean {
+//        for (i in teacherLocation) {
+//            val temp = MutableList(4) { 0 }
+//            for (j in 1 until size) {
+//                repeat(4) {
+//                    val tempX = i.first + (dx[it] * j)
+//                    val tempY = i.second + (dy[it] * j)
+//                    if (tempX > -1 && tempX < size && tempY > -1 && tempY < size) {
+//                        if (temp_array[tempX][tempY] == "S") {
+//                            if(temp[it]!=1){
+//                                temp[it] = -1
+//                            }
+//                        }else if (temp_array[tempX][tempY] == "O") {
+//                            temp[it] = 1
+//                        }
+//                    }
+//
+//                    if (temp[it] < 0) return false
+//                }
+//            }
+//        }
+//
+//        return true
+//    }
+//
+//    fun combination(count: Int) : String{
+//        if (count == 3) {
+//            if (checkvisible(array)) {
+//                return "YES"
+//            }
+//        } else {
+//            for (i in 0 until size) {
+//                for (j in 0 until size) {
+//                    if (array[i][j] == "X") {
+//                        array[i][j] = "O"
+//                        if(combination(count + 1) == "YES") return "YES"
+//                        array[i][j] = "X"
+//                    }
+//                }
+//            }
+//        }
+//        return "NO"
+//    }
+//
+//    val result = combination(0)
+//    println(result)
+//}
+
+//fun main() {
+//    val (n, l, r) = readln().split(" ").map { it.toInt() }
+//    val array = Array(n) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    val dx = listOf(0, 0, -1, 1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    var visited = Array(n) {
+//        MutableList(n) { 0 }
+//    }
+//
+//    fun bfs(start: Pair<Int, Int>): Boolean {
+//        val country = mutableListOf<Triple<Int, Int, Int>>()
+//        val q = ArrayDeque<Pair<Int, Int>>()
+//
+//        q.addLast(Pair(start.first, start.second))
+//        country.add(Triple(start.first, start.second, array[start.first][start.second]))
+//        visited[start.first][start.second] = 1
+//
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            repeat(4) {
+//                val tempX = temp.first + dx[it]
+//                val tempY = temp.second + dy[it]
+//
+//                if (tempX > -1 && tempX < n && tempY > -1 && tempY < n && visited[tempX][tempY] == 0) {
+//                    val LR = Math.abs(array[temp.first][temp.second] - array[tempX][tempY])
+//                    if (LR in l..r) {
+//                        q.addLast(Pair(tempX, tempY))
+//                        country.add(Triple(tempX, tempY, array[tempX][tempY]))
+//                        visited[tempX][tempY] = 1
+//                    }
+//                }
+//            }
+//        }
+//
+//        if (country.size > 1) {
+//            val people = country.sumOf { it.third } / country.size
+//            for (i in country) {
+//                array[i.first][i.second] = people
+//            }
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+//
+//    var count = 0
+//    while (true) {
+//        var temp = false
+//        for (i in 0 until n) {
+//            for (j in 0 until n) {
+//                if (visited[i][j] == 0) {
+//                    if (bfs(Pair(i, j))) temp = true
+//                }
+//            }
+//        }
+//
+//        if (temp) count++
+//        else break
+//
+//        visited = Array(n) {
+//            MutableList(n) { 0 }
+//        }
+//    }
+//    println(count)
+//}
+
+//fun main() {
+//    val size = readln().toInt()
+//    val array = Array(size) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    fun rotate(
+//        robot: MutableList<Pair<Int, Int>>,
+//        array: Array<MutableList<Int>>
+//    ): MutableList<Pair<Int, Int>> {
+//        val temp = MutableList(2) { Pair(0, 0) }
+//        if (robot[0].first == robot[1].first) { // 가로
+//            val tempX = robot[1].first + 1
+//            val tempY = robot[1].second + 1
+//            if (tempY < size && tempX < size && array[robot[1].first][tempY] != 1 && array[tempX][tempY] != 1) { // 회전 방향에 벽이 없다면
+//                temp[1] = robot[0]
+//                temp[0] = Pair(tempX, tempY)
+//            }
+//        } else { // 세로
+//            val tempX = robot[1].first + 1
+//            val tempY = robot[1].second + 1
+//            if (tempY < size && tempX < size && array[tempX][robot[1].second] != 1 && array[tempX][tempY] != 1) { // 회전 방향에 벽이 없다면
+//                temp[1] = robot[0]
+//                temp[0] = Pair(tempX, tempY)
+//            }
+//        }
+//        return temp
+//    }
+//
+//    fun move_right(
+//        robot: MutableList<Pair<Int, Int>>,
+//        array: Array<MutableList<Int>>
+//    ): MutableList<Pair<Int, Int>> {
+//        val temp = MutableList(2) { Pair(0, 0) }
+//
+//        if (robot[0].first == robot[1].first) { // 가로
+//            val tempX = robot[0].first
+//            val tempY = robot[0].second + 1
+//            if (tempY < size && array[tempX][tempY] != 1) {
+//                temp[1] = robot[0]
+//                temp[0] = Pair(tempX, tempY)
+//            }
+//        } else { // 세로
+//            val tempX = robot[0].first
+//            val tempX2 = robot[1].first
+//            val tempY = robot[0].second + 1
+//            if (tempY < size && array[tempX][tempY] != 1 && array[tempX2][tempY] != 1) {
+//                temp[1] = Pair(tempX2, tempY)
+//                temp[0] = Pair(tempX, tempY)
+//            }
+//        }
+//        return temp
+//    }
+//
+//    fun move_down(
+//        robot: MutableList<Pair<Int, Int>>,
+//        array: Array<MutableList<Int>>
+//    ): MutableList<Pair<Int, Int>> {
+//        val temp = MutableList(2) { Pair(0, 0) }
+//
+//        if (robot[0].first == robot[1].first) { // 가로
+//            val tempY = robot[0].second
+//            val tempY2 = robot[1].second
+//            val tempX = robot[0].first + 1
+//            if (tempX < size && array[tempX][tempY] != 1 && array[tempX][tempY2] != 1) {
+//                temp[1] = Pair(tempX, tempY2)
+//                temp[0] = Pair(tempX, tempY)
+//            }
+//        } else { // 세로
+//            val tempX = robot[0].first + 1
+//            val tempY = robot[0].second
+//            if (tempX < size && array[tempX][tempY] != 1) {
+//                temp[1] = robot[0]
+//                temp[0] = Pair(tempX, tempY)
+//            }
+//        }
+//        return temp
+//    }
+//
+//    fun bfs(startrobot: MutableList<Pair<Int, Int>>) {
+//        val q = ArrayDeque<MutableList<Pair<Int, Int>>>()
+//        q.addLast(startrobot)
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            val rotate = rotate(temp, array)
+//            val right = move_right(temp, array)
+//            val down = move_down(temp, array)
+//
+//            if (rotate != MutableList(2) { Pair(0, 0) }) {
+//                q.addLast(rotate)
+//                if (array[rotate[0].first][rotate[0].second] < 0) {
+//                    array[rotate[0].first][rotate[0].second] = Math.max(
+//                        array[rotate[0].first][rotate[0].second],
+//                        array[temp[0].first][temp[0].second] - 1
+//                    )
+//                } else {
+//                    array[rotate[0].first][rotate[0].second] =
+//                        array[temp[0].first][temp[0].second] - 1
+//                }
+//            }
+//            if (right != MutableList(2) { Pair(0, 0) }) {
+//                q.addLast(right)
+//                if (array[right[0].first][right[0].second] < 0) {
+//                    array[right[0].first][right[0].second] = Math.max(
+//                        array[right[0].first][right[0].second],
+//                        array[temp[0].first][temp[0].second] - 1
+//                    )
+//                } else {
+//                    array[right[0].first][right[0].second] =
+//                        array[temp[0].first][temp[0].second] - 1
+//                }
+//            }
+//            if (down != MutableList(2) { Pair(0, 0) }) {
+//                q.addLast(down)
+//                if (array[down[0].first][down[0].second] < 0) {
+//                    array[down[0].first][down[0].second] = Math.max(
+//                        array[down[0].first][down[0].second],
+//                        array[temp[0].first][temp[0].second] - 1
+//                    )
+//                } else {
+//                    array[down[0].first][down[0].second] = array[temp[0].first][temp[0].second] - 1
+//                }
+//            }
+//        }
+//    }
+//
+//    val robot = mutableListOf(Pair(0, 1), Pair(0, 0))
+//    bfs(robot)
+//    println(-array[size - 1][size - 1])
 //}
