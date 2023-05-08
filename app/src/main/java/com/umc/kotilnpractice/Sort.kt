@@ -383,4 +383,74 @@ import kotlin.reflect.typeOf
 //    fail.forEach{print(it.first)}
 //}
 
-// 4
+//data class data(val name: String, val kor: Int, val eng: Int, val math: Int)
+//
+//fun main() {
+//    val count = readln().toInt()
+//    val array = Array(count){
+//        val (name, kor, eng, math) = readln().split(" ")
+//        data(name, kor.toInt(), eng.toInt(), math.toInt())
+//    }
+//
+//    array.sortWith(compareByDescending<data> { it.kor }
+//        .thenBy { it.eng }
+//        .thenByDescending{it.math}
+//        .thenBy { it.name })
+//
+//    for(i in 0 until count){
+//        println(array[i].name)
+//    }
+//
+//}
+
+//fun main(){
+//    val size = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.toMutableList()
+//    array.sort()
+//
+//    var sum1 = 0
+//    var sum2 = 0
+//    var sum3 = 0
+//    for(i in array.indices){
+//        sum1 += Math.abs(array[i]-array[size/2])
+//        sum2 += Math.abs(array[i]-array[size/2-1])
+//        sum3 += Math.abs(array[i]-array[size/2+1])
+//    }
+//    val result = mutableListOf<Pair<Int,Int>>()
+//    result.add(Pair(sum1,size/2))
+//    result.add(Pair(sum2,size/2-1))
+//    result.add(Pair(sum3,size/2+1))
+//    result.sortWith( compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second })
+//    println(result)
+//}
+
+//fun main(){
+//    val N = readln().toInt()
+//    val stages = readln().split(" ").map { it.toInt() }.toIntArray()
+//    val result = mutableListOf<Pair<Int,Double>>() // 스테이지 번호, 실패율
+//
+//    var challengepeople = stages.size
+//    for(i in 1..N){
+//        var notclear = 0
+//        for(j in stages.indices){
+//            if(stages[j]==i){
+//                notclear++
+//            }
+//        }
+//        var fail = 0.0
+//        if(challengepeople != 0){
+//            fail = notclear / challengepeople.toDouble()
+//        }
+//        challengepeople -= notclear
+//        result.add(Pair(i, fail))
+//    }
+//
+//    result.sortByDescending { it.second }
+//
+//    var answer = intArrayOf()
+//    for(i in result.indices){
+//        answer = answer.plus(result[i].first)
+//    }
+//    println(answer.contentToString())
+//}
+
