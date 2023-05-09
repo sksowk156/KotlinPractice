@@ -454,3 +454,25 @@ import kotlin.reflect.typeOf
 //    println(answer.contentToString())
 //}
 
+//fun main() {
+//    val n = readln().toInt()
+//    val array = PriorityQueue<Int>()
+//
+//    repeat(n) {
+//        array.add(readln().toInt())
+//    }
+//
+//    val result = mutableListOf<Int>()
+//
+//    while (array.isNotEmpty()) {
+//        if(array.size > 1){
+//            val sum = array.poll()+ array.poll()
+//            result.add(sum )
+//            array.add(sum)
+//        }else{
+//            array.poll()
+//        }
+//    }
+//
+//    println(result.sum())
+//}
