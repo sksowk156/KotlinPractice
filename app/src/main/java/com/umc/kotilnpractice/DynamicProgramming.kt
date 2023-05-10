@@ -380,3 +380,92 @@ import kotlin.math.min
 //    if (a.length - a_result.size > b.length - b_result.size) println(a.length - a_result.size)
 //    else println(b.length - b_result.size)
 //}
+
+//fun main() {
+//    var num = readln().toInt()
+//
+//    val result = MutableList<Int>(num+1) { 0 }
+//
+//    result[1] = 0 // 1
+//    result[2] = 1 // 2
+//    result[3] = 1 // 3
+//    result[5] = 1// 5
+//
+//    fun find(num: Int) {
+//        val temp = mutableListOf<Int>()
+//
+//        if (num % 5 == 0) {
+//            temp.add(result[num / 5] + 1)
+//        }
+//        if (num % 3 == 0) {
+//            temp.add(result[num / 3] + 1)
+//        }
+//        if (num % 2 == 0) {
+//            temp.add(result[num / 2] + 1)
+//        }
+//        if (num > 1 ){
+//            temp.add(result[num -1] + 1)
+//        }
+//
+//        result[num] = temp.min()
+//    }
+//
+//    for (i in 4 .. num ) {
+//        find(i)
+//    }
+//
+//    println(result[num])
+//}
+
+//fun main(){
+//    val size = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }
+//
+//    val food = MutableList<Int>(size){0}
+//    food[0] = array[0]
+//    food[1] = max(array[0], array[1])
+//
+//    for(i in 2 until size){
+//        food[i] = max(food[i-1],food[i-2]+array[i])
+//    }
+//
+//    println(food[size-1])
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//
+//    val result = MutableList<Int>(n + 1) { 0 }
+//    result[1] = 1
+//    result[2] = 3
+//    for (i in 3..n) {
+//        result[i] = 1 * result[i - 1] + 2 * result[i - 2]
+//    }
+//
+//    println(result)
+//}
+
+//fun main(){
+//    val (size, target) = readln().split(" ").map{it.toInt()}
+//    val array = MutableList<Int>(size){
+//        readln().toInt()
+//    }
+//
+//    val result = MutableList<Int>(100){100}
+//    for(i in array){
+//        result[i] = 1
+//    }
+//
+//    for(i in array.min()+1 .. target){
+//        for(j in array){
+//            if(i % j == 0){
+//                result[i] = Math.min(i/j, result[i])
+//            }
+//            if(i - j > 0){
+//                result[i] = Math.min(result[i-j]+1, result[i])
+//            }
+//        }
+//    }
+//
+//    println(result)
+//}

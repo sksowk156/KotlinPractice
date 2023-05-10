@@ -229,3 +229,79 @@ import kotlin.collections.ArrayList
 //    }
 //
 //}
+
+//fun main() {
+//    val words = Array<String>(6) {
+//        readln()
+//    }
+//    val queries = Array<String>(5) {
+//        readln()
+//    }
+//    words.sortWith(compareBy<String> { it.length }.thenBy { it })
+//
+//    fun binary_search(words: MutableList<String>, find: String, start: Int, end: Int): Boolean {
+//        if (start > end) return false
+//
+//        val mid = (start + end) / 2
+//
+//        val checkword = words[mid]
+//        if (checkword.length == find.length) {
+//            var state = 0
+//
+//            for (i in checkword.indices) {
+//                if (find[i] == '?') {
+//                    continue
+//                }
+//
+//                if (checkword[i] > find[i]) {
+//                    state = 1
+//                    break
+//                } else if (checkword[i] < find[i]) {
+//                    state = 2
+//                    break
+//                }
+//            }
+//
+//            if (state == 0) {
+//                words.removeAt(mid)
+//                return true
+//            } else if (state == 1) {
+//                return binary_search(words, find, start, mid - 1)
+//            } else {
+//                return binary_search(words, find, mid + 1, end)
+//            }
+//        } else if (checkword.length > find.length) {
+//            return binary_search(words, find, start, mid - 1)
+//        } else {
+//            return binary_search(words, find, mid + 1, end)
+//        }
+//    }
+//
+//    var answer = intArrayOf()
+//    for (i in queries) {
+//        val temp = mutableListOf<String>()
+//        var tempquery = i
+//
+//        if(i[0]=='?'){
+//            for(i in words){
+//                temp.add(i.reversed())
+//            }
+//            temp.sortWith(compareBy<String> { it.length }.thenBy { it })
+//            tempquery = i.reversed()
+//        }else{
+//            temp.addAll(words)
+//        }
+//
+//        var count = 0
+//        while (true) {
+//            if(!binary_search(temp, tempquery, 0, temp.size - 1)){
+//                break
+//            }
+//            count++
+//        }
+//        answer.plus(count)
+//    }
+//
+//    println(answer)
+//    // 단어 개수별로 먼저 나누자,
+//}
