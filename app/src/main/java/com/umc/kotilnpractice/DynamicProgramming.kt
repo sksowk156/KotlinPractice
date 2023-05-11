@@ -469,3 +469,102 @@ import kotlin.math.min
 //
 //    println(result)
 //}
+
+//fun main() {
+//    val count = readln().toInt()
+//
+//    val dx = listOf(0,1,-1)
+//    val dy = listOf(1,1,1)
+//
+//    repeat(count) {
+//        val (x, y) = readln().split(" ").map { it.toInt() }
+//        val temp = readln().split(" ").map { it.toInt() }.toMutableList()
+//        val array = Array(x){
+//            arrayOf<Int>()
+//        }
+//
+//        val result = mutableListOf<Int>()
+//
+//        for(i in 0 until x){
+//            array[i] = temp.slice(y*i until (y*i)+y).toTypedArray()
+//        }
+//
+//        for(i in 0 until x){
+//            println(array[i].contentToString())
+//        }
+//        println("")
+//
+//
+//        for(i in 1 until y){
+//            for(j in 0 until x){
+//                var max = array[j][i]
+//                if(j+1<x){
+//                    max = Math.max(max,array[j+1][i-1]+ array[j][i])
+//                }
+//                if(j-1>-1){
+//                    max= Math.max(max,array[j-1][i-1]  + array[j][i])
+//                }
+//                max = Math.max(max,array[j][i-1]  + array[j][i])
+//                array[j][i]= max
+//            }
+//        }
+//
+//        for(i in 0 until x){
+//            println(array[i].contentToString())
+//        }
+//
+//        println(array[x-1][y-1])
+//    }
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//
+//    val array = Array(n) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    for (i in 1 until n) {
+//        for (j in 0 until array[i].size) {
+//            var max = array[i][j]
+//            if (j - 1 > -1) {
+//                max = Math.max(max, array[i][j] + array[i-1][j-1])
+//            }
+//            if (j < array[i - 1].size) {
+//                max = Math.max(max, array[i][j] + array[i-1][j])
+//            }
+//            array[i][j] = max
+//        }
+//    }
+//
+//    println(array[n-1].max())
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//    val array = Array(n + 2) {
+//        MutableList(2){0}
+//    }
+//
+//    repeat(n) {
+//        array[it + 1] = readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    val result = MutableList<Int>(n + 2) { 0 }
+//    for (i in 1..n+1) {
+//
+//        if(result[i] == 0){
+//            val temp = result.slice(1..i)
+//            if (result[i] < temp.max())
+//                result[i] = temp.max()
+//        }
+//
+//        val targetdate = array[i][0] + i
+//        if (targetdate <= n+1) {
+//            result[targetdate] = Math.max(result[targetdate], result[i] + array[i][1])
+//        }
+//
+//    }
+//
+//    println(result[n+1])
+//}
