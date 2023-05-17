@@ -568,3 +568,64 @@ import kotlin.math.min
 //
 //    println(result[n+1])
 //}
+
+//fun main() {
+//    val size = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.toMutableList()
+//
+//    val result = MutableList<Int>(size) { 1 }
+//
+//    for(i in 1 until size){
+//            var maxx = 1
+//            for(j in i-1  downTo 0){
+//                if(array[i] < array[j]){
+//                    maxx = Math.max(maxx, result[j]+1)
+//                }
+//            }
+//            result[i] = maxx
+//    }
+//    println(size - result.max())
+//}
+
+//fun main(){
+//    val n = readln().toInt()
+//
+//    val result = mutableListOf<Int>(1)
+//    val num = listOf(2,3,5)
+//
+//    var i = 2
+//    while(result.size < n){
+//        for(j in num){
+//            if(i%j==0 && result.contains(i/j)){
+//                result.add(i)
+//                break
+//            }
+//        }
+//        i++
+//    }
+//    println(result)
+//}
+
+fun main(){
+    val before = readln().toCharArray()
+    val after = readln().toCharArray()
+
+    val result = MutableList(after.size){-1}
+
+    var k = 0
+    for(i in before.indices){
+        for(j in k until after.size){
+            if(before[i] == after[j]){
+                result[j] = i
+                k = j+1
+                break
+            }
+        }
+    }
+
+    for(i in result){
+
+    }
+
+    println(result)
+}
