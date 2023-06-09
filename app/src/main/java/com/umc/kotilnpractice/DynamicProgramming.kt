@@ -2,6 +2,7 @@ package com.umc.kotilnpractice
 
 import android.os.Build.VERSION_CODES.P
 import java.lang.Integer.max
+import java.util.PriorityQueue
 import kotlin.math.min
 
 //fun main(){
@@ -606,26 +607,76 @@ import kotlin.math.min
 //    println(result)
 //}
 
-fun main(){
-    val before = readln().toCharArray()
-    val after = readln().toCharArray()
+//fun main(){
+//    val (n,m) = readln().split(" ").map { it.toInt() }
+//
+//    val nearnode = Array(n+1){
+//        mutableListOf<Int>()
+//    }
+//
+//    repeat(m){
+//        val (start, end) = readln().split(" ").map { it.toInt() }
+//        nearnode[start].add(end) // 양방향이므로
+//        nearnode[end].add(start)
+//    }
+//
+//    val (endn, middlen) = readln().split(" ").map { it.toInt() }
+//
+//    fun find(start:Int, end : Int) : Int{
+//        val result = MutableList<Int>(n+1){1000}
+//        val q = ArrayDeque<Int>()
+//        result[start] = 0
+//        q.add(start)
+//        while (q.isNotEmpty()){
+//            val temp = q.removeFirst()
+//            val dist = result[temp]+1
+//
+//            for(i in nearnode[temp]){
+//                if(result[i] > dist) {
+//                    result[i] = dist
+//                    q.addLast(i)
+//                }
+//            }
+//        }
+//        println(result)
+//        return if(result[end] == 1000) -1
+//        else result[end]
+//    }
+//
+//    println("${find(1, middlen)}, ${find(middlen, endn)}" )
+//}
 
-    val result = MutableList(after.size){-1}
-
-    var k = 0
-    for(i in before.indices){
-        for(j in k until after.size){
-            if(before[i] == after[j]){
-                result[j] = i
-                k = j+1
-                break
-            }
-        }
-    }
-
-    for(i in result){
-
-    }
-
-    println(result)
-}
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//
+//    val nearnode = Array(n + 1) {
+//        Array(n+1){1000}
+//    }
+//
+//    repeat(m) {
+//        val (start, end) = readln().split(" ").map { it.toInt() }
+//        nearnode[start][end] = 1
+//        nearnode[end][start] = 1 // 양방향이므로
+//    }
+//
+//    for(i in 0 until n+1){
+//        nearnode[i][i] = 0
+//    }
+//
+//    val (endn, middlen) = readln().split(" ").map { it.toInt() }
+//
+//    for(k in 1 until n+1){
+//        for(i in 1 until n+1){
+//            for(j in 1 until n+1){
+//                nearnode[i][j] = Math.min(nearnode[i][j], nearnode[i][k]+nearnode[k][j])
+//            }
+//        }
+//    }
+//
+//    for(i in 0 until n+1){
+//        println(nearnode[i].contentToString())
+//    }
+//
+//    println(nearnode[1][middlen])
+//    println(nearnode[middlen][endn])
+//}

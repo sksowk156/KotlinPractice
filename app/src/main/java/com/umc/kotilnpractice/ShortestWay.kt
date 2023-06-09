@@ -2,6 +2,7 @@ package com.umc.kotilnpractice
 
 import android.util.Log
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.min
 
 //const val INF = Int.MAX_VALUE
@@ -414,3 +415,237 @@ import kotlin.math.min
 //
 //    println("$node $dist $count")
 //}
+
+//fun main(){
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val graph = Array(n+1){
+//        MutableList(n+1){1000}
+//    }
+//
+//    repeat(m){
+//        val (a, b) = readln().split(" ").map { it.toInt() }
+//        graph[a][b] = 1
+//        graph[b][a] = 1
+//    }
+//
+//    for(i in 1 until n+1){
+//        for(j in 1 until n+1){
+//            if(i==j) graph[i][j] == 0
+//        }
+//    }
+//
+//    for(k in 1 until n+1){
+//        for(i in 1 until n+1){
+//            for(j in 1 until n+1){
+//                if(graph[i][j] > graph[i][k]+graph[k][j]){
+//                    graph[i][j] = graph[i][k]+graph[k][j]
+//                }
+//            }
+//        }
+//    }
+//
+//    val (x, k)= readln().split(" ").map{it.toInt()}
+//
+//    val result = graph[1][k] + graph[k][x]
+//    println(result)
+//    println(graph.contentToString())
+//
+//}
+
+//fun main() {
+//    val (n, m, c) = readln().split(" ").map { it.toInt() }
+//
+//    val graph = Array(n + 1) {
+//        mutableListOf<Pair<Int, Int>>()
+//    }
+//
+//    val dist = MutableList(n + 1) { 10000 }
+//
+//    repeat(m) {
+//        val (a, b, c) = readln().split(" ").map { it.toInt() }
+//        graph[a].add(Pair(b, c))
+//    }
+//
+//    fun shortest(start: Int) {
+//        val q = PriorityQueue<Pair<Int, Int>>() { a, b -> a.second - b.second }
+//        dist[start] = 0
+//        q.add(Pair(start, 0))
+//        while (q.isNotEmpty()) {
+//            val temp = q.poll()
+//            if (dist[temp.first] < temp.second) {
+//                continue
+//            }
+//            for (i in graph[temp.first]) {
+//                dist[i.first] = Math.min(dist[i.first], dist[temp.first] + i.second)
+//                q.add(i)
+//            }
+//        }
+//    }
+//
+//    shortest(c)
+//
+//    println(dist)
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//    val m = readln().toInt()
+//
+//    val graph = Array(n + 1) {
+//        MutableList(n + 1) { 100000 }
+//    }
+//
+//    for (i in 1 until n + 1) {
+//        for (j in 1 until n + 1) {
+//            if (i == j) {
+//                graph[i][j] = 0
+//            }
+//        }
+//    }
+//
+//    repeat(m) {
+//        val (a, b, c) = readln().split(" ").map { it.toInt() }
+//        graph[a][b] = Math.min(graph[a][b], c)
+//
+//    }
+//
+//    for (k in 1 until n + 1) {
+//        for (i in 1 until n + 1) {
+//            for (j in 1 until n + 1) {
+//                graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j])
+//            }
+//        }
+//    }
+//
+//    println(graph.contentToString())
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val graph = Array(n + 1) {
+//        MutableList(n + 1) { 10000 }
+//    }
+//
+//    repeat(m) {
+//        val (a, b) = readln().split(" ").map { it.toInt() }
+//        graph[a][b] = 1
+////        graph[b][a] = 1
+//    }
+//
+//    for (i in 1..n) {
+//        for (j in 1..n) {
+//            if (i == j) {
+//                graph[i][j] = 0
+//            }
+//        }
+//    }
+//
+//    for (k in 1..n) {
+//        for (i in 1..n) {
+//            for (j in 1..n) {
+//                val cost = graph[i][k] + graph[k][j]
+//                if (graph[i][j] > cost) {
+//                    graph[i][j] = cost
+//                }
+//            }
+//        }
+//    }
+//
+//    var result = 0
+//    for(i in 1.. n){
+//        var count = 0
+//        for(j in 1..n){
+//            if(graph[i][j] in 1 until 10000){
+//                count++
+//            }
+//            else if(graph[i][j]==10000 && graph[j][i] in 1 until  10000){
+//                count++
+//            }
+//        }
+//        println("$i $count")
+//        if(count == 5){
+//            result++
+//        }
+//    }
+//    println(result)
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//    val graph = Array(n) {
+//        readln().split(" ").map { it.toInt() }.take(n)
+//    }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    val dist = Array(n) {
+//        MutableList(n) { 100000 }
+//    }
+//
+//    fun findroute(start: Pair<Int, Int>) {
+//        val q = PriorityQueue<Triple<Int, Int, Int>> { a, b -> a.third - b.third }
+//        q.add(Triple(start.first, start.second, graph[start.first][start.second]))
+//        dist[start.first][start.second] = graph[start.first][start.second]
+//        while (q.isNotEmpty()) {
+//            val temp = q.poll()
+//            if (dist[temp.first][temp.second] < temp.third) {
+//                continue
+//            }
+//
+//            for (i in 0 until 4) {
+//                val tempX = temp.first + dx[i]
+//                val tempY = temp.second + dy[i]
+//
+//                if (tempX > -1 && tempX < n && tempY > -1 && tempY < n) {
+//                    val cost = temp.third + graph[tempX][tempY]
+//                    if (cost < dist[tempX][tempY]) {
+//                        dist[tempX][tempY] = cost
+//                        q.add(Triple(tempX, tempY, cost))
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
+//
+//    findroute(Pair(0, 0))
+//    println(dist.contentToString())
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//
+//    val graph = Array(n + 1) {
+//        mutableListOf<Int>()
+//    }
+//
+//    val dist = MutableList(n + 1) { 100000 }
+//
+//    repeat(m) {
+//        val (a, b) = readln().split(" ").map { it.toInt() }
+//        graph[a].add(b)
+//        graph[b].add(a)
+//    }
+//
+//    val q = PriorityQueue<Pair<Int, Int>> { a, b -> a.second - b.second }
+//    q.add(Pair(1, 0))
+//    dist[1] = 0
+//
+//    while(q.isNotEmpty()){
+//        val temp = q.poll()
+//        if(dist[temp.first] < temp.second)
+//            continue
+//
+//        for(i in graph[temp.first]){
+//            val cost = temp.second + 1
+//            if(dist[i] > cost){
+//                dist[i] = cost
+//                q.add(Pair(i,cost))
+//            }
+//        }
+//    }
+//
+//    println(dist)
+//}
+
