@@ -772,70 +772,70 @@ import kotlin.math.max
 //    println(cost)
 //}
 
-fun main() {
-    val n = readln().toInt()
-
-//    repeat(n){
-    val m = readln().toInt()
-    val lastRanking = readln().split(" ").map { it.toInt() }.take(m)
-
-    val graph = Array(m+1){
-        mutableListOf<Int>()
-    }
-
-    val indegree = MutableList(m+1){0}
-
-    for (i in 0 until m) {
-        for(j in 0 until i){
-            graph[lastRanking[j]].add(lastRanking[i]) // 앞에 있는 사람은 뒤에 있는 모든 사람들에게 진입하기 때문에 앞에 있는 사람들의 경로에다 뒤에 있는 사람 한 명씩 더해준다.
-        }
-        indegree[lastRanking[i]] = i // 자기 등수만큼 자기 자신 앞에 있는 사람이 있다. -> 이걸 진입 차수로 설정
-    }
-
-    println(graph.contentToString())
-    println(indegree)
-
-    val changeCount = readln().toInt()
-    repeat(changeCount) {
-        val (a, b) = readln().split(" ").map { it.toInt() }
-        if(graph[a].contains(b)){
-            graph[a].remove(b)
-            graph[b].add(a)
-            indegree[a]++
-            indegree[b]--
-        }else{
-            graph[b].remove(a)
-            graph[a].add(b)
-            indegree[b]++
-            indegree[a]--
-        }
-    }
-
-    println(graph.contentToString())
-    println(indegree)
-
-    val q = ArrayDeque<Int>()
-
-    val result = mutableListOf<Int>()
-    for(i in 1 ..m){
-        if(indegree[i] == 0){
-            q.addLast(i)
-            result.add(i)
-        }
-    }
-
-    while(q.isNotEmpty()){
-        val temp = q.removeFirst()
-        for(i in graph[temp]){
-            indegree[i]--
-            if(indegree[i] == 0){
-                q.addLast(i)
-                result.add(i)
-            }
-        }
-    }
-
-    println(result)
-
+//fun main() {
+//    val n = readln().toInt()
+//
+////    repeat(n){
+//    val m = readln().toInt()
+//    val lastRanking = readln().split(" ").map { it.toInt() }.take(m)
+//
+//    val graph = Array(m+1){
+//        mutableListOf<Int>()
 //    }
-}
+//
+//    val indegree = MutableList(m+1){0}
+//
+//    for (i in 0 until m) {
+//        for(j in 0 until i){
+//            graph[lastRanking[j]].add(lastRanking[i]) // 앞에 있는 사람은 뒤에 있는 모든 사람들에게 진입하기 때문에 앞에 있는 사람들의 경로에다 뒤에 있는 사람 한 명씩 더해준다.
+//        }
+//        indegree[lastRanking[i]] = i // 자기 등수만큼 자기 자신 앞에 있는 사람이 있다. -> 이걸 진입 차수로 설정
+//    }
+//
+//    println(graph.contentToString())
+//    println(indegree)
+//
+//    val changeCount = readln().toInt()
+//    repeat(changeCount) {
+//        val (a, b) = readln().split(" ").map { it.toInt() }
+//        if(graph[a].contains(b)){
+//            graph[a].remove(b)
+//            graph[b].add(a)
+//            indegree[a]++
+//            indegree[b]--
+//        }else{
+//            graph[b].remove(a)
+//            graph[a].add(b)
+//            indegree[b]++
+//            indegree[a]--
+//        }
+//    }
+//
+//    println(graph.contentToString())
+//    println(indegree)
+//
+//    val q = ArrayDeque<Int>()
+//
+//    val result = mutableListOf<Int>()
+//    for(i in 1 ..m){
+//        if(indegree[i] == 0){
+//            q.addLast(i)
+//            result.add(i)
+//        }
+//    }
+//
+//    while(q.isNotEmpty()){
+//        val temp = q.removeFirst()
+//        for(i in graph[temp]){
+//            indegree[i]--
+//            if(indegree[i] == 0){
+//                q.addLast(i)
+//                result.add(i)
+//            }
+//        }
+//    }
+//
+//    println(result)
+//
+////    }
+//}

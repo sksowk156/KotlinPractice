@@ -552,3 +552,122 @@ import java.util.PriorityQueue
 //    var result = q.sortedBy { it.first }
 //    println(result[(k-sum_value)%length].first)
 //}
+
+//fun main() {
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }.toMutableList()
+//
+//    array.sort()
+//
+//    var i = 0
+//    var count = 0
+//    while (i < n) {
+//        var temp = i + array[i] - 1
+//        if(temp < n){
+//            if(array[temp] > array[i]){
+//                i++
+//            }else{
+//                i = temp + 1
+//                count++
+//            }
+//        }else{
+//            break
+//        }
+//    }
+//
+//    println(count)
+//}
+
+//fun main() {
+//    val array = readln().toCharArray()
+//
+//    var result = 0
+//    for (i in 0 until array.size) {
+//        if (array[i] == '0' || array[i] == '1' || result == 0 || result == 1) {
+//            result += array[i].digitToInt()
+//        } else {
+//            result *= array[i].digitToInt()
+//        }
+//    }
+//    println(result)
+//}
+
+//fun main(){
+//    val array = readln().toCharArray()
+//
+//    var now = array[0].digitToInt()
+//    var count = 0
+//    for(i in 1 until array.size){
+//        val num = array[i].digitToInt()
+//        if(now != num){
+//            count++
+//        }
+//        now = num
+//    }
+//
+//    var result = count/2 + count%2
+//    println(result)
+//}
+
+//fun main(){
+//    val n = readln().toInt()
+//    val array = readln().split(" ").map { it.toInt() }
+//
+//    var result = mutableSetOf<Int>()
+//    val list = mutableListOf<Int>()
+//
+//    fun find(start:Int, count:Int){
+//        if(count == n){
+//            return
+//        }else{
+//            for(i in start until n){
+//                list.add(array[i])
+//                println(list)
+//                result.add(list.sum())
+//                find(start+1, count+1)
+//                list.removeLast()
+//            }
+//        }
+//    }
+//
+//    find(0,0)
+//
+//    var temp = result.sorted()
+//    println(temp)
+//
+//    var check = 1
+//    for( i in temp){
+//        if(i != check){
+//            break
+//        }else{
+//            check++
+//        }
+//    }
+//
+//    println(check)
+//}
+
+//fun main(){
+//    val (n, m) = readln().split(" ").map { it.toInt() }
+//    val array = readln().split(" ").map { it.toInt() }
+//
+//    val result = mutableListOf<Int>()
+//    var combi = 0
+//    fun find(start:Int, count:Int){
+//        if(count == 2){
+//            if(result[0] != result[1] && array[result[0]] != array[result[1]]){
+//                println(result)
+//                combi++
+//            }
+//        }else{
+//            for(i in start until n){
+//                result.add(i)
+//                find(i+1,count+1)
+//                result.removeLast()
+//            }
+//        }
+//    }
+//
+//    find(0,0)
+//    println(combi)
+//}
