@@ -1,5 +1,6 @@
 package com.umc.kotilnpractice
 
+import java.util.ArrayDeque
 import java.util.PriorityQueue
 
 //fun main() {
@@ -671,3 +672,39 @@ import java.util.PriorityQueue
 //    find(0,0)
 //    println(combi)
 //}
+
+//fun main() {
+//    val array = readln().split(" ").map { it.toInt() }.toIntArray()
+//    val x = readln().toLong()
+//
+//    fun solution(food_times: IntArray, k: Long): Int {
+//        if (food_times.sum() <= k) return -1
+//
+//        val q = PriorityQueue<Pair<Int, Int>>() { a, b -> a.second - b.second }
+//        for(i in food_times.indices){
+//            q.add(Pair(i, food_times[i]))
+//        }
+//        var kk = k
+//        while(true){
+//            val temp = q.first().second
+//            if(temp * food_times.size <= kk){
+//                kk -= q.poll()!!.second * food_times.size
+//                q.forEach {
+//                    if(it.second - temp>0){
+//                        it.second - temp
+//                    }else{
+//                        q.remove(it)
+//                    }
+//                }
+//            }else{
+//                break
+//            }
+//        }
+//
+//        val temp1 = q.sortedBy { it.first }
+//        return temp1[(kk % q.size).toInt()].first+1
+//    }
+//
+//    println(solution(array, x))
+//}
+

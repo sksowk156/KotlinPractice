@@ -792,3 +792,19 @@ import kotlin.math.min
 //    storeCount(0, 0)
 //    println(result)
 //}
+
+fun main(){
+    val array = readln().chunked(1).map { it.toInt() }
+
+    val middle = ( array.size / 2 ) - 1
+
+    val left = array.slice(0..middle)
+    val rights = array.slice(middle+1 until array.size)
+
+    if(left.sum() == rights.sum()){
+        println("LUCKY")
+    }else{
+        println("READY")
+    }
+
+}
