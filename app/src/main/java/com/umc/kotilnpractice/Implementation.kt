@@ -1,9 +1,6 @@
 package com.umc.kotilnpractice
 
-import androidx.lifecycle.viewmodel.CreationExtras.Empty
-import java.util.logging.Logger.global
-import kotlin.math.abs
-import kotlin.math.min
+
 
 // 4-2 /////////////////////////////////////////////////////////////////////////////////////////////
 //fun main(){
@@ -793,18 +790,431 @@ import kotlin.math.min
 //    println(result)
 //}
 
-fun main(){
-    val array = readln().chunked(1).map { it.toInt() }
+//fun main(){
+//    val array = readln().chunked(1).map { it.toInt() }
+//
+//    val middle = ( array.size / 2 ) - 1
+//
+//    val left = array.slice(0..middle)
+//    val rights = array.slice(middle+1 until array.size)
+//
+//    if(left.sum() == rights.sum()){
+//        println("LUCKY")
+//    }else{
+//        println("READY")
+//    }
+//
+//}
 
-    val middle = ( array.size / 2 ) - 1
+//fun main(){
+//    val array = readln().toCharArray()
+//    var temp = mutableListOf<Char>()
+//    var temp2 = mutableListOf<Int>()
+//    for(i in array){
+//        println(i.isDigit())
+//        if(i in 'A'..'Z'){
+//            println("-letter")
+//            temp.add(i)
+//        }else{
+//            println("-digit")
+//            temp2.add(i.digitToInt())
+//        }
+//    }
+//    temp.sort()
+//    println(temp.joinToString(""))
+//    println(String(temp.toCharArray()).plus(temp2.sum().toString()))
+//}
 
-    val left = array.slice(0..middle)
-    val rights = array.slice(middle+1 until array.size)
+//fun main() {
+//    val array = readln().toString()
+//    val limitsize = (array.length / 2)
+//
+//    var min = array.length
+//    for (i in 1..limitsize) {
+//        var j = 0
+//        var temp = ""
+//        var count = 1
+//        var result = ""
+//        while (j + i <= array.length) {
+//            val checkword = array.substring(j, j + i)
+//            if (temp == checkword) {
+//                count++
+//            } else {
+//                if (count == 1) {
+//                    result = result.plus(temp)
+//                } else {
+//                    result = result.plus(count.toString().plus(temp))
+//                }
+//                temp = checkword
+//                count = 1
+//            }
+//            j += i
+//        }
+//
+//        if (count == 1) {
+//            result = result.plus(temp)
+//        } else {
+//            result = result.plus(count.toString().plus(temp))
+//        }
+//
+//        val rest = array.substring(j, array.length)
+//        if(rest.length > 0){
+//            result = result.plus(rest)
+//        }
+//
+//        min = Math.min(min, result.length)
+//    }
+//    println(min)
+//}
 
-    if(left.sum() == rights.sum()){
-        println("LUCKY")
-    }else{
-        println("READY")
-    }
+//fun main() {
+//    val keysize = readln().toInt()
+//    val locksize = readln().toInt()
+//    var key = Array(keysize) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//    val lock = Array(locksize) {
+//        readln().split(" ").map { it.toInt() }.toMutableList()
+//    }
+//
+//    val templock = Array(locksize*3){
+//        MutableList<Int>(locksize*3){0}
+//    }
+//
+//    for(i in locksize until locksize*2){
+//        for(j in locksize until locksize*2){
+//            templock[i][j] = lock[i-locksize][j-locksize]
+//        }
+//    }
+//
+//    fun checklock(lock:Array<MutableList<Int>>):Boolean{
+//        for(i in locksize until 2*locksize){
+//            for(j in locksize until 2*locksize){
+//                if(lock[i][j] != 1){
+//                    return false
+//                }
+//            }
+//        }
+//        return true
+//    }
+//
+//    fun rotate(key: Array<MutableList<Int>>): Array<MutableList<Int>> {
+//        var temp = Array(keysize) {
+//            MutableList<Int>(keysize) { 0 }
+//        }
+//        for (i in 0 until keysize) {
+//            for (j in 0 until keysize) {
+//                temp[keysize - j - 1][i] = key[i][j]
+//            }
+//        }
+//        return temp
+//    }
+//
+//    val dx = listOf(0, 1)
+//    val dy = listOf(1, 0)
+//
+//    fun check():Boolean{
+//        repeat(4){ it->
+//            key = rotate(key)
+//            for(x in 0 until 2*locksize){
+//                for(y in 0 until 2*locksize){
+//
+//                    for(i in 0 until locksize){
+//                        for(j in 0 until locksize){
+//                            templock[i+x][j+y] = templock[i+x][j+y] + key[i][j]
+//                        }
+//                    }
+//
+//                    if(checklock(templock)) {
+//                        for(i in 0 until 3*locksize){
+//                            println(templock[i])
+//                        }
+//
+//                        println(key.contentToString())
+//                        return true
+//                    }
+//
+//                    for(i in 0 until locksize){
+//                        for(j in 0 until locksize){
+//                            templock[i+x][j+y] = templock[i+x][j+y] - key[i][j]
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//        return false
+//    }
+//
+//    println(check())
+//
+//}
 
-}
+//fun main() {
+//    val size = readln().toInt()
+//    val applecount = readln().toInt()
+//
+//    val map = Array(size + 1) {
+//        MutableList<Int>(size + 1) { 0 }
+//    }
+//
+//    repeat(applecount) {
+//        val (x, y) = readln().split(' ').map { it.toInt() }
+//        map[x][y] = 2
+//    }
+//
+//    val directionchangecount = readln().toInt()
+//
+//    val directionchange = Array(directionchangecount) {
+//        readln().split(" ")
+//    }
+//    var directionchangestate = 0
+//
+//    val dx = listOf(0, 1, 0, -1)
+//    val dy = listOf(1, 0, -1, 0)
+//
+//    var head = 0
+//
+//    val headNtail = ArrayDeque<Pair<Int, Int>>()
+//
+//    var movingcount = 0
+//    headNtail.add(Pair(1, 1))
+//
+//    while (true) {
+//        // 방향 전환 발생
+//        if (directionchangestate < directionchange.size && directionchange[directionchangestate][0].toInt() == movingcount) {
+//            if (directionchange[directionchangestate][1].toCharArray()[0] == 'D') {
+//                head++
+//                if (head > 3) head = 0
+//            } else {
+//                head--
+//                if (head < 0) head = 3
+//            }
+//            directionchangestate++
+//        }
+//
+//        val nextX = headNtail.last().first + dx[head] // 이동할 다음 장소
+//        val nextY = headNtail.last().second + dy[head] // 이동할 다음 장소
+//
+//        movingcount++
+//
+//        if (nextX > size || nextY > size || nextX < 1 || nextY < 1 || map[nextX][nextY] == 1) {
+//            break
+//        }
+//
+//        headNtail.addLast(Pair(nextX, nextY))
+//        if (map[nextX][nextY] == 2) {
+//        } else {
+//            val temp = headNtail.removeFirst()
+//            map[temp.first][temp.second] = 0
+//        }
+//        map[nextX][nextY] = 1
+//    }
+//
+//    println(movingcount)
+//}
+
+//class Solution {
+//    fun solution(n: Int, build_frame: Array<IntArray>): Array<IntArray> {
+//        val okList = MutableList<IntArray>()
+//
+//        for (i in build_frame) {
+//            val x = i[0]
+//            val y = i[1]
+//            val type = i[2]
+//            if (i[3] == 1) { // 설치
+//                okList.add(intArrayOf(x, y, type))
+//                if (!checkitsOk(okList)) {
+//                    okList.remove(intArrayOf(x, y, type))
+//                }
+//
+//            } else { // 삭제
+//                okList.remove(intArrayOf(x, y, type))
+//                if (!checkitsOk(okList)) {
+//                    okList.add(intArrayOf(x, y, type))
+//                }
+//            }
+//        }
+//
+//        okList.sortWith(compareBy<IntArray> { it[0] }.thenBy { it[1] }.thenBy { it[2] })
+//
+//        return okList.toTypedArray()
+//    }
+//
+//    fun checkitsOk(okList: MutableList<IntArray>): Boolean {
+//        for (i in okList) {
+//            val x = i[0]
+//            val y = i[1]
+//            val type = i[2]
+//
+//            if (type == 0) { // 기둥
+//                if (y == 0 || okList.contains(intArrayOf(x - 1,
+//                        y,
+//                        1)) || okList.contains(intArrayOf(x, y, 1)) || okList.contains(intArrayOf(x,
+//                        y - 1,
+//                        0))
+//                ) continue
+//                return false
+//            } else { // 보
+//                if (okList.contains(intArrayOf(x, y - 1, 0)) || okList.contains(intArrayOf(x + 1,
+//                        y - 1, 0)) || (okList.contains(intArrayOf(x - 1, y, 1)) && okList.contains(
+//                        intArrayOf(x + 1, y, 1)))
+//                ) continue
+//                return false
+//            }
+//        }
+//
+//        return true
+//    }
+//
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(' ').map { it.toInt() }
+//    val map = Array(n) {
+//        readln().split(' ').map { it.toInt() }.toMutableList()
+//    }
+//
+//    val chicken = mutableListOf<Pair<Int,Int>>()
+//    val house = mutableListOf<Pair<Int,Int>>()
+//    for(i in map.indices){
+//        for(j in map[i].indices){
+//            if(map[i][j] == 2){
+//                chicken.add(Pair(i,j))
+//            }else if(map[i][j]==1){
+//                house.add(Pair(i,j))
+//            }
+//        }
+//    }
+//
+//    val combi = mutableListOf<Pair<Int,Int>>()
+//    var result = 1000000000
+//    fun combination(count:Int, combi:MutableList<Pair<Int,Int>>, start:Int){
+//        if(count == m){
+//            var sum = 0
+//            for(i in house){
+//                var shortest = 2*n
+//                for(j in combi) {
+//                    shortest = Math.min(shortest,
+//                        Math.abs(i.first - j.first) + Math.abs(i.second - j.second))
+//                }
+//                sum += shortest
+//            }
+//            result = Math.min(result, sum)
+//        }else{
+//            for(i in start until chicken.size){
+//                combi.add(chicken[i])
+//                combination(count+1, combi, i+1)
+//                combi.removeLast()
+//            }
+//        }
+//    }
+//
+//    combination(0,combi, 0)
+//    println(result)
+//}
+
+//fun main(){
+//    val n = readln().toInt()
+//    val weak = readln().split(' ').map { it.toInt() }
+//    val weakArray = MutableList<Int>(n){0}
+//
+//    for(i in weak){
+//        weakArray[i] = 1
+//    }
+//
+//    val dist = readln().split(' ').map { it.toInt() }.toMutableList()
+//
+//    dist.sortDescending()
+//
+//    var realresult = n
+//    for(x in 0 until n){
+//        var resultcount = 0
+//        for(i in weak){
+//            weakArray[i] = 1
+//        }
+//        for(i in dist){
+//            var longest = Pair(0,0)
+//            var temp = mutableListOf<Pair<Int,Int>>()
+//
+//            for(j in 0 until n){ // 0~12
+//                var count = 0
+//                for(k in 0 until i){
+//                    var loc = (j+x+k) % n
+//                    if(weakArray[loc]==1){
+//                        count++
+//                    }
+//                }
+//                if(count > 0) temp.add(Pair(j, count))
+//            }
+//
+//
+//            if(temp.size > 0) longest = temp.maxBy { it.second }
+//            println(longest)
+//
+//            if(longest.second == 0){
+//                break
+//            }
+//
+//            for(k in 0 until i){
+//                var loc = (longest.first+k) % n
+//                weakArray[loc]= 0
+//            }
+//
+//            resultcount++
+//        }
+//        println("--------------")
+//        realresult = Math.min(realresult, resultcount)
+//    }
+//
+//    println(realresult)
+//}
+
+//class Solution {
+//    fun solution(n: Int, lost: IntArray, reserve: IntArray): Int {
+//        var answer = 0
+//
+//        val lost2 = lost.sorted().toMutableList()
+//        val reserve2 = reserve.sorted().toMutableList()
+//
+//        val temp = mutableListOf<Int>()
+//
+//        for (i in lost2) {
+//            for (j in reserve2) {
+//                if (i == j) {
+//                    temp.add(i)
+//                }
+//            }
+//        }
+//
+//        var count = 0
+//        lost2.removeAll(temp)
+//        reserve2.removeAll(temp)
+//
+//
+//        for (i in 0 until lost2.size) {
+//            for (j in 0 until reserve2.size) {
+//                var front = reserve2[j] - 1
+//                var back = reserve2[j] + 1
+//
+//                if (front > 0) {
+//                    if (front == lost2[i]) {
+//                        reserve2.removeAt(j)
+//                        count++
+//                        break
+//                    }
+//                }
+//                if (back < n + 1) {
+//                    if (back == lost2[i]) {
+//                        reserve2.removeAt(j)
+//                        count++
+//                        break
+//                    }
+//                }
+//            }
+//        }
+//
+//        answer = n - (lost2.size - count)
+//        return answer
+//    }
+//}

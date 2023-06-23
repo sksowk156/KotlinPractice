@@ -1305,3 +1305,122 @@ import kotlin.math.abs
 //    bfs(robot)
 //    println(-array[size - 1][size - 1])
 //}
+
+//fun main() {
+//    val (n, m, k, x) = readln().split(' ').map { it.toInt() }
+//    val list = Array(n + 1) {
+//        mutableListOf<Int>()
+//    }
+//
+//    repeat(m) {
+//        val (a, b) = readln().split(' ').map { it.toInt() }
+//        list[a].add(b)
+//    }
+//
+//    val visited = MutableList(n + 1) { -1 }
+//    var result = mutableListOf<Int>()
+//    fun findroute(start: Int, list: Array<MutableList<Int>>, depth: Int) {
+//        val q = ArrayDeque<Int>()
+//        q.addLast(start)
+//        visited[start] = 0
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            val tempDist = visited[temp]
+//            for (i in list[temp]) {
+//                if (visited[i] == -1) {
+//                    visited[i] = tempDist + 1
+//                    if(visited[i] == depth){
+//                        result.add(i)
+//                    }
+//                    q.addLast(i)
+//                }
+//            }
+//        }
+//    }
+//
+//    findroute(x, list, k)
+//    if(result.size == 0){
+//        println(-1)
+//    }else{
+//        result.sort()
+//        for(i in result){
+//            println(i)
+//        }
+//    }
+//}
+
+//fun main() {
+//    val (n, m) = readln().split(' ').map { it.toInt() }
+//    val virus = mutableListOf<Pair<Int, Int>>()
+//    val map = Array(n) {
+//        readln().split(' ').map { it.toInt() }.toMutableList()
+//    }
+//    val empty = mutableListOf<Pair<Int, Int>>()
+//    for (i in 0 until n) {
+//        for (j in 0 until m) {
+//            if (map[i][j] == 2) {
+//                virus.add(Pair(i, j))
+//            } else if (map[i][j] == 0) {
+//                empty.add(Pair(i, j))
+//            }
+//        }
+//    }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    var result = 0
+//    fun findmax(count: Int, start: Int, map: Array<MutableList<Int>>) {
+//        if (count == 3) {
+//            val tempMap = Array(n) {
+//                MutableList(m) { 0 }
+//            }
+//            for (i in 0 until n) {
+//                for (j in 0 until m) {
+//                    tempMap[i][j] = map[i][j]
+//                }
+//            }
+//
+//            for (i in virus) {
+//                val q = ArrayDeque<Pair<Int, Int>>()
+//                q.addLast(i)
+//                while (q.isNotEmpty()) {
+//                    val temp = q.removeFirst()
+//                    repeat(4) {
+//                        val tempX = temp.first + dx[it]
+//                        val tempY = temp.second + dy[it]
+//                        if (tempX > -1 && tempX < n && tempY > -1 && tempY < m) {
+//                            if (tempMap[tempX][tempY] == 0) {
+//                                tempMap[tempX][tempY] = 2
+//                                q.addLast(Pair(tempX, tempY))
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            var count = 0
+//            for (i in 0 until n) {
+//                for (j in 0 until m) {
+//                    if (tempMap[i][j] == 0) {
+//                        count++
+//                    }
+//                }
+//            }
+//
+//            result = Math.max(result, count)
+//        } else {
+//            for (i in 0 until empty.size) {
+//                val temp = empty[i]
+//                if (map[temp.first][temp.second] == 0) {
+//                    map[temp.first][temp.second] = 1
+//                    findmax(count + 1, 0, map)
+//                    map[temp.first][temp.second] = 0
+//                }
+//            }
+//        }
+//    }
+//
+//    findmax(0, 0, map)
+//    println(result)
+//}
