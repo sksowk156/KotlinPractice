@@ -6,6 +6,8 @@ import android.os.Build.VERSION_CODES.P
 import android.text.BoringLayout
 import android.util.Log
 import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
 
 //val graph = listOf(
@@ -1423,4 +1425,233 @@ import kotlin.math.abs
 //
 //    findmax(0, 0, map)
 //    println(result)
+//}
+
+//class a{
+//    var name = ""
+//    constructor(name : String){
+//        this.name = name
+//    }
+//}
+//
+//fun main(){
+//    var temp = a("df")
+//    println(temp)
+//}
+//data class virus(
+//    val virus: Int,
+//    val x: Int,
+//    val y: Int,
+//    val time: Int,
+//)
+//
+//fun main() {
+//    val (n, k) = readln().split(' ').map { it.toInt() }
+//    val virus = mutableListOf<virus>()
+//
+//    val array = Array(n) {
+//        val temp = readln().split(' ').map { it.toInt() }.toMutableList()
+//        for (i in 0 until n) {
+//            if (temp[i] != 0) {
+//                virus.add(virus(temp[i], it, i, 0))
+//            }
+//        }
+//        temp
+//    }
+//
+//    virus.sortBy { it.virus }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    fun bfs(virus: MutableList<virus>, array: Array<MutableList<Int>>, s: Int) {
+//        val q = ArrayDeque<virus>()
+//        q.addAll(virus)
+//
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            if (temp.time == s) break
+//            repeat(4) {
+//                val tempX = temp.x + dx[it]
+//                val tempY = temp.y + dy[it]
+//
+//                if (tempX > -1 && tempX < n && tempY > -1 && tempY < n) {
+//                    if (array[tempX][tempY] == 0) {
+//                        array[tempX][tempY] = temp.virus
+//                        q.addLast(virus(temp.virus, tempX, tempY, temp.time + 1))
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    val (s, x, y) = readln().split(' ').map { it.toInt() }
+//
+//    bfs(virus, array, s)
+////    repeat(n){
+////        println(array[it])
+////    }
+//    println(array[x - 1][y - 1])
+//}
+//class Solution {
+//    fun solution(p: String): String {
+//        var answer = ""
+//
+//        answer = find(p)
+//        return answer
+//    }
+//
+//    fun find(p:String):String{
+//        if(!p.isNullOrEmpty()){
+//            var count = 0
+//            var U = ""
+//            var V = ""
+//            for(i in p.indices){
+//                if(p[i] == '(') count++
+//                else if(p[i]==')') count--
+//
+//                if(count == 0){
+//                    U = p.substring(0 .. i)
+//                    V = p.substring(i+1 until p.length)
+//                    break
+//                }
+//            }
+//
+//            if(perfect(U)){
+//                V = find(V)
+//                return U.plus(V)
+//            }else{
+//                V = find(V)
+//                U = U.substring(1 until U.length-1)
+//                var temp = ""
+//                for(i in U){
+//                    if(i=='('){
+//                       temp = temp.plus(')')
+//                    }else{
+//                        temp = temp.plus('(')
+//                    }
+//                }
+//                return '('.plus(V).plus(')').plus(temp)
+//            }
+//        }
+//
+//        return ""
+//    }
+//
+//    fun perfect(U:String):Boolean{
+//        var count = 0
+//        for(i in U){
+//            if(i=='(') count++
+//            else count --
+//            if(count < 0) return false
+//        }
+//        return true
+//    }
+//}
+//fun main(){
+//    val array = intArrayOf(1,3,2,4,2,2,3,4,3,4,1,2,3,4,2,23,23,2,32,32,32,3)
+//    val t = Solution()
+//    val temp = t.solution(array)
+//    println(temp.contentToString())
+//}
+//class Solution {
+//    fun solution(answers: IntArray): IntArray {
+//        var answer = mutableListOf<Int>()
+//        val one = mutableListOf<Boolean>()
+//        val two = mutableListOf<Boolean>()
+//        val three = mutableListOf<Boolean>()
+//
+//        var target = 0
+//        var count = 0
+//        var temp2 = 5
+//        for (i in answers.indices) {
+//            target++
+//            if(target == 6) target = 1
+//
+//            if (target == answers[i]) one.add(true)
+//            else one.add(false)
+//
+//            println(target)
+//
+//
+//            if (i % 2 == 0) {
+//                if (2 == answers[i]) {
+//                    two.add(true)
+//                } else {
+//                    two.add(false)
+//                }
+//                println(2)
+//            } else {
+//                count++
+//                when(count){
+//                    2 -> count = 3
+//                    6 -> count = 1
+//                }
+//                if (count == answers[i]) two.add(true)
+//                else two.add(false)
+//            }
+//
+//            if (i % 2 == 0) {
+//                temp2++
+//                if (temp2 == 6) temp2 = 3
+//                else if (temp2 == 4) temp2 = 1
+//                else if (temp2 == 3) temp2 = 4
+//            }
+//
+//            if (temp2 == answers[i]) three.add(true)
+//            else three.add(false)
+//        }
+//        val result = mutableListOf<Pair<Int,Int>>()
+//        println(one)
+//        println(two)
+//        println(three)
+//
+//        result.add(Pair(1, one.count { it == true }))
+//        result.add(Pair(2, two.count { it == true }))
+//        result.add(Pair(3, three.count { it == true }))
+//
+//        println(result)
+//
+//        result.sortByDescending { it.second }
+//        for(i in result.indices){
+//            if(i > 0 && result[i-1].second > result[i].second){
+//                println(result[i-1].second)
+//                println(result[i].second)
+//                break
+//            }else{
+//                answer.add(result[i].first)
+//            }
+//        }
+//        return answer.toIntArray()
+//    }
+//
+//}
+
+//suspend fun getUserProfile() = coroutineScope {
+//    val userName = async {
+//        delay(2000)
+//        "Hello"
+//    }
+//
+//    val profileImagePath = async {
+//        delay(3000)
+//        "/hello/profile-image"
+//    }
+//    val name = coroutineContext[CoroutineName]?.name
+//    println(name+" dfdf")
+//    println(userName.await())
+//    println(profileImagePath.await())
+//    val name2 = coroutineContext[CoroutineName]?.name
+//    println(name2+"dfdf")
+//}
+//
+//fun main() = runBlocking {
+//    val name = coroutineContext[CoroutineName]?.name
+//    val userProfile = launch(CoroutineName("Parent")) {
+//        val name = coroutineContext[CoroutineName]?.name
+//        println(name)
+//        getUserProfile()
+//    }
+//    println(name)
+////    println(userProfile.await())
 //}
