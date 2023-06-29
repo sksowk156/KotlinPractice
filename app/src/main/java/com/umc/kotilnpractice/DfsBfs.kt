@@ -7,6 +7,7 @@ import android.text.BoringLayout
 import android.util.Log
 import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
 import kotlinx.coroutines.*
+import org.w3c.dom.NameList
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
 
@@ -1654,4 +1655,178 @@ import kotlin.math.abs
 //    }
 //    println(name)
 ////    println(userProfile.await())
+//}
+
+//fun main() {
+//    val numcount = readln().toInt()
+//    val numarray = readln().split(' ').map { it.toInt() }.take(numcount)
+//    val operarray = readln().split(' ').map { it.toInt() }.toMutableList()
+//
+//    val resultarray = mutableListOf<Int>()
+//    fun find(count: Int, operaaray: MutableList<Int>, result: Int) {
+//        if (count == numcount - 1) {
+//            resultarray.add(result)
+//        } else {
+//            for (i in operaaray.indices) {
+//                if (operaaray[i] > 0) {
+//                    operaaray[i]--
+//                    var tempresult = result
+//                    when (i) {
+//                        0 -> {
+//                            tempresult += numarray[count + 1]
+//                        }
+//                        1 -> {
+//                            tempresult -= numarray[count + 1]
+//                        }
+//                        2 -> {
+//                            tempresult *= numarray[count + 1]
+//                        }
+//                        3 -> {
+//                            tempresult /= numarray[count + 1]
+//                        }
+//                    }
+//                    find(count + 1, operaaray, tempresult)
+//                    operaaray[i]++
+//                }
+//            }
+//        }
+//    }
+//
+//    find(0,operarray, numarray[0])
+//    println(resultarray.max())
+//    println(resultarray.min())
+//}
+
+//fun main() {
+//    val a = Solution()
+//    val temp = a.solution("011")
+//    println(temp)
+//}
+//
+//class Solution {
+//    fun solution(numbers: String): Int {
+//        var answer = 0
+//
+//        val temp = numbers.toCharArray().toMutableList()
+//
+//        val result = mutableSetOf<Int>()
+//        val case = mutableListOf<Char>()
+//        val visited = MutableList(numbers.length) { false }
+//        fun findcase(
+//            array: MutableList<Char>,
+//            count: Int,
+//            case: MutableList<Char>,
+//            visited: MutableList<Boolean>,
+//        ) {
+//            if (count == numbers.length) {
+//                val temp = case.toCharArray().concatToString().replace(" ", "")
+//                if (temp.isNotEmpty()) {
+//                    val numtemp = temp.toInt()
+//                    if (numtemp > 0) result.add(numtemp)
+//                }
+//
+//            } else {
+//                for (i in 0 until array.size) {
+//                    if (!visited[i]) {
+//                        visited[i] = true
+//
+//                        case.add(array[i])
+//                        findcase(array, count + 1, case, visited)
+//                        case.remove(array[i])
+//
+//                        case.add(' ')
+//                        findcase(array, count + 1, case, visited)
+//                        case.remove(' ')
+//
+//                        visited[i] = false
+//                    }
+//                }
+//            }
+//        }
+//
+//        findcase(temp, 0, case, visited)
+//
+//        val result2 = result.toMutableList()
+//
+//        for(i in result2.indices){
+//            answer++
+//            val sqrt = Math.sqrt(result2[i].toDouble()).toInt()
+//            if(result2[i]==1){
+//                answer--
+//                continue
+//            }
+//            for(j in 2 .. sqrt){
+//                if(result2[i] % j == 0) {
+//                    answer--
+//                    break
+//                }
+//            }
+//        }
+//
+//        return answer
+//    }
+//}
+
+
+//fun main() {
+//    val a = Solution()
+//    val temp = a.solution("JEROEN")
+//    println(temp)
+//}
+
+//class Solution {
+//    fun solution(name: String): Int {
+//        var realanswer = 0
+//        val namelist = name.toCharArray().toMutableList()
+//        var common = 0
+//
+//        fun findroute(nameList: MutableList<Char>, start: Int, answer: Int) {
+//            var fail = false
+//            for (i in nameList) {
+//                if (i != 'A') {
+//                    fail = true
+//                    break
+//                }
+//            }
+//
+//            if (!fail) {
+//                if (realanswer == 0) realanswer = answer
+//                realanswer = Math.min(answer, realanswer)
+//            } else {
+//                var tempanswer = answer
+//                val limit = Math.max(start+1, nameList.size - start)
+//                for (i in 1 until limit) {
+//                    var right = start + i
+//                    var left = start - i
+//                    if (right >= nameList.size) right -= nameList.size
+//                    if (left <= -1) left += nameList.size
+//                    val rightWord = nameList[right]
+//                    val leftWord = nameList[left]
+//
+//                    if (rightWord != 'A') {
+//                        tempanswer += (Math.min('Z' - rightWord + 1, rightWord - 'A') + i)
+//                        nameList[right] = 'A'
+//                        findroute(namelist, right, tempanswer)
+//                        nameList[right] = rightWord
+//                        tempanswer -= (Math.min('Z' - rightWord + 1, rightWord - 'A') + i)
+//                    }
+//
+//                    if (leftWord != 'A') {
+//                        tempanswer += (Math.min('Z' - leftWord + 1, leftWord - 'A') + i)
+//                        nameList[left] = 'A'
+//                        findroute(namelist, left, tempanswer)
+//                        nameList[left] = leftWord
+//                        tempanswer -= (Math.min('Z' - leftWord + 1, leftWord - 'A') + i)
+//                    }
+//                }
+//            }
+//        }
+//        if (namelist[0] != 'A') {
+//            common = Math.min('Z' - namelist[0] + 1, namelist[0] - 'A')
+//            namelist[0] = 'A'
+//        }
+//        findroute(namelist, 0, 0)
+//        realanswer+=common
+//        return realanswer
+//    }
 //}
