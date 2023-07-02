@@ -1830,3 +1830,164 @@ import kotlin.math.abs
 //        return realanswer
 //    }
 //}
+
+//fun main() {
+//    val N = readln().toInt()
+//    val map = Array(N) {
+//        readln().split(' ').toMutableList()
+//    }
+//
+//    val teacher = mutableListOf<Pair<Int, Int>>()
+//    val student = mutableListOf<Pair<Int, Int>>()
+//    val empty = mutableListOf<Pair<Int, Int>>()
+//    for (i in 0 until N) {
+//        for (j in 0 until N) {
+//            if (map[i][j] == "T") {
+//                teacher.add(Pair(i, j))
+//            } else if (map[i][j] == "X") {
+//                empty.add(Pair(i, j))
+//            } else {
+//                student.add(Pair(i, j))
+//            }
+//        }
+//    }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    var result = "NO"
+//    fun check(count: Int, map: Array<MutableList<String>>, empty: MutableList<Pair<Int, Int>>) {
+//        if (count == 3) {
+//            for (i in teacher) {
+//                var n = false
+//                var s = false
+//                var w = false
+//                var e = false
+//                var north = Pair(i.first + dx[3], i.second + dy[3])
+//                var south = Pair(i.first + dx[2], i.second + dy[2])
+//                var west = Pair(i.first + dx[1], i.second + dy[1])
+//                var east = Pair(i.first + dx[0], i.second + dy[0])
+//                while (true) {
+//                    if (!n) {
+//                        if ((north.first < 0 || map[north.first][north.second] == "O")) n = true
+//                        else if (map[north.first][north.second] == "S") break
+//                        north = Pair(north.first + dx[3], north.second + dy[3])
+//                    }
+//
+//                    if (!s) {
+//                        if ((south.first >= N || map[south.first][south.second] == "O")) s = true
+//                        else if (map[south.first][south.second] == "S") break
+//                        south = Pair(south.first + dx[2], south.second + dy[2])
+//                    }
+//
+//                    if (!w) {
+//                        if ((west.second < 0 || map[west.first][west.second] == "O")) w = true
+//                        else if (map[west.first][west.second] == "S") break
+//                        west = Pair(west.first + dx[1], west.second + dy[1])
+//                    }
+//
+//                    if (!e) {
+//                        if ((east.second >= N || map[east.first][east.second] == "O")) e = true
+//                        else if (map[east.first][east.second] == "S") break
+//                        east = Pair(east.first + dx[0], east.second + dy[0])
+//                    }
+//
+//                    if (n && s && w && e) {
+//                        result = "YES"
+//                        break
+//                    }
+//                }
+//                if (!n || !s || !w || !e) {
+//                    result = "NO"
+//                    break
+//                }
+//            }
+//        } else {
+//            for (i in empty) {
+//                if (result == "NO" && map[i.first][i.second] == "X") {
+//                    map[i.first][i.second] = "O"
+//                    check(count + 1, map, empty)
+//                    map[i.first][i.second] = "X"
+//                } else {
+//                    break
+//                }
+//            }
+//        }
+//    }
+//
+//    check(0, map, empty)
+//    println(result)
+//}
+
+//fun main() {
+//    val a = Solution()
+//    println(a.solution("10001", 3))
+//}
+//
+//class Solution {
+//    fun solution(number: String, k: Int): String {
+//        var answer = ""
+//        var tempnumber = number.toCharArray()
+//        var total = number.length - k
+//        var newnumber = MutableList(total) { '0' }
+//
+//        var count = 0
+//        var start = 0
+//        while (count < total) {
+//            for (i in start until tempnumber.size - (total - count) + 1) {
+//                if (tempnumber[i].digitToInt() > newnumber[count].digitToInt()) {
+//                    newnumber[count] = tempnumber[i]
+//                    start = i + 1
+//                }
+//            }
+//            count++
+//        }
+//
+//        answer = String(newnumber.toCharArray())
+//        return answer
+//    }
+//}
+
+fun main() {
+
+    val temp = Solution()
+    println(temp.solution(8, 1).contentToString())
+}
+
+class Solution {
+    fun solution(brown: Int, yellow: Int): IntArray {
+        var answer = intArrayOf()
+
+        val case = findarticle(brown + yellow)
+
+        for (i in case) {
+            var row = 0
+            var col = 0
+            if (i.first >= i.second) {
+                row = i.first
+                col = i.second
+            } else {
+                row = i.second
+                col = i.first
+            }
+
+            val browncount = 2 * row + 2 * col - 4
+            if (browncount == brown) {
+                answer = intArrayOf(row, col)
+                break
+            }
+        }
+
+        return answer
+    }
+
+    fun findarticle(target: Int): MutableList<Pair<Int, Int>> {
+        val temp = mutableListOf<Pair<Int, Int>>()
+        for (i in 3..Math.sqrt(target.toDouble()).toInt()) {
+            if (target % i == 0) {
+                temp.add(Pair(i, target / i))
+            }
+        }
+        return temp
+    }
+}
