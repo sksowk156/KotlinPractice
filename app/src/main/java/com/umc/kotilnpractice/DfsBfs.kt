@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
 import kotlinx.coroutines.*
 import org.w3c.dom.NameList
+import java.util.ArrayDeque
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
 
@@ -1948,46 +1949,166 @@ import kotlin.math.abs
 //    }
 //}
 
-fun main() {
+//fun main() {
+//
+//    val temp = Solution()
+//    println(temp.solution(8, 1).contentToString())
+//}
+//
+//class Solution {
+//    fun solution(brown: Int, yellow: Int): IntArray {
+//        var answer = intArrayOf()
+//
+//        val case = findarticle(brown + yellow)
+//
+//        for (i in case) {
+//            var row = 0
+//            var col = 0
+//            if (i.first >= i.second) {
+//                row = i.first
+//                col = i.second
+//            } else {
+//                row = i.second
+//                col = i.first
+//            }
+//
+//            val browncount = 2 * row + 2 * col - 4
+//            if (browncount == brown) {
+//                answer = intArrayOf(row, col)
+//                break
+//            }
+//        }
+//
+//        return answer
+//    }
+//
+//    fun findarticle(target: Int): MutableList<Pair<Int, Int>> {
+//        val temp = mutableListOf<Pair<Int, Int>>()
+//        for (i in 3..Math.sqrt(target.toDouble()).toInt()) {
+//            if (target % i == 0) {
+//                temp.add(Pair(i, target / i))
+//            }
+//        }
+//        return temp
+//    }
+//}
 
-    val temp = Solution()
-    println(temp.solution(8, 1).contentToString())
-}
+//fun main() {
+//    val (n, l, r) = readln().split(' ').map { it.toInt() }
+//    val array = Array(n) {
+//        readln().split(' ').map { it.toInt() }.toMutableList()
+//    }
+//
+//    val dx = listOf(0, 0, 1, -1)
+//    val dy = listOf(1, -1, 0, 0)
+//
+//    fun findcount(
+//        startX: Int,
+//        startY: Int,
+//        visited: Array<MutableList<Boolean>>,
+//        array: Array<MutableList<Int>>,
+//        calcul: MutableList<MutableList<Int>>,
+//        loc: MutableList<MutableList<Pair<Int, Int>>>,
+//    ) {
+//        val q = ArrayDeque<Pair<Int, Int>>()
+//        q.add(Pair(startX, startY))
+//        visited[startX][startY] = true
+//        calcul.add(mutableListOf())
+//        calcul.last().add(array[startX][startY])
+//        loc.add(mutableListOf())
+//        loc.last().add(Pair(startX, startY))
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            repeat(4) {
+//                val tempX = temp.first + dx[it]
+//                val tempY = temp.second + dy[it]
+//                if (tempX > -1 && tempX < n && tempY > -1 && tempY < n && !visited[tempX][tempY]) {
+//                    if (Math.abs(array[temp.first][temp.second] - array[tempX][tempY]) in l..r) {
+//                        q.add(Pair(tempX, tempY))
+//                        visited[tempX][tempY] = true
+//                        calcul.last().add(array[tempX][tempY])
+//                        loc.last().add(Pair(tempX, tempY))
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    fun changearray(
+//        calcul: MutableList<MutableList<Int>>,
+//        loc: MutableList<MutableList<Pair<Int, Int>>>,
+//        array: Array<MutableList<Int>>,
+//    ) {
+//        for (i in calcul.indices) {
+//            if(calcul[i].size == 1) continue
+//            val avg = calcul[i].average()
+//            for (j in loc[i]) {
+//                array[j.first][j.second] = avg.toInt()
+//            }
+//        }
+//    }
+//
+//
+//    var count = 0
+//    while (true) {
+//        var temp = true
+//
+//        val visited = Array(n) {
+//            MutableList(n) { false }
+//        }
+//
+//        val calcul = mutableListOf<MutableList<Int>>()
+//        val loc = mutableListOf<MutableList<Pair<Int, Int>>>()
+//
+//        for (i in 0 until n) {
+//            for (j in 0 until n) {
+//                if (!visited[i][j]) {
+//                    findcount(i, j, visited, array, calcul, loc)
+//                } else {
+//                    temp = false
+//                }
+//            }
+//        }
+//
+//        changearray(calcul, loc, array)
+//
+//        if (temp) break
+//        count++
+//    }
+//
+//    println(count)
+//}
 
-class Solution {
-    fun solution(brown: Int, yellow: Int): IntArray {
-        var answer = intArrayOf()
+//fun main() {
+//    val temp = Solution()
+//    val array = arrayOf(intArrayOf(80, 20), intArrayOf(50, 40), intArrayOf(30, 10))
+//    println(temp.solution(80, array))
+//}
 
-        val case = findarticle(brown + yellow)
-
-        for (i in case) {
-            var row = 0
-            var col = 0
-            if (i.first >= i.second) {
-                row = i.first
-                col = i.second
-            } else {
-                row = i.second
-                col = i.first
-            }
-
-            val browncount = 2 * row + 2 * col - 4
-            if (browncount == brown) {
-                answer = intArrayOf(row, col)
-                break
-            }
-        }
-
-        return answer
-    }
-
-    fun findarticle(target: Int): MutableList<Pair<Int, Int>> {
-        val temp = mutableListOf<Pair<Int, Int>>()
-        for (i in 3..Math.sqrt(target.toDouble()).toInt()) {
-            if (target % i == 0) {
-                temp.add(Pair(i, target / i))
-            }
-        }
-        return temp
-    }
-}
+//class Solution {
+//    fun solution(k: Int, dungeons: Array<IntArray>): Int {
+//        var answer: Int = -1
+//        val visited = MutableList(dungeons.size) { false }
+//
+//        fun findcase(
+//            count: Int,
+//            left: Int,
+//            visited: MutableList<Boolean>,
+//            dungeons: Array<IntArray>,
+//        ) {
+//            for (i in dungeons.indices) {
+//                if (!visited[i] && left >= dungeons[i][0]) {
+//                    visited[i] = true
+//                    findcase(count + 1, left - dungeons[i][1], visited, dungeons)
+//                    visited[i] = false
+//                }
+//            }
+//
+//            answer = Math.max(answer, count)
+//        }
+//
+//        findcase(0, k, visited, dungeons)
+//
+//        return answer
+//    }
+//}
