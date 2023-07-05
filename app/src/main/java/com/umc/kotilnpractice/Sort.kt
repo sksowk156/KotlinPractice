@@ -476,3 +476,167 @@ import kotlin.reflect.typeOf
 //
 //    println(result.sum())
 //}
+
+//fun main(){
+//    val num = readln().toInt()
+//
+//    val data = Array(num){
+//        readln().split(' ').take(4)
+//    }
+//
+//    data.sortWith(compareByDescending<List<String>> { it[1].toInt() }.thenBy { it[2].toInt() }.thenByDescending { it[3].toInt() }.thenBy { it[0] })
+//    for(i in data){
+//        println(i[0])
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(4,
+//        arrayOf(intArrayOf(0, 1, 1), intArrayOf(0, 2, 2), intArrayOf(1, 2, 5), intArrayOf(1, 3, 1),
+//            intArrayOf(2, 3, 8))))
+//}
+//
+//class Solution {
+//    fun findparent(parent: MutableList<Int>, x: Int): Int {
+//        if (parent[x] != x) {
+//            parent[x] = findparent(parent, parent[x])
+//        }
+//        return parent[x]
+//    }
+//
+//    fun union_parent(parent: MutableList<Int>, a: Int, b: Int) {
+//        val parentA = findparent(parent, a)
+//        val parentB = findparent(parent, b)
+//        if (parentA < parentB) {
+//            parent[parentB] = parentA
+//        } else {
+//            parent[parentA] = parentB
+//        }
+//    }
+//
+//    fun solution(n: Int, costs: Array<IntArray>): Int {
+//        var answer = 0
+//
+//        val parent = MutableList(n) { it }
+//
+//        costs.sortBy { it[2] }
+//
+//        for(i in costs){
+//            val (a, b, cost ) = i
+//            if(findparent(parent,a)!= findparent(parent, b)){
+//                union_parent(parent, a, b)
+//                answer += cost
+//            }
+//        }
+//
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(7, arrayOf(intArrayOf(1, 2), intArrayOf(2, 7), intArrayOf(3, 7),
+//        intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(6, 7))))
+//}
+//
+//class Solution {
+//    fun findparent(parent: MutableList<Int>, x: Int): Int {
+//        if (parent[x] != x) {
+//            parent[x] = findparent(parent, parent[x])
+//        }
+//        return parent[x]
+//    }
+//
+//    fun union_parent(parent: MutableList<Int>, a: Int, b: Int) {
+//        val aParent = findparent(parent, a)
+//        val bParent = findparent(parent, b)
+//        if (aParent > bParent) {
+//            parent[aParent] = bParent
+//        } else {
+//            parent[bParent] = aParent
+//        }
+//    }
+//
+//    fun solution(n: Int, wires: Array<IntArray>): Int {
+//        var answer: Int = wires.size
+//        val temp = wires.toMutableList()
+//        temp.sortWith(compareBy<IntArray> { it.first() }.thenBy { it.last() })
+//        for (i in temp.indices) {
+//            val parent = MutableList(n + 1) { it }
+//            for (j in temp.indices) {
+//                if (i == j) continue
+//                val (a, b) = temp[j]
+//                if (findparent(parent, a) != findparent(parent, b)) {
+//                    union_parent(parent, a, b)
+//                }
+//            }
+//
+//            for(i in 1 until parent.size){
+//                parent[i] = findparent(parent, i)
+//            }
+//
+//            val temp2 = parent.toMutableSet()
+//            temp2.remove(0)
+//            println(temp2)
+//            if (temp2.size == 2) {
+//                val one = parent.count { it == temp2.first() }
+//                val two = parent.count { it == temp2.last() }
+//                val differ = Math.abs(one - two)
+//                answer = Math.min(answer, differ)
+//            }
+//        }
+//
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(7, arrayOf(intArrayOf(1, 2), intArrayOf(2, 7), intArrayOf(3, 7),
+//        intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(6, 7))))
+//}
+//
+//class Solution {
+//    fun solution(n: Int, wires: Array<IntArray>): Int {
+//        var answer: Int = wires.size
+//
+//        for(i in wires.indices){
+//            val route = Array(n+1){
+//                mutableListOf<Int>()
+//            }
+//            for(j in wires.indices){
+//                if(i==j) continue
+//                val (x, y)= wires[j]
+//                route[x].add(y)
+//                route[y].add(x)
+//            }
+//            val visited = MutableList(n+1){false}
+//            val totalcount = mutableListOf<Int>()
+//            for(i in 1 until n){
+//                if(!visited[i]){
+//                    val q = ArrayDeque<Int>()
+//                    q.addLast(i)
+//                    visited[i] = true
+//                    var count = 1
+//                    while(q.isNotEmpty()){
+//                        val temp = q.removeFirst()
+//                        for(i in route[temp]){
+//                            if(!visited[i]){
+//                                q.addLast(i)
+//                                visited[i] = true
+//                                count++
+//                            }
+//                        }
+//                    }
+//                    totalcount.add(count)
+//                }
+//            }
+//            if(totalcount.size==2){
+//                answer = Math.min(answer, Math.abs(totalcount[0]-totalcount[1]))
+//            }
+//        }
+//
+//        return answer
+//    }
+//}

@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
 import kotlinx.coroutines.*
 import org.w3c.dom.NameList
+import java.nio.file.Files.move
 import java.util.ArrayDeque
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
@@ -2112,3 +2113,214 @@ import kotlin.math.abs
 //        return answer
 //    }
 //}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(arrayOf(
+//        intArrayOf(0, 0, 0, 1, 1),
+//        intArrayOf(0, 0, 0, 1, 0),
+//        intArrayOf(0, 1, 0, 1, 1),
+//        intArrayOf(1, 1, 0, 0, 1),
+//        intArrayOf(0, 0, 0, 0, 0))))
+//}
+//
+//class Solution {
+//    fun solution(board: Array<IntArray>): Int {
+//        var answer = 0
+//
+//        var route = Array(board.size) {
+//            MutableList(board.size) { 0 }
+//        }
+//
+//        val robot = ArrayDeque<MutableList<Pair<Int, Int>>>()
+//        val temp = mutableListOf<Pair<Int, Int>>()
+//        temp.add(Pair(0, 1))
+//        temp.add(Pair(0, 0))
+//
+//        route[temp[0].first][temp[0].second] = 1
+//        route[temp[1].first][temp[1].second] = 1
+//        robot.addLast(temp)
+//        while (robot.isNotEmpty()) {
+//            println()
+//            for (i in 0 until board.size) {
+//                println(route[i])
+//            }
+//            val temp = robot.removeFirst()
+//            repeat(8) {
+//                val result = move(temp, board, it + 1)
+//                println(temp +" "+result)
+//                val one = result[0]
+//                val two = result[1]
+//                if (one.first > -1 && one.first < route.size && one.second > -1 && one.second < route.size
+//                    && two.first > -1 && two.first < route.size && two.second > -1 && two.second < route.size
+//                ) {
+//                    if (one.second == two.second) {
+//                        if (one.first > two.first) {
+//                            if (board[one.first][one.second] == 0 && route[one.first][one.second] == 0) {
+//                                route[one.first][one.second] = Math.max(route[temp[0].first][temp[0].second], route[temp[1].first][temp[1].second]) + 1
+//                                robot.addLast(result)
+//                            }
+//                        } else {
+//                            if (board[two.first][two.second] == 0 && route[two.first][two.second] == 0) {
+//                                route[two.first][two.second] = Math.max(route[temp[0].first][temp[0].second], route[temp[1].first][temp[1].second]) + 1
+//                                robot.addLast(result)
+//                            }
+//                        }
+//                    } else {
+//                        if (one.second > two.second) {
+//                            if (board[one.first][one.second] == 0 && route[one.first][one.second] == 0) {
+//                                route[one.first][one.second] = Math.max(route[temp[0].first][temp[0].second], route[temp[1].first][temp[1].second]) + 1
+//                                robot.addLast(result)
+//                            }
+//                        } else {
+//                            if (board[two.first][two.second] == 0 && route[two.first][two.second] == 0) {
+//                                route[two.first][two.second] = Math.max(route[temp[0].first][temp[0].second], route[temp[1].first][temp[1].second]) + 1
+//                                robot.addLast(result)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        answer = route[board.size - 1][board.size - 1] - 1
+//
+//        return answer
+//    }
+//
+//    fun move(
+//        robot: MutableList<Pair<Int, Int>>,
+//        board: Array<IntArray>,
+//        direc: Int,
+//    ): MutableList<Pair<Int, Int>> {
+//        val temp = mutableListOf<Pair<Int, Int>>()
+//        var one = robot[0]
+//        var two = robot[1]
+//        if (one.first - two.first == 0) { // 가로
+//            when (direc) {
+//                1 -> { // 오른쪽이동
+//                    if (one.second > two.second) {
+//                        val nextpoint = Pair(one.first, one.second + 1)
+//                        two = Pair(one.first, one.second)
+//                        one = nextpoint
+//                    } else {
+//                        val nextpoint = Pair(two.first, two.second + 1)
+//                        one = Pair(two.first, two.second)
+//                        two = nextpoint
+//                    }
+//                }
+//                2 -> { // 밑으로 이동
+//                    one = Pair(one.first + 1, one.second)
+//                    two = Pair(two.first + 1, two.second)
+//                }
+//                3 -> { // 왼쪽으로 이동
+//                    if (one.second > two.second) {
+//                        val nextpoint = Pair(two.first, two.second - 1)
+//                        one = Pair(two.first, two.second)
+//                        two = nextpoint
+//                    } else {
+//                        val nextpoint = Pair(one.first, one.second + 1)
+//                        two = Pair(one.first, one.second)
+//                        one = nextpoint
+//                    }
+//                }
+//                4 -> { // 위로 이동
+//                    one = Pair(one.first - 1, one.second)
+//                    two = Pair(two.first - 1, two.second)
+//                }
+//                5 -> { // 왼쪽으로 회전
+//                    if (two.first + 1 > -1 && two.first + 1 < board.size && two.second > -1 && two.second < board.size && (board[two.first + 1][two.second] == 0)) {
+//                        two = Pair(one.first + 1, one.second)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//                6 -> { // 오른쪽으로 회전
+//                    if (two.first - 1 > -1 && two.first - 1 < board.size && two.second > -1 && two.second < board.size && (board[two.first - 1][two.second] == 0)) {
+//                        two = Pair(one.first - 1, one.second)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//                7 -> { // 왼쪽2
+//                    if (one.first - 1 > -1 && one.first - 1 < board.size && one.second > -1 && one.second < board.size && (board[one.first - 1][one.second] == 0)) {
+//                        one = Pair(two.first - 1, two.second)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//                8 -> { // 오른쪽2
+//                    if (one.first + 1 > -1 && one.first + 1 < board.size && one.second > -1 && one.second < board.size && (board[one.first + 1][one.second] == 0)) {
+//                        one = Pair(two.first + 1, two.second)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//            }
+//        } else { // 세로
+//            when (direc) {
+//                1 -> { // 오른쪽이동
+//                    one = Pair(one.first, one.second + 1)
+//                    two = Pair(two.first, two.second + 1)
+//                }
+//                2 -> { // 밑으로 이동
+//                    if (one.first > two.first) {
+//                        val nextpoint = Pair(one.first + 1, one.second)
+//                        two = Pair(one.first, one.second)
+//                        one = nextpoint
+//                    } else {
+//                        val nextpoint = Pair(two.first + 1, two.second)
+//                        one = Pair(two.first, two.second)
+//                        two = nextpoint
+//                    }
+//                }
+//                3 -> { // 왼쪽으로 이동
+//                    one = Pair(one.first, one.second - 1)
+//                    two = Pair(two.first, two.second - 1)
+//                }
+//                4 -> { // 위로 이동
+//                    if (one.first > two.first) {
+//                        val nextpoint = Pair(two.first - 1, two.second)
+//                        one = Pair(two.first, two.second)
+//                        two = nextpoint
+//                    } else {
+//                        val nextpoint = Pair(one.first - 1, one.second)
+//                        two = Pair(one.first, one.second)
+//                        one = nextpoint
+//                    }
+//                }
+//                5 -> { // 왼쪽으로 회전
+//                    if (one.first > -1 && one.first < board.size && one.second + 1 > -1 && one.second + 1 < board.size && (board[one.first][one.second + 1] == 0)) {
+//                        one = Pair(two.first, two.second + 1)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//                6 -> { // 오른쪽으로 회전
+//                    if (one.first > -1 && one.first < board.size && one.second - 1 > -1 && one.second - 1 < board.size && (board[one.first][one.second - 1] == 0)) {
+//                        one = Pair(two.first, two.second - 1)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//                7 -> { // 왼쪽2
+//                    if (two.first > -1 && two.first < board.size && two.second - 1 > -1 && two.second - 1 < board.size && (board[two.first][two.second - 1] == 0)) {
+//                        two = Pair(one.first, one.second - 1)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//                8 -> { // 오른쪽2
+//                    if (two.first > -1 && two.first < board.size && two.second + 1 > -1 && two.second + 1 < board.size && (board[two.first][two.second + 1] == 0)) {
+//                        two = Pair(one.first, one.second + 1)
+//                    } else {
+//                        one = Pair(-1, -1)
+//                    }
+//                }
+//            }
+//        }
+//        temp.add(one)
+//        temp.add(two)
+//        return temp
+//    }
+//}d
