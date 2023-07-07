@@ -1,10 +1,6 @@
 package com.umc.kotilnpractice
 
-import android.os.Build.VERSION_CODES.N
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.math.abs
-import kotlin.reflect.typeOf
 
 //fun main() {
 ////    val array = arrayOf(7, 5, 9, 0, 3, 1, 6, 2, 4, 8)
