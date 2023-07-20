@@ -636,3 +636,147 @@ import java.util.*
 //        return answer
 //    }
 //}
+//fun main() {
+//    val n = readln().toInt()
+//    val array = readln().split(' ').map { it.toInt() }
+//    val temparray = array.sorted()
+//    var result = 0
+//    if (temparray.size % 2 == 0) {
+//        val ref1 = temparray[temparray.size / 2 - 1]
+//        var sum = 0
+//        val ref2 = temparray[temparray.size / 2]
+//        var sum2 = 0
+//
+//        for (i in temparray) {
+//            sum += Math.abs(i - ref1)
+//            sum2 += Math.abs(i - ref2)
+//        }
+//
+//        if(sum <= sum2) result = ref1
+//        else result = ref2
+//    } else {
+//        val ref = temparray[temparray.size / 2]
+//        result = ref
+//    }
+//    println(result)
+//}
+
+//fun main(){
+//    val temp = Solution()
+//    println(temp.solution(5, intArrayOf(2, 1, 2, 6, 2, 4, 3, 3)).contentToString())
+//}
+//
+//class Solution {
+//    fun solution(N: Int, stages: IntArray): IntArray {
+//        var answer = IntArray(N)
+//
+//        val result = mutableSetOf<Pair<Int, Float>>()
+//
+//        var people = stages.size
+//        for(i in 1 .. N){
+//            val count = stages.count { it == i }
+//            if(people > 0){
+//                val failure = count / people.toFloat()
+//                result.add(Pair(i, failure))
+//                people -= count
+//            }else{
+//                result.add(Pair(i, 0f))
+//            }
+//        }
+//
+//        val temp2 = result.sortedWith(compareByDescending<Pair<Int, Float>> { it.second }.thenBy { it.first })
+//        for((idx, value) in temp2.withIndex()){
+//            answer[idx] = value.first
+//        }
+//
+//        return answer
+//    }
+//}
+//
+//class Solution {
+//    fun solution(N: Int, stages: IntArray): IntArray {
+//        var answer = intArrayOf()
+//        val result = mutableListOf<Pair<Int,Double>>() // 스테이지 번호, 실패율
+//        var challengepeople = stages.size
+//        for(i in 1..N){
+//            var notclear = 0
+//            for(j in stages.indices){
+//                if(stages[j]==i){
+//                    notclear++
+//                }
+//            }
+//            var fail = 0.0
+//            if(challengepeople != 0){
+//                fail = notclear / challengepeople.toDouble()
+//            }
+//            challengepeople -= notclear
+//            result.add(Pair(i, fail))
+//        }
+//
+//        result.sortByDescending { it.second }
+//
+//        for(i in result.indices){
+//            answer = answer.plus(result[i].first)
+//        }
+//
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(arrayOf(intArrayOf(0, 3), intArrayOf(1, 9), intArrayOf(2, 6))))
+//}
+//
+//class Solution {
+//    fun solution(jobs: Array<IntArray>): Int {
+//        var answer = 0
+//
+//        var nowTime = 0
+//        var totalTime = 0
+//
+//        val temp = jobs.toMutableList()
+//
+//        temp.sortWith(compareBy<IntArray> { it[0] }.thenBy { it[1] })
+//
+//        nowTime = temp.first()[0]
+//        while (temp.size > 0) {
+//            val nextCheckArray = PriorityQueue<Pair<Int, Int>>() { a, b -> a.first - b.first }
+//            for ((i, valu) in temp.withIndex()) {
+//                val nextTermCheck = nowTime - valu[0]
+//                if (nextTermCheck > 0) { // 현재 작업이 끝나고 다음 작업까지 시간이 남아 있을 경우
+//                    nextCheckArray.add(Pair(valu[1], i))
+//                }
+//            }
+//            if (nextCheckArray.size > 0) {
+//                val pop = nextCheckArray.poll()
+//                totalTime += (nowTime - temp[pop.second][0]) + pop.first
+//                nowTime += pop.first
+//                temp.removeAt(pop.second)
+//            } else {
+//                val pop = temp.removeFirst()
+//                totalTime += (pop[1])
+//                nowTime += pop[1]
+//            }
+//        }
+//
+//        answer = totalTime / jobs.size
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val n = readln().toInt()
+//    val q = PriorityQueue<Int>() { a, b -> a - b }
+//    repeat(n) {
+//        q.add(readln().toInt())
+//    }
+//    var total = 0
+//    while (q.size >= 2) {
+//        val smallest = q.poll()
+//        val nextSmallest = q.poll()
+//        total += smallest + nextSmallest
+//        q.offer(smallest + nextSmallest)
+//    }
+//    println(total)
+//}

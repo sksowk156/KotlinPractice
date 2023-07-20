@@ -28,66 +28,125 @@ package com.umc.kotilnpractice
 //        return answer
 //    }
 //}
-fun main() {
-    val temp = Solution()
-    println(temp.solution(arrayOf(arrayOf("crow_mask", "face"),
-        arrayOf("blue_sunglasses", "face"),
-        arrayOf("smoky_makeup", "face"))))
-}
-
-class Solution {
-    fun solution(clothes: Array<Array<String>>): Int {
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(arrayOf(arrayOf("crow_mask", "face"),
+//        arrayOf("blue_sunglasses", "face"),
+//        arrayOf("smoky_makeup", "face"))))
+//}
+//
+//class Solution {
+//    fun solution(clothes: Array<Array<String>>): Int {
+////        var answer = 0
+////        val hashmap = HashMap<String, MutableList<String>>()
+////        for (i in clothes) {
+////            if (hashmap.containsKey(i[1])) {
+////                val temp = hashmap[i[1]]
+////                temp!!.add(i[0])
+////                hashmap.replace(i[1], temp)
+////            } else {
+////                hashmap.put(i[1], mutableListOf(i[0], ""))
+////            }
+////        }
+////
+////        val combi = HashMap<String, String>()
+////        var result = mutableSetOf<Map<String, String>>()
+////        fun combination(count: Int, hashmap: HashMap<String, MutableList<String>>) {
+////            if (count == hashmap.size) {
+////                println(combi)
+////                val temp = combi.filterValues { it != "" }
+////
+//////                println(temp)
+////                if (temp.size > 0) {
+////                    result.add(temp)
+////                }
+////            } else {
+////                for (i in hashmap) {
+////                    if (!combi.containsKey(i.key)) {
+////                        for (j in i.value) {
+////                            combi.put(i.key, j)
+////                            combination(count + 1, hashmap)
+////                            combi.remove(i.key)
+////                        }
+////                    }
+////                }
+////            }
+////        }
+////
+////        combination(0, hashmap)
+////        answer = result.size
+//
 //        var answer = 0
-//        val hashmap = HashMap<String, MutableList<String>>()
-//        for (i in clothes) {
-//            if (hashmap.containsKey(i[1])) {
-//                val temp = hashmap[i[1]]
-//                temp!!.add(i[0])
-//                hashmap.replace(i[1], temp)
-//            } else {
-//                hashmap.put(i[1], mutableListOf(i[0], ""))
+//        val hashmap = HashMap<String, Int>()
+//        for(i in clothes){
+//            hashmap.put(i[1], hashmap.getOrDefault(i[1], 1)+1)
+//        }
+//
+//        var combi = 1
+//        for(i in hashmap){
+//            combi *= i.value
+//        }
+//
+//        answer = combi-1
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(arrayOf("classic", "pop", "classic", "classic"),
+//        intArrayOf(800, 600, 150, 800)).contentToString())
+//}
+
+//class Solution {
+//    fun solution(genres: Array<String>, plays: IntArray): IntArray {
+//        var answer = intArrayOf()
+//        val hash1 = HashMap<String, HashMap<Int,Int>>()
+//        for (i in genres.indices) {
+//            val temp = hash1.getOrDefault(genres[i], HashMap())
+//            temp.put(i, plays[i])
+//            hash1.put(genres[i], temp)
+//        }
+//
+//        val temp = hash1.toSortedMap(compareByDescending<String>{ it -> hash1[it]?.values?.sum()})
+//
+//        for (i in temp) {
+//            var temp2 = i.value.toSortedMap(compareByDescending<Int> { i.value[it] }.thenBy { it })
+//            var count = 0
+//            for (j in temp2) {
+//                if (count == 2) break
+//                answer += j.key
+//                count++
 //            }
 //        }
 //
-//        val combi = HashMap<String, String>()
-//        var result = mutableSetOf<Map<String, String>>()
-//        fun combination(count: Int, hashmap: HashMap<String, MutableList<String>>) {
-//            if (count == hashmap.size) {
-//                println(combi)
-//                val temp = combi.filterValues { it != "" }
+//        return answer
+//    }
+//}
+
+//fun main() {
 //
-////                println(temp)
-//                if (temp.size > 0) {
-//                    result.add(temp)
-//                }
-//            } else {
-//                for (i in hashmap) {
-//                    if (!combi.containsKey(i.key)) {
-//                        for (j in i.value) {
-//                            combi.put(i.key, j)
-//                            combination(count + 1, hashmap)
-//                            combi.remove(i.key)
-//                        }
-//                    }
-//                }
-//            }
+//    val result = mutableSetOf<Int>()
+//    fun d(num: String): Int {
+//        var temp = num.toInt()
+//        if (temp > 10000) return 0
+//        for (i in num) {
+//            temp += i.digitToInt()
 //        }
+//        if (result.contains(temp)) return 0
+//        result.add(temp)
+//        return d(temp.toString())
+//    }
 //
-//        combination(0, hashmap)
-//        answer = result.size
-
-        var answer = 0
-        val hashmap = HashMap<String, Int>()
-        for(i in clothes){
-            hashmap.put(i[1], hashmap.getOrDefault(i[1], 1)+1)
-        }
-
-        var combi = 1
-        for(i in hashmap){
-            combi *= i.value
-        }
-
-        answer = combi-1
-        return answer
-    }
-}
+//    for (i in 1..10000) {
+//        if (!result.contains(i)) {
+//            d(i.toString())
+//        }
+//    }
+//
+//    for (i in 1..10000) {
+//        if (i !in result) {
+//            println(i)
+//        }
+//    }
+//}
