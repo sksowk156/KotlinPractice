@@ -1,7 +1,5 @@
 package com.umc.kotilnpractice
 
-import java.util.*
-
 //fun main() {
 ////    val array = arrayOf(7, 5, 9, 0, 3, 1, 6, 2, 4, 8)
 //    val array = arrayOf(7,5,9,0,3,1,6,2,9,1,4,8,0,5,2)
@@ -779,4 +777,333 @@ import java.util.*
 //        q.offer(smallest + nextSmallest)
 //    }
 //    println(total)
+//}
+
+//class Solution {
+//    fun solution(k: Int, dungeons: Array<IntArray>): Int {
+//        var answer: Int = -1
+//        val visited = MutableList(dungeons.size) { false }
+//
+//        fun findcase(
+//            count: Int,
+//            left: Int,
+//            visited: MutableList<Boolean>,
+//            dungeons: Array<IntArray>,
+//        ) {
+//            for (i in dungeons.indices) {
+//                if (!visited[i] && left >= dungeons[i][0]) {
+//                    visited[i] = true
+//                    findcase(count + 1, left - dungeons[i][1], visited, dungeons)
+//                    visited[i] = false
+//                }
+//            }
+//
+//            answer = Math.max(answer, count)
+//        }
+//
+//        findcase(0, k, visited, dungeons)
+//
+//        return answer
+//    }
+//}
+
+//class Solution {
+//    fun solution(k: Int, dungeons: Array<IntArray>): Int {
+//        var answer: Int = -1
+//        val result = mutableListOf<Int>()
+//        val combination = mutableListOf<Int>()
+//
+//        answer = findCase(k, dungeons, combination, result)
+//
+//        return answer
+//    }
+//
+//    fun findCase(
+//        tired: Int,
+//        dungeons: Array<IntArray>,
+//        combination: MutableList<Int>,
+//        result: MutableList<Int>,
+//    ): Int {
+//        if (combination.size == dungeons.size) {
+//            var tiredData = tired
+//            var count = 0
+//            for (i in combination) {
+//                if (tiredData >= dungeons[i][0]) {
+//                    tiredData -= dungeons[i][1]
+//                    count++
+//                } else {
+//                    break
+//                }
+//            }
+//            result.add(count)
+//        } else {
+//            for (i in dungeons.indices) {
+//                if (!combination.contains(i)) {
+//                    combination.add(i)
+//                    findCase(tired, dungeons, combination, result)
+//                    combination.remove(i)
+//                }
+//            }
+//        }
+//        return result.maxOf { it }
+//    }
+//}
+
+//class Solution {
+//    fun findparent(parent: MutableList<Int>, x: Int): Int {
+//        if (parent[x] != x) {
+//            parent[x] = findparent(parent, parent[x])
+//        }
+//        return parent[x]
+//    }
+//
+//    fun union_parent(parent: MutableList<Int>, a: Int, b: Int) {
+//        val aParent = findparent(parent, a)
+//        val bParent = findparent(parent, b)
+//        if (aParent > bParent) {
+//            parent[aParent] = bParent
+//        } else {
+//            parent[bParent] = aParent
+//        }
+//    }
+//
+//    fun solution(n: Int, wires: Array<IntArray>): Int {
+//        var answer: Int = wires.size
+//        val temp = wires.toMutableList()
+//        temp.sortWith(compareBy<IntArray> { it.first() }.thenBy { it.last() })
+//        for (i in temp.indices) {
+//            val parent = MutableList(n + 1) { it }
+//            for (j in temp.indices) {
+//                if (i == j) continue
+//                val (a, b) = temp[j]
+//                if (findparent(parent, a) != findparent(parent, b)) {
+//                    union_parent(parent, a, b)
+//                }
+//            }
+//
+//            for(i in 1 until parent.size){
+//                parent[i] = findparent(parent, i)
+//            }
+//
+//            val temp2 = parent.toMutableSet()
+//            temp2.remove(0)
+//            println(temp2)
+//            if (temp2.size == 2) {
+//                val one = parent.count { it == temp2.first() }
+//                val two = parent.count { it == temp2.last() }
+//                val differ = Math.abs(one - two)
+//                answer = Math.min(answer, differ)
+//            }
+//        }
+//
+//        return answer
+//    }
+//}
+
+//class Solution {
+//    fun findParent(x: Int, parent: MutableList<Int>): Int {
+//        if (x != parent[x]) {
+//            parent[x] = findParent(parent[x], parent)
+//        }
+//        return parent[x]
+//    }
+//
+//    fun unionParent(a: Int, b: Int, parent: MutableList<Int>) {
+//        var aParent = findParent(a, parent)
+//        var bParent = findParent(b, parent)
+//        if (aParent <= bParent) {
+//            parent[bParent] = aParent
+//        } else {
+//            parent[aParent] = bParent
+//        }
+//    }
+//
+//    fun solution(n: Int, wires: Array<IntArray>): Int {
+//        var answer: Int = wires.size
+//        var result = mutableListOf<Int>()
+//        for (i in 0 until wires.size) {
+//            val parent = MutableList(n + 1) { it }
+//
+//            for (j in 0 until wires.size) {
+//                if (j == i) {
+//                    continue
+//                }
+//                unionParent(wires[j][0], wires[j][1], parent)
+//            }
+//
+//            for (j in 1..n) {
+//                findParent(j, parent)
+//            }
+//
+//            val parentnode = findParent(1, parent)
+//            val aNodeCount = parent.count { it == parentnode }
+//            val bNodeCount = n - aNodeCount
+//            val differ = Math.abs(aNodeCount - bNodeCount)
+//            result.add(differ)
+//        }
+//        answer = result.minOf { it }
+//        return answer
+//    }
+//}
+
+//fun main(){
+//    val temp = Solution()
+//    println(temp.solution(arrayOf("I -45", "I 653", "D 1", "I -642", "I 45", "I 97", "D 1", "D -1", "I 333")))
+//}
+//
+//class Solution {
+//    fun solution(operations: Array<String>): IntArray {
+//        var answer = intArrayOf()
+//        var resultMin = PriorityQueue<Int>() { a, b -> a - b }
+//        var resultMax = PriorityQueue<Int>() { a, b -> b - a }
+//        for (i in operations) {
+//            if (i[0] == 'I') {
+//                val num = i.substring(2, i.length).toInt()
+//                resultMin.add(num)
+//                resultMax.add(num)
+//            } else {
+//                val num = i.substring(2, i.length).toInt()
+//                if (num == 1) {
+//                    resultMin.remove(resultMax.poll())
+//                } else {
+//                    resultMax.remove(resultMin.poll())
+//                }
+//            }
+//        }
+//        val max = resultMax.peek()
+//        val min = resultMin.peek()
+//        if(max == null && min == null) answer = intArrayOf(0,0)
+//        else answer = intArrayOf(max, min)
+//        return answer
+//    }
+//}
+//class Solution {
+//    val WORDS = charArrayOf('A', 'E', 'I', 'O', 'U')
+//    val MAX_LENGTH = 5
+//    fun solution(word: String): Int {
+//        var answer = 0
+//        val elements: MutableList<String> = ArrayList()
+//        for (i in WORDS.indices) {
+//            dfs(elements, WORDS[i].toString())
+//        }
+//        for (i in elements.indices) {
+//            if (elements[i] == word) {
+//                answer = i + 1
+//                break
+//            }
+//        }
+//        return answer
+//    }
+//
+//    fun dfs(elements: MutableList<String>, str: String) {
+//        if (str.length > MAX_LENGTH) return
+//        if (!elements.contains(str)) elements.add(str)
+//        for (i in WORDS.indices) {
+//            dfs(elements, str + WORDS[i])
+//        }
+//    }
+//}
+
+//class Solution {
+//    fun solution(n: Int, lost: IntArray, reserve: IntArray): Int {
+//        var answer = 0
+//
+//        val lost2 = lost.sorted().toMutableList()
+//        val reserve2 = reserve.sorted().toMutableList()
+//
+//        val temp = mutableListOf<Int>()
+//
+//        for(i in lost2){
+//            for(j in reserve2){
+//                if(i==j){
+//                    temp.add(i)
+//                }
+//            }
+//        }
+//
+//        var count = 0
+//        lost2.removeAll(temp)
+//        reserve2.removeAll(temp)
+//
+//
+//        for(i in 0 until lost2.size){
+//            for(j in count+1 until reserve2.size){
+//                var front = reserve2[j] -1
+//                var back = reserve2[j]+1
+//
+//                if(front >0){
+//                    if(front == lost2[i]){
+//                        // reserve2.removeAt(j)
+//                        count++
+//                        break
+//                    }
+//                }
+//                if(back < n+1){
+//                    if(back == lost2[i]){
+//                        // reserve2.removeAt(j)
+//                        count++
+//                        break
+//                    }
+//                }
+//            }
+//        }
+//
+//        answer = n - (lost2.size - count)
+//        return answer
+//    }
+//}
+
+//fun main(){
+//    val temp = Solution()
+//    println(temp.solution(3, intArrayOf(3), intArrayOf(1)))
+//}
+//
+//class Solution {
+//    fun solution(n: Int, lost: IntArray, reserve: IntArray): Int {
+//        var answer = 0
+//        val lostTemp = lost.toMutableList()
+//        val reserveTemp = reserve.toMutableList()
+//
+//        val revmoeVal = mutableListOf<Int>()
+//        for(i in lostTemp.indices){
+//            for(j in reserveTemp.indices){
+//                if(lostTemp[i] == reserveTemp[j]){
+//                    revmoeVal.add(lostTemp[i])
+//                }
+//            }
+//        }
+//
+//        lostTemp.removeAll(revmoeVal)
+//        reserveTemp.removeAll(revmoeVal)
+//
+//        lostTemp.sort()
+//        reserveTemp.sort()
+//
+//        for(i in reserveTemp){
+//            if(lostTemp.contains(i-1)){
+//                lostTemp.remove(i-1)
+//            }else if(lostTemp.contains(i+1)){
+//                lostTemp.remove(i+1)
+//            }
+//        }
+//
+//        answer = n - lostTemp.size
+//
+//        return answer
+//    }
+//}
+
+//class Solution {
+//    fun solution(array: IntArray, commands: Array<IntArray>): IntArray {
+//        var answer = intArrayOf()
+//        val result = mutableListOf<Int>()
+//        for (i in commands) {
+//            val temp = array.slice(i[0] - 1 until i[1]).toMutableList()
+//            temp.sort()
+//            result.add(temp[i[2] - 1])
+//        }
+//
+//        answer = result.toIntArray()
+//        return answer
+//    }
 //}
