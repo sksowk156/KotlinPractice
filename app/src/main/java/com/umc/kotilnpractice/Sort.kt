@@ -1107,3 +1107,370 @@ package com.umc.kotilnpractice
 //        return answer
 //    }
 //}
+
+//class Solution {
+//    fun solution(name: String): Int {
+//        var realanswer = 0
+//        val namelist = name.toCharArray().toMutableList()
+//        var common = 0
+//
+//        fun findroute(nameList: MutableList<Char>, start: Int, answer: Int) {
+//            var fail = false
+//            for (i in nameList) {
+//                if (i != 'A') {
+//                    fail = true
+//                    break
+//                }
+//            }
+//
+//            if (!fail) {
+//                if (realanswer == 0) realanswer = answer
+//                realanswer = Math.min(answer, realanswer)
+//            } else {
+//                var tempanswer = answer
+//                val limit = Math.max(start+1, nameList.size - start)
+//                for (i in 1 until limit) {
+//                    var right = start + i
+//                    var left = start - i
+//                    if (right >= nameList.size) right -= nameList.size
+//                    if (left <= -1) left += nameList.size
+//                    val rightWord = nameList[right]
+//                    val leftWord = nameList[left]
+//
+//                    if (rightWord != 'A') {
+//                        tempanswer += (Math.min('Z' - rightWord + 1, rightWord - 'A') + i)
+//                        nameList[right] = 'A'
+//                        findroute(namelist, right, tempanswer)
+//                        nameList[right] = rightWord
+//                        tempanswer -= (Math.min('Z' - rightWord + 1, rightWord - 'A') + i)
+//                    }
+//
+//                    if (leftWord != 'A') {
+//                        tempanswer += (Math.min('Z' - leftWord + 1, leftWord - 'A') + i)
+//                        nameList[left] = 'A'
+//                        findroute(namelist, left, tempanswer)
+//                        nameList[left] = leftWord
+//                        tempanswer -= (Math.min('Z' - leftWord + 1, leftWord - 'A') + i)
+//                    }
+//                }
+//            }
+//        }
+//        if (namelist[0] != 'A') {
+//            common = Math.min('Z' - namelist[0] + 1, namelist[0] - 'A')
+//            namelist[0] = 'A'
+//        }
+//        findroute(namelist, 0, 0)
+//        realanswer+=common
+//        return realanswer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution("AABAAAAABBB"))
+//}
+//
+//class Solution {
+//    // 모든 이동 횟수를 담을 list
+//    var result = mutableListOf<Int>()
+//
+//    // 모든 좌, 우(위, 아래는 아님) 움직임 경우의 수를 다 확인한다.
+//    fun findShortestMove(index: Int, name: CharArray, count: Int) {
+//        var flag = false
+//        // 주어진 문자열을 'A'로만 이루어진 형태로 변경하면서 횟수를 세아린다.
+//        for (i in name.indices) {
+//            if (name[i] != 'A') { // name에 'A'가 아닌 단어가 있는 경우
+//                flag = true
+//                break
+//            }
+//        }
+//
+//        if (!flag) { // name이 'A'로만 이루어진 경우
+//            result.add(count) // result에 이동 횟수를 저장한다.
+//        } else {
+//            if (name[index] != 'A') { // 현재 index에 'A'가 아닌 문자가 있을 경우
+//                var temp = findShortestWord(name[index]) + count // 해당 문자를 변경한 횟수 + 지금까지의 횟수
+//                name[index] = 'A' // 실제로도 변경해준다.
+//                return findShortestMove(index, name, temp) // 재귀로 변경사항이 더 있는지 확인한다.
+//            }
+//
+//            var right = index + 1 // 현재 index가 'A'일 때 오른쪽에 'A'가 아닌 문자가 있는지 확인한다.
+//            var rightMove = 1
+//            while (true) {
+//                if (right == name.size) right = 0
+//                if (name[right] != 'A') { // 'A'가 아닌 문자가 있는 경우
+//                    // 해당 문자를 'A'로 변경할 때 필요한 횟수 + 지금까지의 횟수 + 오른쪽으로 움직인 횟수
+//                    var temp = findShortestWord(name[right]) + count + rightMove
+//
+//                    val temp2 = name[right]
+//                    name[right] = 'A'
+//                    findShortestMove(right, name, temp)
+//                    // 여기서 원래 문자열로 되돌려 놓지 않으면 아래에 Left에서 재귀로 문자열을 보낼 때 Right에서 변경한 문자열을 확인하게 된다. 그러므로 모든 경우의 수를 확인하려면 원래 문자로 되돌려 둔다.
+//                    name[right] = temp2
+//                    break
+//                }
+//                right++
+//                rightMove++
+//            }
+//
+//            var left = index - 1
+//            var leftMove = 1
+//            while (true) {
+//                if (left == -1) left = name.size - 1
+//                if (name[left] != 'A') {
+//                    var temp = findShortestWord(name[left]) + count + leftMove
+//                    val temp2 = name[left]
+//                    name[left] = 'A'
+//                    findShortestMove(left, name, temp)
+//                    name[left] = temp2
+//                    break
+//                }
+//                left--
+//                leftMove++
+//            }
+//        }
+//    }
+//
+//    fun findShortestWord(alphabet: Char): Int {
+//        var up = 'B'
+//        var down = 'Z'
+//        var moveCount = 1
+//        while (up != alphabet && down != alphabet) {
+//            if (up == 'Z' + 1) up = 'A'
+//            if (down == 'A' - 1) down = 'Z'
+//            up++
+//            down--
+//            moveCount++
+//        }
+//        return moveCount
+//    }
+//
+//
+//    fun solution(name: String): Int {
+//        findShortestMove(0, name.toCharArray(), 0)
+//        return result.minOf{it}
+//    }
+//}
+
+//class Solution {
+//    fun solution(number: String, k: Int): String {
+//        var answer = ""
+//        var tempnumber = number.toCharArray()
+//        var total = number.length - k
+//        var newnumber = MutableList(total) { '0' }
+//
+//        var count = 0
+//        var start = 0
+//        while (count < total) {
+//            for (i in start until tempnumber.size - (total - count) + 1) {
+//                if (tempnumber[i].digitToInt() > newnumber[count].digitToInt()) {
+//                    newnumber[count] = tempnumber[i]
+//                    start = i + 1
+//                }
+//            }
+//            count++
+//        }
+//
+//        answer = String(newnumber.toCharArray())
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution("4177252841", 4))
+//}
+//
+//class Solution {
+//    fun solution(number: String, k: Int): String {
+//        val limit = number.length
+//        val totalcount = limit - k
+//        var startpoint = 0
+//        var endpoint = limit - totalcount
+//        val result = mutableListOf<Char>()
+//
+//        repeat(totalcount){
+//            var max = 0
+//            for(i in startpoint .. endpoint){
+//                val temp = number[i].digitToInt()
+//                if(temp > max){
+//                    startpoint = i+1
+//                    max = temp
+//                }
+//            }
+//            println(max)
+//            result.add(max.digitToChar())
+//            endpoint++
+//        }
+//
+//        return String(result.toCharArray())
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(intArrayOf(555, 565, 566, 55, 56, 5, 54, 544, 549)))
+//}
+//
+//class Solution {
+//    fun solution(numbers: IntArray): String {
+//        var answer = ""
+//        val sortedNumbers = numbers.sortedByDescending {
+//            var temp = it.toString()
+//            while(temp.length < 4){
+//                temp = temp.plus(temp)
+//            }
+//            temp.substring(0 until 4).toInt()
+//        }
+//        val result = sortedNumbers.joinToString("")
+//        if(result[0] == '0'){
+//            answer = "0"
+//        }else{
+//            answer = result
+//        }
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(intArrayOf(70, 50, 80, 50), 100))
+//}
+//
+//class Solution {
+//    fun solution(people: IntArray, limit: Int): Int {
+//        val result = mutableListOf<MutableList<Int>>()
+//        val visited = MutableList<Boolean>(people.size) { false }
+//
+//        people.sort()
+//        for (i in people.indices) {
+//            if (visited[i] == false) {
+//                result.add(MutableList<Int>(1) { people[i] })
+//                visited[i] = true
+//                for (j in people.size - 1 downTo i + 1) {
+//                    if (visited[j] == false) {
+//                        val temp = result.last()
+//                        val tempSum = temp.sum() + people[j]
+//                        if (tempSum <= limit) {
+//                            temp.add(people[j])
+//                            visited[j] = true
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//        println(result)
+//        return result.size
+//    }
+//}
+
+//class Solution {
+//    fun findparent(parent: MutableList<Int>, x: Int): Int {
+//        if (parent[x] != x) {
+//            parent[x] = findparent(parent, parent[x])
+//        }
+//        return parent[x]
+//    }
+//
+//    fun union_parent(parent: MutableList<Int>, a: Int, b: Int) {
+//        val parentA = findparent(parent, a)
+//        val parentB = findparent(parent, b)
+//        if (parentA < parentB) {
+//            parent[parentB] = parentA
+//        } else {
+//            parent[parentA] = parentB
+//        }
+//    }
+//
+//    fun solution(n: Int, costs: Array<IntArray>): Int {
+//        var answer = 0
+//
+//        val parent = MutableList(n) { it }
+//
+//        costs.sortBy { it[2] }
+//
+//        for(i in costs){
+//            val (a, b, cost ) = i
+//            if(findparent(parent,a)!= findparent(parent, b)){
+//                union_parent(parent, a, b)
+//                answer += cost
+//            }
+//        }
+//
+//        return answer
+//    }
+//}
+
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(4,
+//        arrayOf(intArrayOf(0, 1, 1),
+//            intArrayOf(0, 2, 2),
+//            intArrayOf(1, 2, 5),
+//            intArrayOf(1, 3, 1),
+//            intArrayOf(2, 3, 8))))
+//}
+//class Solution {
+//
+//    fun findParent(x: Int, parent: MutableList<Int>): Int {
+//        if (parent[x] != x) {
+//            parent[x] = findParent(parent[x], parent)
+//        }
+//        return parent[x]
+//    }
+//
+//    fun union(x: Int, y: Int, parent: MutableList<Int>) {
+//        val xParent = findParent(x, parent)
+//        val yParent = findParent(y, parent)
+//        if (xParent < yParent) {
+//            parent[yParent] = xParent
+//        } else {
+//            parent[xParent] = yParent
+//        }
+//    }
+//
+//    fun solution(n: Int, costs: Array<IntArray>): Int {
+//        val parent = MutableList(n + 1) { it }
+//
+//        costs.sortBy { it[2] }
+//
+//        var sum = 0
+//        for (i in costs) {
+//            if (findParent(i[0], parent) != findParent(i[1], parent)) {
+//                union(i[0], i[1], parent)
+//                sum += i[2]
+//            }
+//        }
+//
+//        return sum
+//    }
+//}
+
+//fun main(){
+//    val temp = Solution()
+//    println(temp.solution(intArrayOf(100, 100, 100)))
+//}
+//
+//class Solution {
+//    fun solution(citations: IntArray): Int {
+//        var answer = 0
+//        for(i in 0 .. citations.last()){
+//
+//            var count = 0
+//            for(j in citations){
+//                if(i <= j){
+//                    count++
+//                }
+//            }
+//
+//            if(count >= i){
+//                answer = Math.max(answer, i)
+//            }else{
+//                break
+//            }
+//        }
+//
+//        return answer
+//    }
+//}
