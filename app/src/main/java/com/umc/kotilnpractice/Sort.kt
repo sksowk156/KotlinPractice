@@ -1,5 +1,7 @@
 package com.umc.kotilnpractice
 
+import kotlin.math.pow
+
 //fun main() {
 ////    val array = arrayOf(7, 5, 9, 0, 3, 1, 6, 2, 4, 8)
 //    val array = arrayOf(7,5,9,0,3,1,6,2,9,1,4,8,0,5,2)
@@ -1474,3 +1476,74 @@ package com.umc.kotilnpractice
 //        return answer
 //    }
 //}
+
+fun main() {
+    val temp = Solution()
+    println(temp.solution(8, 53))
+}
+
+class Solution {
+    fun solution(N: Int, number: Int): Int {
+        var answer = -1
+        if (N == number) return 1
+
+        var hash = hashMapOf<Int, MutableSet<Int>>()
+        val first = mutableSetOf<Int>()
+        first.add(N)
+        hash.put(1, first)
+
+        var numberCombi = hashMapOf<Int, Int>()
+        numberCombi.put(N, 1)
+
+        for (i in 2..8) {
+            val result = mutableSetOf<Int>()
+
+            var string = ""
+            repeat(i) {
+                string = string.plus(N.toString())
+            }
+            result.add(string.toInt())
+            numberCombi.putIfAbsent(string.toInt(), i)
+
+            for (k in 1..i / 2) {
+                val temp = hash.get(i - k)
+                val temp2 = hash.get(k)
+
+                for (j in temp!!) {
+                    for (p in temp2!!) {
+                        result.add(j + p)
+                        numberCombi.putIfAbsent(j + p, i)
+
+                        result.add(j * p)
+                        numberCombi.putIfAbsent(j * p, i)
+
+                        if (p != 0) {
+                            result.add(j / p)
+                            numberCombi.putIfAbsent(j / p, i)
+                        }
+
+                        if (j != 0) {
+                            result.add(p / j)
+                            numberCombi.putIfAbsent(p / j, i)
+                        }
+
+                        result.add(j - p)
+                        numberCombi.putIfAbsent(j - p, i)
+
+                        result.add(p - j)
+                        numberCombi.putIfAbsent(p - j, i)
+                    }
+                }
+
+                if (numberCombi.containsKey(number)) {
+                    answer = numberCombi.get(number)!!
+                    break
+                }
+            }
+
+            hash.put(i, result)
+        }
+
+        return answer
+    }
+}
