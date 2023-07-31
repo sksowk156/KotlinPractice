@@ -1477,73 +1477,151 @@ import kotlin.math.pow
 //    }
 //}
 
-fun main() {
-    val temp = Solution()
-    println(temp.solution(8, 53))
-}
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(8, 53))
+//}
 
-class Solution {
-    fun solution(N: Int, number: Int): Int {
-        var answer = -1
-        if (N == number) return 1
+//class Solution {
+//    fun solution(N: Int, number: Int): Int {
+//        var answer = -1
+//        if (N == number) return 1
+//
+//        var hash = hashMapOf<Int, MutableSet<Int>>()
+//        val first = mutableSetOf<Int>()
+//        first.add(N)
+//        hash.put(1, first)
+//
+//        var numberCombi = hashMapOf<Int, Int>()
+//        numberCombi.put(N, 1)
+//
+//        for (i in 2..8) {
+//            val result = mutableSetOf<Int>()
+//
+//            var string = ""
+//            repeat(i) {
+//                string = string.plus(N.toString())
+//            }
+//            result.add(string.toInt())
+//            numberCombi.putIfAbsent(string.toInt(), i)
+//
+//            for (k in 1..i / 2) {
+//                val temp = hash.get(i - k)
+//                val temp2 = hash.get(k)
+//
+//                for (j in temp!!) {
+//                    for (p in temp2!!) {
+//                        result.add(j + p)
+//                        numberCombi.putIfAbsent(j + p, i)
+//
+//                        result.add(j * p)
+//                        numberCombi.putIfAbsent(j * p, i)
+//
+//                        if (p != 0) {
+//                            result.add(j / p)
+//                            numberCombi.putIfAbsent(j / p, i)
+//                        }
+//
+//                        if (j != 0) {
+//                            result.add(p / j)
+//                            numberCombi.putIfAbsent(p / j, i)
+//                        }
+//
+//                        result.add(j - p)
+//                        numberCombi.putIfAbsent(j - p, i)
+//
+//                        result.add(p - j)
+//                        numberCombi.putIfAbsent(p - j, i)
+//                    }
+//                }
+//
+//                if (numberCombi.containsKey(number)) {
+//                    answer = numberCombi.get(number)!!
+//                    break
+//                }
+//            }
+//
+//            hash.put(i, result)
+//        }
+//
+//        return answer
+//    }
+//}
 
-        var hash = hashMapOf<Int, MutableSet<Int>>()
-        val first = mutableSetOf<Int>()
-        first.add(N)
-        hash.put(1, first)
+//class Solution {
+//    fun solution(sizes: Array<IntArray>): Int {
+//        var answer: Int = 0
+//        var widthmax = 0
+//        var heightmax = 0
+//        for(i in sizes.indices){
+//            widthmax = Math.max(widthmax, Math.max(sizes[i][0], sizes[i][1]))
+//            heightmax = Math.max(heightmax, Math.min(sizes[i][0], sizes[i][1]))
+//        }
+//        answer = widthmax * heightmax
+//        var s = ""
+//
+//        return answer
+//    }
+//}
 
-        var numberCombi = hashMapOf<Int, Int>()
-        numberCombi.put(N, 1)
 
-        for (i in 2..8) {
-            val result = mutableSetOf<Int>()
-
-            var string = ""
-            repeat(i) {
-                string = string.plus(N.toString())
-            }
-            result.add(string.toInt())
-            numberCombi.putIfAbsent(string.toInt(), i)
-
-            for (k in 1..i / 2) {
-                val temp = hash.get(i - k)
-                val temp2 = hash.get(k)
-
-                for (j in temp!!) {
-                    for (p in temp2!!) {
-                        result.add(j + p)
-                        numberCombi.putIfAbsent(j + p, i)
-
-                        result.add(j * p)
-                        numberCombi.putIfAbsent(j * p, i)
-
-                        if (p != 0) {
-                            result.add(j / p)
-                            numberCombi.putIfAbsent(j / p, i)
-                        }
-
-                        if (j != 0) {
-                            result.add(p / j)
-                            numberCombi.putIfAbsent(p / j, i)
-                        }
-
-                        result.add(j - p)
-                        numberCombi.putIfAbsent(j - p, i)
-
-                        result.add(p - j)
-                        numberCombi.putIfAbsent(p - j, i)
-                    }
-                }
-
-                if (numberCombi.containsKey(number)) {
-                    answer = numberCombi.get(number)!!
-                    break
-                }
-            }
-
-            hash.put(i, result)
-        }
-
-        return answer
-    }
-}
+//class Solution {
+//    fun solution(answers: IntArray): IntArray {
+//        var answer = mutableListOf<Int>()
+//        val one = mutableListOf<Boolean>()
+//        val two = mutableListOf<Boolean>()
+//        val three = mutableListOf<Boolean>()
+//
+//        var target = 0
+//        var count = 0
+//        var temp2 = 5
+//        for (i in answers.indices) {
+//            target++
+//            if(target == 6) target = 1
+//
+//            if (target == answers[i]) one.add(true)
+//            else one.add(false)
+//
+//            if (i % 2 == 0) {
+//                if (2 == answers[i]) {
+//                    two.add(true)
+//                } else {
+//                    two.add(false)
+//                }
+//            } else {
+//                count++
+//                when(count){
+//                    2 -> count = 3
+//                    6 -> count = 1
+//                }
+//                if (count == answers[i]) two.add(true)
+//                else two.add(false)
+//            }
+//
+//            if (i % 2 == 0) {
+//                temp2++
+//
+//                if (temp2 == 6) temp2 = 3
+//                else if (temp2 == 4) temp2 = 1
+//                else if (temp2 == 3) temp2 = 4
+//            }
+//
+//
+//            if (temp2 == answers[i]) three.add(true)
+//            else three.add(false)
+//        }
+//        val result = mutableListOf<Pair<Int,Int>>()
+//        result.add(Pair(1, one.count { it == true }))
+//        result.add(Pair(2, two.count { it == true }))
+//        result.add(Pair(3, three.count { it == true }))
+//
+//        result.sortByDescending { it.second }
+//        for(i in result.indices){
+//            if(result[0].second == 0) break
+//            if(i > 0 && result[i-1].second > result[i].second){ break
+//            }else{ answer.add(result[i].first) }
+//        }
+//        return answer.toIntArray()
+//    }
+//
+//}
