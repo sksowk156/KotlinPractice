@@ -1625,3 +1625,53 @@ import kotlin.math.pow
 //    }
 //
 //}
+
+//fun main(){
+//    val a = mutableListOf(1,2,3,4)
+//    a.binarySearch(1)
+//}
+
+//fun main(){
+//    val temp = Solution()
+//    println(temp.solution(intArrayOf(1,1,1,1,1), 3))
+//}
+//
+//class Solution {
+//    fun solution(numbers: IntArray, target: Int): Int {
+//        var answer = 0
+//        val equation = mutableListOf<Int>()
+//
+//        fun findCase(count: Int, num: MutableList<Int>, start:Int) {
+//            if (count == numbers.size) {
+//                if (num.sum() == target) answer++
+//            } else {
+//                num.add(numbers[start])
+//                findCase(count+1, num, start+1)
+//                num.removeLast()
+//                num.add(-numbers[start])
+//                findCase(count+1,num,start+1)
+//                num.removeLast()
+//            }
+//        }
+//
+//        findCase(0,equation, 0)
+//
+//        return answer
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
