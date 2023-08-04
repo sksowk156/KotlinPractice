@@ -1,5 +1,6 @@
 package com.umc.kotilnpractice
 
+import java.util.*
 import kotlin.math.pow
 
 //fun main() {
@@ -1660,13 +1661,79 @@ import kotlin.math.pow
 //    }
 //}
 
+//fun main(){
+//    val temp = Solution()
+//    println(temp.solution(3, arrayOf(intArrayOf(1,1,0),intArrayOf(1,1,0),intArrayOf(0,0,1))))
+//}
+//
+//
+//class Solution {
+//
+//    fun findParent(x: Int, parent: MutableList<Int>): Int {
+//        if (parent[x] != x) {
+//            parent[x] = findParent(parent[x], parent)
+//        }
+//        return parent[x]
+//    }
+//
+//    fun union(x: Int, y: Int, parent: MutableList<Int>) {
+//        val xp = findParent(x, parent)
+//        val yp = findParent(y, parent)
+//        if (xp < yp) {
+//            parent[yp] = xp
+//        } else {
+//            parent[xp] = yp
+//        }
+//    }
+//
+//    fun solution(n: Int, computers: Array<IntArray>): Int {
+//        var answer = 0
+//        val parent = MutableList<Int>(n) { it }
+//
+//        for (i in 0 until computers.size) {
+//            for (j in 0 until computers[i].size) {
+//                if (i == j) continue
+//                if (computers[i][j] == 1) union(i, j, parent)
+//            }
+//        }
+//
+//        val set = mutableSetOf<Int>()
+//        repeat(n) {
+//            set.add( findParent(it, parent))
+//        }
+//
+//        return set.size
+//    }
+//}
 
+//fun main() {
+//    val num = readln().toInt()
+//    val list = MutableList<Int>(num + 1) { 0 }
+//    list[1] = 1
+//    for (i in 2..num) {
+//        list[i] = (list[i - 1] + list[i - 2])
+//    }
+//    println(list[num])
+//}
 
+fun main() {
+    val n = readln().toInt()
+    val data = PriorityQueue<Int>()
+    repeat(n){
+        data.add(readln().toInt())
+    }
 
+    var answer = 0
+    while(data.size > 1){
+        val num1 = data.poll()
+        val num2 = data.poll()
+        val newNum = num1 + num2
+        answer += newNum
+        data.add(newNum)
+    }
 
-
-
-
+    println(answer)
+}
 
 
 
