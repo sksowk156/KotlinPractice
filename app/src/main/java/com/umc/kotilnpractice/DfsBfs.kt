@@ -2323,4 +2323,61 @@ import kotlin.math.abs
 //        temp.add(two)
 //        return temp
 //    }
-//}d
+//}
+
+fun main() {
+    val temp = Solution()
+    println(temp.solution("hit", "cog", arrayOf("hot", "dot", "dog", "lot", "log", "cog")))
+}
+
+class Solution {
+    fun solution(begin: String, target: String, words: Array<String>): Int {
+        var answer = 0
+        if (!words.contains(target)) return answer
+
+        val wordOneDifferList = HashMap<Int, MutableList<Int>>()
+        for (i in words.indices) {
+            val tempList = mutableListOf<Int>()
+            for (j in words.indices) {
+                if (i != j && isItOneDifference(words[i], words[j])) {
+                    tempList.add(j)
+                }
+            }
+            println(tempList)
+            wordOneDifferList.put(i, tempList)
+        }
+
+        fun find(nowIdx: Int, count: Int, visited: MutableList<Boolean>) {
+            if (words[nowIdx].equals(target)) {
+                answer = Math.min(answer, count)
+            } else {
+                for (j in wordOneDifferList.getValue(nowIdx)) {
+                    if (!visited[j]) {
+                        visited[j] = true
+                        find(j, count + 1, visited)
+                        visited[j] = false
+                    }
+                }
+            }
+        }
+
+        answer = words.size
+        for (i in words.indices) {
+            val visited = MutableList<Boolean>(words.size) { false }
+            if (isItOneDifference(begin, words[i])) {
+                find(i, 1, visited)
+            }
+        }
+
+        return answer
+    }
+
+    fun isItOneDifference(nowword: String, checkword: String): Boolean {
+        var count = 0
+        for (i in nowword.indices) {
+            if (nowword[i] != checkword[i]) count++
+            if (count > 1) return false
+        }
+        return true
+    }
+}

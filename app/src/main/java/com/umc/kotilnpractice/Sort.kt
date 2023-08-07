@@ -1716,24 +1716,24 @@ import kotlin.math.pow
 //    println(list[num])
 //}
 
-fun main() {
-    val n = readln().toInt()
-    val data = PriorityQueue<Int>()
-    repeat(n){
-        data.add(readln().toInt())
-    }
-
-    var answer = 0
-    while(data.size > 1){
-        val num1 = data.poll()
-        val num2 = data.poll()
-        val newNum = num1 + num2
-        answer += newNum
-        data.add(newNum)
-    }
-
-    println(answer)
-}
+//fun main() {
+//    val n = readln().toInt()
+//    val data = PriorityQueue<Int>()
+//    repeat(n){
+//        data.add(readln().toInt())
+//    }
+//
+//    var answer = 0
+//    while(data.size > 1){
+//        val num1 = data.poll()
+//        val num2 = data.poll()
+//        val newNum = num1 + num2
+//        answer += newNum
+//        data.add(newNum)
+//    }
+//
+//    println(answer)
+//}
 
 
 
