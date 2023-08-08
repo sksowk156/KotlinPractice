@@ -2,6 +2,7 @@ package com.umc.kotilnpractice
 
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 //// contains, any, binarySearch 비교
 //fun main() {
@@ -306,36 +307,36 @@ import kotlin.collections.ArrayList
 //    // 단어 개수별로 먼저 나누자,
 //}
 
-fun main() {
-    val (size, target) = readln().split(' ').map { it.toInt() }
-    val list = readln().split(' ').map { it.toInt() }
-    val startIdx = findLeftIdx(0, size - 1, target, list)
-    val endIdx = findRightIdx(0, size - 1, target, list)
-    println(endIdx - startIdx + 1)
-}
-
-fun findLeftIdx(start: Int, end: Int, target: Int, list: List<Int>): Int {
-    if (start > end) return -1
-    val mid = (start + end) / 2
-
-    return if (list[mid] == target && (mid == 0 || list[mid - 1] < target)) {
-        mid
-    } else if (list[mid] >= target) {
-        findLeftIdx(start, mid - 1, target, list)
-    } else {
-        findLeftIdx(mid + 1, end, target, list)
-    }
-}
-
-fun findRightIdx(start: Int, end: Int, target: Int, list: List<Int>): Int {
-    if (start > end) return -1
-    val mid = (start + end) / 2
-
-    return if (list[mid] == target && (mid == list.size - 1 || list[mid + 1] > target)) {
-        mid
-    } else if (list[mid] > target) {
-        findRightIdx(start, mid - 1, target, list)
-    } else {
-        findRightIdx(mid + 1, end, target, list)
-    }
-}
+//fun main() {
+//    val (size, target) = readln().split(' ').map { it.toInt() }
+//    val list = readln().split(' ').map { it.toInt() }
+//    val startIdx = findLeftIdx(0, size - 1, target, list)
+//    val endIdx = findRightIdx(0, size - 1, target, list)
+//    println(endIdx - startIdx + 1)
+//}
+//
+//fun findLeftIdx(start: Int, end: Int, target: Int, list: List<Int>): Int {
+//    if (start > end) return -1
+//    val mid = (start + end) / 2
+//
+//    return if (list[mid] == target && (mid == 0 || list[mid - 1] < target)) {
+//        mid
+//    } else if (list[mid] >= target) {
+//        findLeftIdx(start, mid - 1, target, list)
+//    } else {
+//        findLeftIdx(mid + 1, end, target, list)
+//    }
+//}
+//
+//fun findRightIdx(start: Int, end: Int, target: Int, list: List<Int>): Int {
+//    if (start > end) return -1
+//    val mid = (start + end) / 2
+//
+//    return if (list[mid] == target && (mid == list.size - 1 || list[mid + 1] > target)) {
+//        mid
+//    } else if (list[mid] > target) {
+//        findRightIdx(start, mid - 1, target, list)
+//    } else {
+//        findRightIdx(mid + 1, end, target, list)
+//    }
+//}

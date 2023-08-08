@@ -2381,3 +2381,78 @@ import kotlin.math.abs
 //        return true
 //    }
 //}
+
+fun main() {
+    val temp = Solution()
+    println(temp.solution(arrayOf(
+        arrayOf("ICN", "B"),
+        arrayOf("B", "ICN"),
+        arrayOf("ICN", "A"),
+        arrayOf("A", "D"),
+        arrayOf("D", "A"),
+    )))
+}
+
+class Solution {
+    fun solution(tickets: Array<Array<String>>): Array<String> {
+        val hash = HashMap<String, MutableList<String>>()
+        val visited = HashMap<String, Int>()
+
+        for (i in tickets) {
+            val list = hash.getOrDefault(i[0], mutableListOf<String>())
+            list.add(i[1])
+            list.sort()
+            hash.put(i[0], list)
+
+            if (!hash.containsKey(i[1])) hash.put(i[1], mutableListOf<String>())
+
+            val count = visited.getOrDefault(i[0] + i[1], 0)
+            visited.put(i[0] + i[1], count + 1)
+        }
+
+
+        val nameSort = mutableListOf<List<String>>()
+
+        fun dfs(
+            nowAirport: String,
+            hash: HashMap<String, MutableList<String>>,
+            airportList: ArrayDeque<String>,
+            visitedd: HashMap<String, Int>,
+        ) {
+            if (airportList.size == tickets.size + 1) {
+                nameSort.add(airportList.toList())
+            } else if (airportList.size < tickets.size + 1 && nameSort.size < 1) {
+                val list = hash[nowAirport]
+                if (list!!.size > 0) {
+                    for (i in list) {
+                        val key = nowAirport + i
+                        val count = visitedd.get(key)!!
+                        if (count > 0) {
+                            airportList.addLast(i)
+                            visitedd.put(key, count - 1)
+                            dfs(i, hash, airportList, visitedd)
+                            visitedd.put(key, count)
+                            airportList.removeLast()
+                        }
+                    }
+                }
+            } else {
+                return
+            }
+        }
+
+        val airportList = ArrayDeque<String>()
+        airportList.addLast("ICN")
+        for (i in hash.get("ICN")!!) {
+            airportList.addLast(i)
+            val key = "ICN" + i
+            val count = visited[key]!!
+            visited.put(key, count - 1)
+            dfs(i, hash, airportList, visited)
+            visited.put(key, count)
+            airportList.removeLast()
+        }
+
+        return nameSort[0].toTypedArray()
+    }
+}
