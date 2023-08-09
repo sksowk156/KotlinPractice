@@ -3,6 +3,7 @@ package com.umc.kotilnpractice
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.text.Typography.times
 
 //// contains, any, binarySearch 비교
 //fun main() {
@@ -338,5 +339,55 @@ import kotlin.collections.HashMap
 //        findRightIdx(start, mid - 1, target, list)
 //    } else {
 //        findRightIdx(mid + 1, end, target, list)
+//    }
+//}
+//
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(6, intArrayOf(10, 1)))
+//}
+
+//class Solution {
+//    fun solution(n: Int, times: IntArray): Long {
+//        var answer: Long = 0
+//        times.sort()
+//        answer = findValue(n, times, 0, n * times[0].toLong()).toLong()
+//
+//        return answer
+//    }
+//
+//    fun countPeople(times: IntArray, targetNum: Long, target: Int): Boolean {
+//        var sum = 0
+//        for (i in times) {
+//            sum += (targetNum / i.toLong()).toInt()
+//            if (sum >= target) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+//
+//    fun findValue(
+//        target: Int,
+//        times: IntArray,
+//        start: Long,
+//        end: Long,
+//    ): Long {
+//        if (start > end) return 0
+//
+//        val mid = (start + end) / 2
+//
+//        val countResult = countPeople(times, mid, target)
+//
+//        if (countResult) {
+//            var checkCountResult = countPeople(times, mid - 1, target)
+//            if (checkCountResult) {
+//                return findValue(target, times, start, mid - 1)
+//            } else {
+//                return mid
+//            }
+//        } else {
+//            return findValue(target, times, mid + 1, end)
+//        }
 //    }
 //}
