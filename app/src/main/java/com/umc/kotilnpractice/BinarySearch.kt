@@ -391,3 +391,36 @@ import kotlin.text.Typography.times
 //        }
 //    }
 //}
+
+//fun main() {
+//    val (n, c) = readln().split(' ').map { it.toInt() }
+//    val list = mutableListOf<Int>()
+//    repeat(n) {
+//        list.add(readln().toInt())
+//    }
+//    list.sort()
+//
+//    var start = 1
+//    var end = list.last() - list.first()
+//    var result = 0
+//
+//    while (start <= end) {
+//        var mid = (start + end) / 2
+//        var value = list.first()
+//        var count = 1
+//        for (i in 1 until n) {
+//            if (list[i] >= value + mid) {
+//                value = list[i]
+//                count++
+//            }
+//        }
+//
+//        if (count >= c) {
+//            start = mid + 1
+//            result = mid
+//        } else {
+//            end = mid - 1
+//        }
+//    }
+//    println(result)
+//}
