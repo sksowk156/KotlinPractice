@@ -841,58 +841,138 @@ import kotlin.math.max
 ////    }
 //}
 
+//fun main() {
+//    val temp = Solution()
+//    println(temp.solution(6,
+//        arrayOf(intArrayOf(3, 6),
+//            intArrayOf(4, 3),
+//            intArrayOf(3, 2),
+//            intArrayOf(1, 3),
+//            intArrayOf(1, 2),
+//            intArrayOf(2, 4),
+//            intArrayOf(5, 2))))
+//}
+//
+//class Solution {
+//    fun solution(n: Int, edge: Array<IntArray>): Int {
+//        var answer = 0
+//
+//        // 최단 거리를 기록할 리스트를 만든다.(노드가 1번 부터 시작하므로 n+1)
+//        val shortestWay = MutableList(n + 1) { n + 1 }
+//        // 노드가 1번 부터 시작하므로 0번 인덱스는 무시
+//        shortestWay[0] = 0
+//
+//        // 간선 배열 정보를 노드 기준으로 정리한 리스트
+//        val wayList = MutableList(n + 1) {
+//            mutableListOf<Int>()
+//        }
+//
+//        // 간선은 시작 노드, 끝 노드 둘 다에 적용되는 것이다.
+//        for (i in edge) {
+//            wayList[i[0]].add(i[1])
+//            wayList[i[1]].add(i[0])
+//        }
+//
+//        // bfs로 최단 거리 정보 갱신
+//        val q = ArrayDeque<Int>()
+//        // 1번부터 시작
+//        q.add(1)
+//        // 자기자신까지의 최단 거리는 0이다.
+//        shortestWay[1] = 0
+//        while (q.isNotEmpty()) {
+//            val temp = q.removeFirst()
+//            // 해당 노드에 연결된 노드들 확인
+//            for (i in wayList[temp]) {
+//                // 최단 거리 정보가 갱신될 때만 큐에 노드를 넣어준다. -> 방문기록 리스트 필요x
+//                if (shortestWay[i] > shortestWay[temp] + 1) {
+//                    q.add(i)
+//                    shortestWay[i] = shortestWay[temp] + 1
+//                }
+//            }
+//        }
+//
+//        val maxVal = shortestWay.maxOf { it }
+//        answer = shortestWay.count { it == maxVal }
+//
+//        return answer
+//    }
+//}
+
 fun main() {
     val temp = Solution()
-    println(temp.solution(6,
-        arrayOf(intArrayOf(3, 6),
-            intArrayOf(4, 3),
-            intArrayOf(3, 2),
-            intArrayOf(1, 3),
-            intArrayOf(1, 2),
-            intArrayOf(2, 4),
-            intArrayOf(5, 2))))
+    println(temp.solution(5,
+        arrayOf(intArrayOf(1, 2),
+            intArrayOf(4, 5),
+            intArrayOf(3, 4),
+            intArrayOf(2, 3))))
 }
 
 class Solution {
-    fun solution(n: Int, edge: Array<IntArray>): Int {
+
+    fun solution(n: Int, results: Array<IntArray>): Int {
         var answer = 0
 
-        // 최단 거리를 기록할 리스트를 만든다.(노드가 1번 부터 시작하므로 n+1)
-        val shortestWay = MutableList(n + 1) { n + 1 }
-        // 노드가 1번 부터 시작하므로 0번 인덱스는 무시
-        shortestWay[0] = 0
+        val result = MutableList<MutableSet<Int>>(n + 1) { mutableSetOf<Int>() }
 
-        // 간선 배열 정보를 노드 기준으로 정리한 리스트
-        val wayList = MutableList(n + 1) {
-            mutableListOf<Int>()
+        for (i in results) {
+            result[i[0]].add(i[1])
+            result[i[1]].add(-i[0])
         }
 
-        // 간선은 시작 노드, 끝 노드 둘 다에 적용되는 것이다.
-        for (i in edge) {
-            wayList[i[0]].add(i[1])
-            wayList[i[1]].add(i[0])
-        }
 
-        // bfs로 최단 거리 정보 갱신
-        val q = ArrayDeque<Int>()
-        // 1번부터 시작
-        q.add(1)
-        // 자기자신까지의 최단 거리는 0이다.
-        shortestWay[1] = 0
-        while (q.isNotEmpty()) {
-            val temp = q.removeFirst()
-            // 해당 노드에 연결된 노드들 확인
-            for (i in wayList[temp]) {
-                // 최단 거리 정보가 갱신될 때만 큐에 노드를 넣어준다. -> 방문기록 리스트 필요x
-                if (shortestWay[i] > shortestWay[temp] + 1) {
-                    q.add(i)
-                    shortestWay[i] = shortestWay[temp] + 1
+        for (i in result.indices) {
+            if (result[i].size > 0) {
+                val winCase = mutableSetOf<Int>()
+                val loseCase = mutableSetOf<Int>()
+
+                for (j in result[i]) {
+                    if (j > 0) { // win
+                        for (k in result[j]) {
+                            if (k > 0) {
+                                winCase.add(k)
+                            }
+                        }
+                    } else { // loss
+                        for (k in result[-j]) {
+                            if (k < 0) {
+                                loseCase.add(k)
+                            }
+                        }
+                    }
                 }
+                result[i].addAll(winCase)
+                result[i].addAll(loseCase)
             }
         }
 
-        val maxVal = shortestWay.maxOf { it }
-        answer = shortestWay.count { it == maxVal }
+        for (i in result.indices) {
+            if (result[i].size > 0) {
+                val winCase = mutableSetOf<Int>()
+                val loseCase = mutableSetOf<Int>()
+
+                for (j in result[i]) {
+                    if (j > 0) { // win
+                        for (k in result[j]) {
+                            if (k > 0) {
+                                winCase.add(k)
+                            }
+                        }
+                    } else { // loss
+                        for (k in result[-j]) {
+                            if (k < 0) {
+                                loseCase.add(k)
+                            }
+                        }
+                    }
+                }
+                result[i].addAll(winCase)
+                result[i].addAll(loseCase)
+            }
+        }
+
+        for (i in result) {
+            if (i.size == n - 1) answer++
+        }
 
         return answer
     }
