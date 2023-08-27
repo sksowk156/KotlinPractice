@@ -1,4 +1,4 @@
-package com.umc.kotilnpractice
+package com.umc.kotilnpractice.codingtest
 
 import android.content.res.TypedArray
 import android.os.Build.VERSION_CODES.N

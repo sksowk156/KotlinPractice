@@ -1,12 +1,4 @@
-package com.umc.kotilnpractice
-
-import android.util.Log
-import android.view.ViewParent
-import kotlinx.coroutines.NonDisposableHandle.parent
-import java.util.function.BinaryOperator
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.max
+package com.umc.kotilnpractice.codingtest
 
 //fun main(){
 //    fun find_parent(parent: MutableList<Int>, x: Int): Int {

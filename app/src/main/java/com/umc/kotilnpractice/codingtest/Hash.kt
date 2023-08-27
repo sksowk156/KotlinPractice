@@ -1,4 +1,4 @@
-package com.umc.kotilnpractice
+package com.umc.kotilnpractice.codingtest
 
 //fun main(){
 //    val temp = Solution()

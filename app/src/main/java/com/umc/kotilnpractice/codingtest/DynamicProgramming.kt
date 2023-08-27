@@ -1,4 +1,4 @@
-package com.umc.kotilnpractice
+package com.umc.kotilnpractice.codingtest
 
 import android.os.Build.VERSION_CODES.P
 import java.lang.Integer.max

@@ -1,4 +1,4 @@
-package com.umc.kotilnpractice
+package com.umc.kotilnpractice.codingtest
 
 import java.util.ArrayDeque
 import java.util.PriorityQueue
