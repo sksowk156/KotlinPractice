@@ -1,5 +1,8 @@
 package com.umc.kotilnpractice.atomic.usability
 
+import java.util.*
+import kotlin.NoSuchElementException
+
 fun String.singleQuote() = "'$this'"
 fun String.strangeQuote() = this.singleQuote().singleQuote()
 fun String.abs() = this.toString() + this.length
@@ -49,7 +52,46 @@ data class Sample2(
     val arg2: Int,
 )
 
+class GenericHolder<T>(private val value: T) {
+    fun getValue(): T = value
+}
+
+fun <T> identity(arg: T): T = arg
+fun <T> List<T>.first(): T {
+    if (isEmpty())
+        throw NoSuchElementException("Empty List")
+    return this[0]
+}
+
+fun <T> List<T>.firstOrNull(): T? =
+    if (isEmpty()) null else this[0]
+
+val Sample.extensionProperty: Int
+    get() = 10
+val Sample2.extensionProperty: Int
+    get() {
+        return this.arg2 + 2
+    }
+
 fun main() {
+    val strings = mutableListOf<String>()
+    outer@for(c in 'a'..'e'){
+        for(i in 1..9){
+            if(i==5) continue@outer
+            if("$c$i" == "c3") break@outer
+            strings.add("$c$i")
+        }
+    }
+    println(strings)
+
+//    val list: List<*> = listOf(1, 2)
+//    val any: Any? = list[0]
+//    println(any)
+//    val a = Sample()
+//    println(a.extensionProperty)
+//    val b = Sample2("first",20)
+//    println(b.extensionProperty)
+
 //    val a = "abs"
 //    println(a.singleQuote()) //'abs'
 //    println(a.strangeQuote()) //''abs''
@@ -95,4 +137,10 @@ fun main() {
 //    println(s2?.length) // null
 //    val temp = s2?.length ?: 5
 //    println(temp) // 5
+//
+//    val s1: String? = null
+//    println(s1.isNullOrEmpty()) // true
+
 }
+
+fun String?.isitNull(): Boolean = this == null || isEmpty()
